@@ -1,0 +1,33 @@
+.promo {
+  display: flex;
+  justify-content: space-between;
+  background-color: #F3C1F8;
+  padding: 75px 5.5%;
+}
+
+.promo__title {
+  margin: 0 0 36px;
+  max-width: 640px;
+  
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 1.16;
+}
+
+.promo__subtitle {
+  margin: 0 0 146px;
+  max-width: 310px;
+  opacity: .5;
+  
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.21;
+}
+
+.promo__learn-more {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  border-radius: 3px;
+
+  cursor: pointer;
+}

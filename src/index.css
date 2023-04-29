@@ -21,3 +21,25 @@
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
 }
+
+.section-title {
+  position: relative;
+  
+  margin: 0;
+  padding-bottom: 23px;
+  
+  font-size: 22px;
+  line-height: 1.21;
+}
+
+.section-title::after {
+  position: absolute;
+  top: 100%;
+
+  display: block;
+  height: 1px;
+  width: 100%;
+  background-color: #000;
+
+  content: ' ';
+}

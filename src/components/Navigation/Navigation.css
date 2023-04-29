@@ -1,3 +1,30 @@
-.app-navigation {
+.app-navigation__list {
+  display: flex;
+
+  margin: 0;
+  padding: 0;
+}
+
+.app-navigation__element {
+  list-style: none;
+}
+
+.app-navigation__unauthorized-link {
+  margin-left: 10px;
+  padding: 8px 20px;
+  border-radius: 3px;
+
+  cursor: pointer;
+}
+
+.app-navigation__unauthorized-link_selected {
+  background-color: #000;
   
+  color: #FFFFFF;
+}
+
+.app-navigation__authorized-link {
+  display: none;
+
+  cursor: pointer;
 }

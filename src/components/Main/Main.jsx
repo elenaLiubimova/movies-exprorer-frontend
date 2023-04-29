@@ -1,9 +1,14 @@
 import React from 'react';
+import Promo from '../Promo/Promo';
+import AboutProject from '../AboutProject/AboutProject';
 
 const Main = () => {
   return (
-    <div></div>
+    <main>
+      <Promo />
+      <AboutProject />
+    </main>
   );
-}
+};
 
 export default Main;

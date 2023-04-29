@@ -1,0 +1,23 @@
+.about-project {
+  padding: 110px 5.5%;
+}
+
+.about-project__list {
+  display: flex;
+  padding: 0;
+  column-gap: 40px;
+
+  list-style: none;
+}
+
+.about-project__title {
+  font-size: 20px;
+  line-height: 1.21;
+}
+
+.about-project__description {
+  max-width: 550px;
+  
+  font-size: 14px;
+  line-height: 1.21;
+}
