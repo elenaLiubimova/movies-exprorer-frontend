@@ -24,7 +24,10 @@ const AboutProject = () => {
           </p>
         </li>
       </ul>
-      <div className="progress-bar"></div>
+      <div className="progress-bar">
+        <p className="progress-bar__backend">1 неделя</p>
+        <p className="progress-bar__frontend">4 недели</p>
+      </div>
     </section>
   );
 };
