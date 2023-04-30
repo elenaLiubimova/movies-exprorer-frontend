@@ -1,0 +1,56 @@
+.about-me {
+  display: grid;
+  padding: 110px 5.5% 110px;
+  grid-template-areas: 
+  "title title"
+  "info photo";
+  grid-template-columns: 1fr 270px;
+}
+
+.section-title {
+  grid-area: title;
+}
+
+.about-me__info {
+  grid-area: info;
+}
+
+.about-me__title {
+  margin: 66px 0 18px;
+  
+  font-size: 50px;
+  line-height: 1.16;
+  font-weight: 400;
+}
+
+.about-me__subtitle {
+  margin: 0 0 26px;
+  
+  font-size: 18px;
+  line-height: 1.11;
+  font-weight: 500;
+}
+
+.about-me__description {
+  margin: 0 0 99px;
+  max-width: 600px;
+  
+  font-size: 14px;
+  line-height: 1.57;
+  font-weight: 400;
+}
+
+.about-me__github {
+  cursor: pointer;
+
+  font-size: 14px;
+  line-height: 1.21;
+  font-weight: 500;
+}
+
+.about-me__photo {
+  grid-area: photo;
+  margin-top: 66px;
+  width: 270px;
+  height: 327px;
+}
