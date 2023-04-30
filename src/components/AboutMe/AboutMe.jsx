@@ -17,9 +17,9 @@ const AboutMe = () => {
           После того, как прошёл курс по веб-разработке, начал заниматься
           фриланс-заказами и ушёл с постоянной работы.
         </p>
-        <a className="about-me__github">Github</a>
+        <a className="about-me__github" src="https://github.com/elenaLiubimova">Github</a>
       </div>
-      <img className="about-me__photo" src={profile} alt="Фото профиля" />
+      <img className="about-me__photo" src={profile} alt="Фото студента" />
     </section>
   );
 };

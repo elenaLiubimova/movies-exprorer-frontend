@@ -1,0 +1,43 @@
+.portfolio {
+  padding: 0 5.5% 125px;
+}
+
+.portfolio__title {
+  margin: 0;
+  color: #A0A0A0;
+  font-size: 18px;
+  line-height: 1.11;
+  font-weight: 400;
+}
+
+.portfolio__list {
+  margin: 0;
+  padding: 50px 0 0;
+  
+  list-style: none;
+}
+
+.portfolio__element {
+  position: relative;
+  
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 20px 0 19px;
+  
+  font-size: 30px;
+  line-height: 1.66;
+  font-weight: 400;
+}
+
+.portfolio__element::after {
+  position: absolute;
+  top: 100%;
+
+  display: block;
+  height: 1px;
+  width: 100%;
+  background-color: #E8E8E8;
+
+  content: ' ';
+}
