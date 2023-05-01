@@ -4,13 +4,13 @@
     'image image'
     'title like'
     'duration duration';
-    max-width: 270px;
+  max-width: 270px;
 }
 
 .card__image {
   grid-area: image;
-  max-width: 270px;
-  max-height: 151px;
+  /* min-width: 270px;
+  min-height: 151px; */
 }
 
 .card__title {

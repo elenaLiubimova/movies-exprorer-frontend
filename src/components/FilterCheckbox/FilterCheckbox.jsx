@@ -3,9 +3,13 @@ import './FilterCheckbox.css';
 import '../../index.css';
 
 const FilterCheckbox = () => {
-  return <button className="checkbox">
+  return (
+  <div className="checkbox-container">
+  <button className="checkbox">
     <div className="checkbox__toggler" />
-  </button>;
-};
+  </button>
+  <p className="checkbox__description">Короткометражки</p>
+  </div>
+)};
 
 export default FilterCheckbox;

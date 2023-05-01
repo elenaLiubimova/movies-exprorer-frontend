@@ -1,0 +1,26 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 16px;
+  line-height: 1.21;
+  font-weight: 400;
+}
+
+.notFound__title {
+  margin: 246px 0 5px;
+  
+  font-size: 140px;
+  line-height: 1.21;
+  font-weight: 400;
+}
+
+.notFound__description {
+  margin: 0 0 184px;
+}
+
+.notFound__back {
+  cursor: pointer;
+}
