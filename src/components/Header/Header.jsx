@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation';
-import './Header.css'
-import '../../index.css'
+import '../../index.css';
+import './Header.css';
 
 const Header = () => {
   return (

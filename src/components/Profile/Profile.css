@@ -48,6 +48,8 @@
   font-size: 13px;
   line-height: 1.21;
   font-weight: 400;
+
+  cursor: pointer;
 }
 
 .profile__escape {
@@ -57,4 +59,6 @@
   font-size: 13px;
   line-height: 1.21;
   font-weight: 400;
+
+  cursor: pointer;
 }
