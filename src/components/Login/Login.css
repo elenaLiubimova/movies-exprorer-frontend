@@ -1,11 +1,11 @@
-.register {
+.login {
   display: flex;
   justify-content: center;
   align-items: center;
   height: calc(100vh - 74px - 93px);
 }
 
-.register-form__title {
+.login-form__title {
   margin: 40px 0;  
   
   font-size: 24px;
@@ -13,12 +13,12 @@
   font-weight: 500;
 }
 
-.register-form {
+.login-form {
   display: flex;
   flex-direction: column;
 }
 
-.register-form__field {
+.login-form__field {
   display: flex;
   flex-direction: column;
   
@@ -28,15 +28,15 @@
   font-weight: 500;
 }
 
-.register-form__field:not(:last-of-type) {
+.login-form__field:not(:last-of-type) {
   margin-bottom: 24px;
 }
 
-.register-form__field:last-of-type {
+.login-form__field:last-of-type {
   margin-bottom: 134px;
 }
 
-.register-form__item {
+.login-form__item {
   width: 396px;
   border: 0;
   height: 22px;
@@ -49,11 +49,11 @@
   line-height: 1.2;
 }
 
-.register-form__item_type_error {
+.login-form__item_type_error {
   color: #FF4062;
 }
 
-.register-form__item-error {
+.login-form__item-error {
   margin-top: 6px;
   
   color: #FF4062;
@@ -62,7 +62,7 @@
   line-height: 1.21;
 }
 
-.register-form__button {
+.login-form__button {
   width: 396px;  
   height: 45px;
   background-color: #000;
@@ -79,13 +79,13 @@
   transition: ease-out 0.2s;
 }
 
-.register-form__button:hover {
+.login-form__button:hover {
   opacity: .8;
 
   cursor: pointer;
 }
 
-.register-form__description {
+.login-form__description {
   margin-top: 16px;
 
   text-align: center;
@@ -95,7 +95,7 @@
   line-height: 1.21;
 }
 
-.register-form__link {
+.login-form__link {
   text-decoration: none;
   color: #000;
 }

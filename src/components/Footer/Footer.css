@@ -1,5 +1,7 @@
 .footer {
-  padding: 79px 5.5% 0;
+  height: 93px;
+  box-sizing: border-box;
+  padding: 0 5.5% 0;
 
   font-size: 13px;
   line-height: 1.21;

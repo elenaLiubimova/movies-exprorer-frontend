@@ -34,12 +34,13 @@ const Register = () => {
         <label className="register-form__field">
           Пароль
           <input
-            className="register-form__item"
+            className="register-form__item register-form__item_type_error"
             type="password"
             name="password"
-            value="value"
+            value="11111111111"
             required
           />
+          <span class="register-form__item-error email-input-error">Что-то пошло не так...</span>
         </label>
         <button
           className="register-form__button"
