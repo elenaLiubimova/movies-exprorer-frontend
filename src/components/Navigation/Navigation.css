@@ -1,5 +1,6 @@
 .app-navigation__list {
   display: flex;
+  align-items: center;
 
   margin: 0;
   padding: 0;
@@ -9,7 +10,13 @@
   list-style: none;
 }
 
+.app-navigation__element:not(:last-of-type) {
+  margin: 0 20px 0 0;
+}
+
 .app-navigation__unauthorized-link {
+  display: none;
+  
   margin-left: 10px;
   padding: 8px 20px;
   border-radius: 3px;
@@ -24,7 +31,35 @@
 }
 
 .app-navigation__authorized-link {
-  display: none;
+  /* display: none; */
+
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.29;
 
   cursor: pointer;
+}
+
+.app-navigation__authorized-link_selected {
+  font-weight: 500;
+}
+
+.app-navigation__authorized-link_type_account {
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  padding: 3px;
+  border-radius: 50px;
+
+  font-size: 13px;
+  font-weight: 500;
+  line-height: .92;
+}
+
+.app-navigation__authorized-link-logo {
+  width: 11px;
+  height: 11px;
+  padding: 7px;
+  border-radius: 50px;
+  background-color: #F9F9F9;
 }

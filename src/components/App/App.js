@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Main from '../Main/Main';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -10,6 +10,9 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 
 const App = () => {
+  // Переменная статуса пользователя
+  const [loggedIn, setLoggedIn] = useState(false);
+  
   return (
     <>
       <Header />
