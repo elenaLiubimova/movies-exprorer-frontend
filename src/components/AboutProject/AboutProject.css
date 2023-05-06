@@ -6,21 +6,28 @@
   display: flex;
   margin: 70px 0 110px;
   padding: 0;
-  column-gap: 40px;
+  column-gap: 12.4%;
 
   list-style: none;
 }
 
+.about-project__list-element {
+  width: 39.21%;
+}
+
 .about-project__title {
   margin: 0 0 26px;
-  font-size: 20px;
+
+  font-size: 22px;
   line-height: 1.21;
+  font-weight: 400;
+  letter-spacing: -1px;
 }
 
 .about-project__description {
   margin: 0;
-  max-width: 550px;
   
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
 }
@@ -52,7 +59,7 @@
 
 .progress-bar__backend::after {
   position: absolute;
-  bottom: -23px;
+  bottom: -33px;
   
   content: 'Back-end';
 
@@ -71,7 +78,7 @@
 
 .progress-bar__frontend::after {
   position: absolute;
-  bottom: -23px;
+  bottom: -33px;
   
   content: 'Front-end';
 

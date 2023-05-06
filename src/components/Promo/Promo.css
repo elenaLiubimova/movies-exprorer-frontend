@@ -1,8 +1,10 @@
 .promo {
   display: flex;
+  box-sizing: border-box;
   justify-content: space-between;
   background-color: #F3C1F8;
   padding: 75px 5.5%;
+  min-height: 574px;
 }
 
 .promo__title {
@@ -11,6 +13,7 @@
   
   font-size: 50px;
   font-weight: 400;
+  letter-spacing: 1.5px;
   line-height: 1.16;
 }
 
@@ -25,11 +28,24 @@
 }
 
 .promo__learn-more {
-  padding: 10px 20px;
+  margin: 0;
+  display: flex;
+  width: 129px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #000;
   border-radius: 3px;
+  box-sizing: border-box;
 
-  cursor: pointer;
+  color: #000;
+  text-decoration: none;
+}
+
+.promo__learn-more:hover {
+  border: 1px solid rgba(0, 0, 0, .6);
+  
+  color: rgba(0, 0, 0, .6);
 }
 
 .promo__image {

@@ -1,7 +1,7 @@
 .footer {
-  height: 93px;
+  min-height: 172px;
   box-sizing: border-box;
-  padding: 0 5.5% 0;
+  padding: 63px 5.5% 0;
 
   font-size: 13px;
   line-height: 1.21;
@@ -46,4 +46,15 @@
   column-gap: 20px;
   
   list-style: none;
+}
+
+.footer__link {
+  color: #000;
+  text-decoration: none;
+
+  transition: ease-out 0.2s;
+}
+
+.footer__link:hover {
+  color: rgba(0, 0, 0, .6);
 }

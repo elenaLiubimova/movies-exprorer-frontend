@@ -13,7 +13,7 @@
 
 .portfolio__list {
   margin: 0;
-  padding: 50px 0 0;
+  padding: 30px 0 0;
   
   list-style: none;
 }
@@ -21,8 +21,6 @@
 .portfolio__element {
   position: relative;
   
-  display: flex;
-  justify-content: space-between;
   margin: 0;
   padding: 20px 0 19px;
   
@@ -43,7 +41,29 @@
   content: ' ';
 }
 
+.portfolio__link {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  color: #000;
+  text-decoration: none;
+  
+  transition: ease-out 0.2s;
+}
+
+.portfolio__link:hover .portfolio__arrow {
+  transform: rotate(45deg);
+}
+
+.portfolio__link:hover .portfolio__link-text {
+  color: rgba(0, 0, 0, .6);
+}
+
 .portfolio__arrow {
-  width: 30px;
-  height: 30px;
+  width: 17px;
+  height: 17px;
+
+  transition: ease-out 0.2s;
 }

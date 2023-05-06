@@ -1,6 +1,6 @@
 .about-me {
   display: grid;
-  padding: 110px 5.5% 110px;
+  padding: 110px 5.5% 100px;
   grid-template-areas: 
   "title title"
   "info photo";
@@ -43,9 +43,17 @@
 .about-me__github {
   cursor: pointer;
 
+  color: #000;
+  text-decoration: none;
   font-size: 14px;
   line-height: 1.21;
   font-weight: 500;
+
+  transition: ease-out 0.2s;
+}
+
+.about-me__github:hover {
+  color: rgba(0, 0, 0, .6);
 }
 
 .about-me__photo {
