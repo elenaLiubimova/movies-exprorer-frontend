@@ -2,6 +2,12 @@
   padding: 0 5.5% 125px;
 }
 
+@media screen and (max-width: 768px) {
+  .portfolio {
+    padding: 0 6.5% 90px;
+  }
+}
+
 .portfolio__title {
   margin: 0;
   
@@ -27,6 +33,12 @@
   font-size: 30px;
   line-height: 1.66;
   font-weight: 400;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio__element {
+    font-size: 28px;
+  }
 }
 
 .portfolio__element::after {

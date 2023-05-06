@@ -7,6 +7,12 @@
   padding: 18px 5.5%;
 }
 
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 18px 3.9%;
+  }
+}
+
 .header_unauthorized {
   background-color: #F3C1F8;
 }
