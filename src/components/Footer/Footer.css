@@ -8,6 +8,15 @@
   font-weight: 400;
 }
 
+@media screen and (max-width: 320px) {
+  .footer {
+    padding: 65px 3.125% 0;
+
+    font-size: 12px;
+    line-height: 1.21;
+  }
+}
+
 .footer__title {
   position: relative;
 
@@ -19,6 +28,13 @@
   line-height: 1.21;
   font-weight: 400;
   text-align: center;
+}
+
+@media screen and (max-width: 320px) {
+  .footer__title {
+    width: 93.75%;
+    font-size: 12px;
+  }
 }
 
 .footer__title::after {
@@ -40,6 +56,21 @@
   min-height: 56px;
 }
 
+@media screen and (max-width: 320px) {
+  .footer__info {
+    flex-direction: column;
+    margin-top: 20px;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .footer__date {
+    margin: 20px;
+    color: #A0A0A0;
+  }
+}
+
 .footer__links-list {
   display: flex;
   padding: 0;
@@ -48,11 +79,27 @@
   list-style: none;
 }
 
+@media screen and (max-width: 320px) {
+  .footer__links-list {
+    order: -1;
+    flex-direction: column;
+    gap: 12px;
+
+    font-size: 12px;
+  }
+}
+
 .footer__link {
   color: #000;
   text-decoration: none;
 
   transition: ease-out 0.2s;
+}
+
+@media screen and (max-width: 320px) {
+  .footer__info {
+    text-align: center;
+  }
 }
 
 .footer__link:hover {
