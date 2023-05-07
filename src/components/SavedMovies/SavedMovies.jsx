@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import Search from '../Search/Search';
-import './Movies.css';
+import './SavedMovies.css';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { AppContext } from '../../contexts/AppContext';
-import { initialCards } from '../../utils/constants';
+import { savedCards } from '../../utils/constants';
 
-const Movies = () => {
+const SavedMovies = () => {
   const { setLoggedIn } = useContext(AppContext);
   setLoggedIn(true);
   
@@ -16,11 +16,11 @@ const Movies = () => {
       <Header />
       <main className="movies">
         <Search />
-        <MoviesCardList cards={initialCards}/>
+        <MoviesCardList cards={savedCards}/>
       </main>
       <Footer />
     </>
   );
 };
 
-export default Movies;
+export default SavedMovies;

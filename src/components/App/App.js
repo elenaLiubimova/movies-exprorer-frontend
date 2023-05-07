@@ -8,6 +8,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import { AppContext } from '../../contexts/AppContext';
 import '../../index.css';
+import SavedMovies from '../SavedMovies/SavedMovies';
 
 const App = () => {
   // Переменная статуса пользователя
@@ -18,6 +19,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Main />}/>
         <Route path="/movies" element={<Movies />}/>
+        <Route path="/saved-movies" element={<SavedMovies />}/>
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />

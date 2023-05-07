@@ -3,12 +3,12 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { initialCards } from '../../utils/constants';
 
-const MoviesCardList = () => {
+const MoviesCardList = ({cards}) => {
   return (
     <section className="movies-container">
       <ul className="movies-container__cards">
         {/* Отрисовка карточек из массива */}
-        {initialCards.map((card, i) => (
+        {cards.map((card, i) => (
           <MoviesCard card={card} />
         ))}
       </ul>
