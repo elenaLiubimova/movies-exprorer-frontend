@@ -9,6 +9,13 @@
   font-weight: 400;
 }
 
+@media screen and (max-width: 320px) {
+  .notFound {
+    height: 780px;
+    font-size: 12px;
+  }
+}
+
 .notFound__title {
   margin: 246px 0 5px;
   
@@ -17,10 +24,22 @@
   font-weight: 400;
 }
 
+@media screen and (max-width: 320px) {
+  .notFound__title {
+    font-size: 80px;
+  }
+}
+
 .notFound__description {
   margin: 0 0 184px;
 }
 
 .notFound__back {
   cursor: pointer;
+}
+
+@media screen and (max-width: 320px) {
+  .notFound__back {
+    margin: 100px 0 0;
+  }
 }
