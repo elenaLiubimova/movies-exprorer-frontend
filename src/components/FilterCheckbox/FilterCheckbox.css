@@ -20,9 +20,11 @@
 .checkbox__toggler {
   margin: 2px;
   border-radius: 16px;
+  box-sizing: border-box;
   width: 16px;
   height: 16px;
   background-color: #2BE080;
+  border: 1px solid #fff;
 }
 
 .checkbox__description {
