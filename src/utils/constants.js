@@ -15,6 +15,8 @@ import skate from '../images/skate.png';
 import war from '../images/war.png';
 import zone from '../images/zone.png';
 
+export const windowWidth = window.innerWidth;
+
 export const initialCards = [
   {
     nameRU: '33 слова о дизайне',

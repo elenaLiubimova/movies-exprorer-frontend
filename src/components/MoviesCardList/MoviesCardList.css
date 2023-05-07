@@ -4,6 +4,12 @@
   padding-top: 70px;
 }
 
+@media screen and (max-width: 320px) {
+  .movies-container {
+    padding-top: 40px;
+  }
+}
+
 .movies-container__cards {
   display: grid;
   list-style: none;
@@ -11,6 +17,21 @@
   gap: 38px 20px;
   margin: 0;
   padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .movies-container__cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .movies-container__cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 34px;
+  }
 }
 
 .movies-container__more-button {
@@ -28,4 +49,11 @@
   font-weight: 500;
   
   cursor: pointer;
+}
+
+@media screen and (max-width: 320px) {
+  .movies-container__more-button {
+    width: 240px;
+    margin: 50px 0 80px;
+  }
 }

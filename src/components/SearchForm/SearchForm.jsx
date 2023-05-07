@@ -1,7 +1,5 @@
 import React from 'react';
 import './SearchForm.css';
-
-import '../../index.css';
 import search from '../../images/search.svg';
 
 const SearchForm = () => {

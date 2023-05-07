@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Navigation.css';
 import account from '../../images/account.svg';
 import { AppContext } from '../../contexts/AppContext';
+import BurgerButton from '../BurgerButton/BurgerButton';
 
 const Navigation = () => {
   const { loggedIn } = useContext(AppContext);
@@ -51,6 +52,7 @@ const Navigation = () => {
           </li>
         )}
       </ul>
+      <BurgerButton />
     </nav>
   );
 };

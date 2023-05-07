@@ -8,6 +8,12 @@
   font-weight: 400;
 }
 
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 63px 3.9% 0;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .footer {
     padding: 65px 3.125% 0;

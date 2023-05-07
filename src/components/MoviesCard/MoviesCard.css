@@ -7,6 +7,18 @@
   max-width: 270px;
 }
 
+@media screen and (max-width: 768px) {
+  .card {
+    max-width: 339px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .card {
+    width: 300px;
+  }
+}
+
 .card__image {
   grid-area: image;
   width: 100%;
@@ -14,6 +26,18 @@
   max-height: 151px;
   object-fit: fill;
   object-position: top left;
+}
+
+@media screen and (max-width: 768px) {
+  .card__image {
+    max-height: 190px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .card__image {
+    max-height: 168px;
+  }
 }
 
 .card__title {

@@ -34,3 +34,10 @@
   line-height: 1.29;
   font-weight: 400;
 }
+
+@media screen and (max-width: 320px) {
+  .checkbox__description {
+    font-size: 11px;
+    line-height: 1.63;
+  }
+}

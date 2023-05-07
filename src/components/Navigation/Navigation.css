@@ -72,6 +72,12 @@
   cursor: pointer;
 }
 
+@media screen and (max-width: 768px) {
+  .app-navigation__authorized-link {
+    display: none;
+  }
+}
+
 .app-navigation__authorized-link_selected {
   font-weight: 500;
 }
@@ -91,6 +97,12 @@
   font-size: 13px;
   font-weight: 500;
   line-height: .92;
+}
+
+@media screen and (max-width: 768px) {
+  .app-navigation__authorized-link_type_account {
+    display: none;
+  }
 }
 
 .app-navigation__authorized-link-text {
