@@ -5,6 +5,12 @@
   padding-top: 70px;
 }
 
+@media screen and (max-width: 768px) {
+  .register {
+    padding-top: 232px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .register {
     padding-top: 56px;
@@ -28,18 +34,20 @@
 .register-form {
   display: flex;
   flex-direction: column;
+  max-width: 396px;
+  width: 100%;
 }
 
 @media screen and (max-width: 768px) {
   .register-form {
     width: 51.56%;
-    align-items: center;
   }
 }
 
 @media screen and (max-width: 320px) {
   .register-form {
     width: 81.25%;
+    align-items: center;
   }
 }
 
