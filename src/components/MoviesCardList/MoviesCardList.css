@@ -49,6 +49,14 @@
   font-weight: 500;
   
   cursor: pointer;
+
+  transition: ease-out 0.2s;
+}
+
+.movies-container__more-button:hover .movies-container__more-button-text {
+  opacity: .4;
+
+  cursor: pointer;
 }
 
 @media screen and (max-width: 320px) {

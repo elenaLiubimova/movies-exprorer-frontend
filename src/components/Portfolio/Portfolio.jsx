@@ -8,7 +8,11 @@ const Portfolio = () => {
       <h2 className="portfolio__title">Портфолио</h2>
       <ul className="portfolio__list">
         <li className="portfolio__element">
-          <a className="portfolio__link" target="_blank" href="https://elenaliubimova.github.io/how-to-learn/">
+          <a
+            className="portfolio__link"
+            target="_blank"
+            href="https://elenaliubimova.github.io/how-to-learn/"
+          >
             <span className="portfolio__link-text">Статичный сайт</span>
             <img
               className="portfolio__arrow"
@@ -18,7 +22,11 @@ const Portfolio = () => {
           </a>
         </li>
         <li className="portfolio__element">
-          <a className="portfolio__link" target="_blank" href="https://elenaliubimova.github.io/russian-travel/">
+          <a
+            className="portfolio__link"
+            target="_blank"
+            href="https://elenaliubimova.github.io/russian-travel/"
+          >
             <span className="portfolio__link-text">Адаптивный сайт</span>
             <img
               className="portfolio__arrow"
@@ -28,7 +36,11 @@ const Portfolio = () => {
           </a>
         </li>
         <li className="portfolio__element">
-          <a className="portfolio__link" target="_blank" href="https://elenaliubimova.github.io/mesto-react/">
+          <a
+            className="portfolio__link"
+            target="_blank"
+            href="https://elenaliubimova.github.io/mesto-react/"
+          >
             <span className="portfolio__link-text">
               Одностраничное приложение
             </span>

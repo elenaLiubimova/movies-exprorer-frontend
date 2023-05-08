@@ -1,15 +1,29 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
-import { AppContext } from '../../contexts/AppContext';
+import { Link } from 'react-router-dom';
+import Popup from '../Popup/Popup';
 
-const Profile = () => {
-  const { setLoggedIn } = useContext(AppContext);
+const Profile = ({
+  openPopup,
+  isPopupOpen,
+  closePopup,
+  loggedIn,
+  setLoggedIn,
+  setIsShowNavigation,
+}) => {
   setLoggedIn(true);
-  
+  setIsShowNavigation(false);
+
   return (
     <>
-      <Header />
+      <Header
+        isPopupOpen={isPopupOpen}
+        openPopup={openPopup}
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
+        closePopup={closePopup}
+      />
       <main className="profile">
         <h1 className="profile__title">Привет, Виталий!</h1>
         <ul className="profile__list">
@@ -23,8 +37,11 @@ const Profile = () => {
           </li>
         </ul>
         <a className="profile__edit">Редактировать</a>
-        <a className="profile__escape">Выйти из аккаунта</a>
+        <Link to="/" className="profile__escape">
+          Выйти из аккаунта
+        </Link>
       </main>
+      <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />
     </>
   );
 };

@@ -7,7 +7,9 @@ const Login = () => {
   return (
     <main className="login">
       <form className="login-form">
-        <img className="logo" src={logo} alt="Лого сервиса Movies Explorer" />
+        <Link to="/">
+          <img className="logo" src={logo} alt="Лого сервиса Movies Explorer" />
+        </Link>
         <h2 className="login-form__title">Рады видеть!</h2>
         <label className="login-form__field">
           E-mail
@@ -39,14 +41,13 @@ const Login = () => {
         </button>
         <span className="login-form__description">
           Еще не зарегистрированы?
-          <Link to="/sign-in" className="login-form__link">
-            {' '}
+          <Link to="/signup" className="login-form__link">
             Регистрация
           </Link>
         </span>
       </form>
     </main>
   );
-}
+};
 
 export default Login;

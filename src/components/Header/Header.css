@@ -19,6 +19,12 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .header__navigation_hidden {
+    display: none;
+  }
+}
+
 .header_unauthorized {
   background-color: #F3C1F8;
 }

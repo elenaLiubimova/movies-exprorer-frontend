@@ -26,6 +26,11 @@
   }
 }
 
+.app-navigation__authorized-link {
+  text-decoration: none;
+  color: #000;
+}
+
 .app-navigation__unauthorized-link {
   padding: 8px 20px;
   border-radius: 3px;

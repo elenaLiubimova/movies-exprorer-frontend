@@ -4,7 +4,9 @@ import './AboutProject.css';
 const AboutProject = () => {
   return (
     <section className="about-project">
-      <h2 className="section-title" id="about">О проекте</h2>
+      <h2 className="section-title" id="about">
+        О проекте
+      </h2>
       <ul className="about-project__list">
         <li className="about-project__list-element">
           <h3 className="about-project__title">
@@ -16,7 +18,9 @@ const AboutProject = () => {
           </p>
         </li>
         <li className="about-project__list-element">
-          <h3 className="about-project__title">На выполнение диплома ушло 5 недель</h3>
+          <h3 className="about-project__title">
+            На выполнение диплома ушло 5 недель
+          </h3>
           <p className="about-project__description">
             У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было
             соблюдать, чтобы успешно защититься.

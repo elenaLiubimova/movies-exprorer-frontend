@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Promo from '../Promo/Promo';
 import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
@@ -7,11 +7,22 @@ import Portfolio from '../Portfolio/Portfolio';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-const Main = () => {
-  
+const Main = ({
+  loggedIn,
+  setLoggedIn,
+  isShowNavigation,
+  setIsShowNavigation,
+}) => {
+  setIsShowNavigation(true);
+
   return (
     <>
-      <Header />
+      <Header
+        loggedIn={loggedIn}
+        setloggedIn={setLoggedIn}
+        isShowNavigation={isShowNavigation}
+        setIsShowNavigation={isShowNavigation}
+      />
       <main>
         <Promo />
         <AboutProject />

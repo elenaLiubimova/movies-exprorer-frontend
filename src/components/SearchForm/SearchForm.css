@@ -41,6 +41,11 @@
   text-align: center;
 }
 
+.input__field:focus {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+
 @media screen and (max-width: 320px) {
   .input__field {
     font-size: 18px;
@@ -64,6 +69,14 @@
   font-weight: 500;
   line-height: 1.63;
   
+  cursor: pointer;
+
+  transition: ease-out 0.2s;
+}
+
+.input__search-button:hover {
+  opacity: .8;
+
   cursor: pointer;
 }
 

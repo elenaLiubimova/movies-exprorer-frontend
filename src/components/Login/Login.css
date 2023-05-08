@@ -88,6 +88,11 @@
   line-height: 1.2;
 }
 
+.login-form__item:focus {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+
 .login-form__item_type_error {
   color: #FF4062;
 }
@@ -144,4 +149,8 @@
 .login-form__link {
   text-decoration: none;
   color: #000;
+}
+
+.login-form__link:hover {
+  opacity: .4;
 }

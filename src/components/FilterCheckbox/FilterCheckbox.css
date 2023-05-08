@@ -6,7 +6,6 @@
 
 .checkbox {
   display: flex;
-  justify-content: flex-end;
   border: none;
   border-radius: 18px;
   width: 36px;
@@ -15,6 +14,10 @@
   background-color: #EBEBEB;
 
   cursor: pointer;
+}
+
+.checkbox_checked {
+  justify-content: flex-end;
 }
 
 .checkbox__toggler {

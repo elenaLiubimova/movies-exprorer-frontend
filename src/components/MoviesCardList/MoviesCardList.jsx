@@ -1,18 +1,23 @@
 import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { initialCards } from '../../utils/constants';
 
-const MoviesCardList = ({cards}) => {
+const MoviesCardList = ({ cards }) => {
   return (
     <section className="movies-container">
       <ul className="movies-container__cards">
         {/* Отрисовка карточек из массива */}
         {cards.map((card, i) => (
-          <MoviesCard card={card} />
+          <MoviesCard card={card} key={i} />
         ))}
       </ul>
-      <button className="movies-container__more-button">Ещё</button>
+      <button
+        className="movies-container__more-button"
+        type="button"
+        aria-label="Кнопка 'Еще'"
+      >
+        <span className="movies-container__more-button-text">Ещё</span>
+      </button>
     </section>
   );
 };

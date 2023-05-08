@@ -7,7 +7,9 @@ const Register = () => {
   return (
     <main className="register">
       <form className="register-form">
-        <img className="logo" src={logo} alt="Лого сервиса Movies Explorer" />
+        <Link to="/">
+          <img className="logo" src={logo} alt="Лого сервиса Movies Explorer" />
+        </Link>
         <h2 className="register-form__title">Добро пожаловать!</h2>
         <label className="register-form__field">
           Имя
@@ -39,7 +41,9 @@ const Register = () => {
             value="11111111111"
             required
           />
-          <span class="register-form__item-error email-input-error">Что-то пошло не так...</span>
+          <span class="register-form__item-error email-input-error">
+            Что-то пошло не так...
+          </span>
         </label>
         <button
           className="register-form__button"
@@ -50,8 +54,7 @@ const Register = () => {
         </button>
         <span className="register-form__description">
           Уже зарегистрированы?
-          <Link to="/sign-in" className="register-form__link">
-            {' '}
+          <Link to="/signin" className="register-form__link">
             Войти
           </Link>
         </span>

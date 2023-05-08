@@ -63,6 +63,8 @@
   background-position: center;
   border-radius: 50%;
   justify-self: end;
+
+  cursor: pointer;
 }
 
 .card__like_active {
