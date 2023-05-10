@@ -19,7 +19,7 @@ const Register = () => {
             value="Виталий"
             required
           />
-          <span class="register-form__item-error name-input-error"></span>
+          <span className="register-form__item-error name-input-error"></span>
         </label>
         <label className="register-form__field">
           E-mail
@@ -30,7 +30,7 @@ const Register = () => {
             value="pochta@yandex.ru"
             required
           />
-          <span class="register-form__item-error email-input-error"></span>
+          <span className="register-form__item-error email-input-error"></span>
         </label>
         <label className="register-form__field">
           Пароль
@@ -41,7 +41,7 @@ const Register = () => {
             value="11111111111"
             required
           />
-          <span class="register-form__item-error email-input-error">
+          <span className="register-form__item-error email-input-error">
             Что-то пошло не так...
           </span>
         </label>

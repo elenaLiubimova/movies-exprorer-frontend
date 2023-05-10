@@ -9,15 +9,16 @@ const MoviesCard = ({ card }) => {
   };
 
   return (
-    <div className="card">
+    <li className="card">
       <img className="card__image" src={card.image} alt="Обложка фильма" />
       <h2 className="card__title">{card.nameRU}</h2>
-      <p
+      <button
         className={isLiked ? `card__like card__like_active` : `card__like`}
         onClick={onLike}
+        type="button"
       />
       <p className="card__duration">{card.duration}</p>
-    </div>
+    </li>
   );
 };
 

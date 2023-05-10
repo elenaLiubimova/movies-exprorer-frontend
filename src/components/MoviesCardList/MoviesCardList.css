@@ -4,7 +4,7 @@
   padding-top: 70px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .movies-container {
     padding-top: 40px;
   }
@@ -26,10 +26,11 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .movies-container__cards {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 34px;
   }
 }

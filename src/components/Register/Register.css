@@ -11,7 +11,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .register {
     padding-top: 56px;
   }
@@ -25,7 +25,7 @@
   font-weight: 500;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .register-form__title {
     margin: 50px 0 80px;
   }
@@ -44,7 +44,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .register-form {
     width: 81.25%;
     align-items: center;
@@ -124,7 +124,7 @@
   transition: ease-out 0.2s;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .register-form__button {
     width: 100%;
   }

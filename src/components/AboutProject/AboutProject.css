@@ -30,7 +30,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .about-project__list {
     margin: 60px 0 4px;
     flex-wrap: wrap;
@@ -47,7 +47,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .about-project__list-element {
     width: 100%;
     margin-bottom: 56px;
@@ -109,7 +109,7 @@
   font-weight: 400;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .progress-bar {
     font-size: 11px;
   }
@@ -129,7 +129,7 @@
   color: #fff;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .progress-bar__backend {
     width: 35.22%;
   }
@@ -144,7 +144,7 @@
   color: #A0A0A0;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .progress-bar__backend::after {
     bottom: -23px;
   }
@@ -161,7 +161,7 @@
 }
 
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .progress-bar__frontend {
     width: 64.78%;
   }
@@ -176,7 +176,7 @@
   color: #A0A0A0;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .progress-bar__frontend::after {
     bottom: -23px;
   }

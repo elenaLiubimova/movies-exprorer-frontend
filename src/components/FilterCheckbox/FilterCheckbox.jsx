@@ -16,7 +16,7 @@ const FilterCheckbox = () => {
         aria-label="Кнопка переключения фильмов"
         onClick={onCheck}
       >
-        <div className="checkbox__toggler" />
+        <span className="checkbox__toggler" />
       </button>
       <p className="checkbox__description">Короткометражки</p>
     </div>

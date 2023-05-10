@@ -20,7 +20,7 @@ const Login = () => {
             value="pochta@yandex.ru"
             required
           />
-          <span class="login-form__item-error email-input-error"></span>
+          <span className="login-form__item-error email-input-error"></span>
         </label>
         <label className="login-form__field">
           Пароль
@@ -30,7 +30,7 @@ const Login = () => {
             name="password"
             required
           />
-          <span class="login-form__item-error email-input-error"></span>
+          <span className="login-form__item-error email-input-error"></span>
         </label>
         <button
           className="login-form__button"

@@ -27,11 +27,11 @@
   height: 100%;
   margin: 0;
   background-color: #fff;
-  padding: 159px 90px 90px;
+  padding: 159px 11.73% 11.73%;
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .popup__container {
     width: 100%;
     padding: 144px 10px 46px;
