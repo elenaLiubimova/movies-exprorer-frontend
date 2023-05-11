@@ -1,0 +1,19 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  padding: 70px 0 48px;
+  align-items: center;
+  row-gap: 29px;
+}
+
+@media screen and (max-width: 768px) {
+  .search {
+    padding: 88px 0 61px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .search {
+    padding: 100px 0 50px;
+    row-gap: 42px;
+  }
+}

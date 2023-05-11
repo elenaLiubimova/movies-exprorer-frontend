@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 74px;
+  box-sizing: border-box;
+  padding: 18px 5.5%;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 18px 3.9%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    padding: 18px 4.375%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header__navigation_hidden {
+    display: none;
+  }
+}
+
+.header_unauthorized {
+  background-color: #F3C1F8;
+}
