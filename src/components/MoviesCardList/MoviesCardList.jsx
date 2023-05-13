@@ -2,13 +2,14 @@ import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = ({ cards }) => {
+const MoviesCardList = ({ films }) => {
+  console.log(films)
   return (
     <section className="movies-container">
       <ul className="movies-container__cards">
         {/* Отрисовка карточек из массива */}
-        {cards.map((card, i) => (
-          <MoviesCard card={card} key={i} />
+        {films.map((film, i) => (
+          <MoviesCard film={film} key={i} />
         ))}
       </ul>
       <button

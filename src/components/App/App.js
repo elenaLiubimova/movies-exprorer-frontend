@@ -8,11 +8,14 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import '../../index.css';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import { moviesApi } from '../../utils/MoviesApi';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isShowNavigation, setIsShowNavigation] = useState(true);
+  const [films, setFilms] = useState(null);
+  console.log(films)
 
   const handleBurgerClick = () => {
     setPopupOpen(true);
@@ -21,6 +24,14 @@ const App = () => {
   const closePopup = () => {
     setPopupOpen(false);
   };
+
+  // Функция эффекта для данных фильмов
+  useEffect(() => {
+    moviesApi
+      .getFilms()
+      .then((films) => setFilms(films))
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  }, []);
 
   // Функция эффекта для Escape
   useEffect(() => {
@@ -61,6 +72,8 @@ const App = () => {
             setLoggedIn={setLoggedIn}
             isShowNavigation={isShowNavigation}
             setIsShowNavigation={setIsShowNavigation}
+            films={films}
+            setFilms={setFilms}
           />
         }
       />

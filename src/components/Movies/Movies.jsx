@@ -6,6 +6,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { initialCards } from '../../utils/constants';
 import Popup from '../Popup/Popup';
+import Preloader from '../Preloader/Preloader';
 
 const Movies = ({
   openPopup,
@@ -15,6 +16,7 @@ const Movies = ({
   setLoggedIn,
   isShowNavigation,
   setIsShowNavigation,
+  films
 }) => {
   setLoggedIn(true);
   setIsShowNavigation(false);
@@ -32,7 +34,7 @@ const Movies = ({
       />
       <main className="movies">
         <Search />
-        <MoviesCardList cards={initialCards} />
+        {films ? <MoviesCardList films={films} /> : <Preloader />}
       </main>
       <Footer />
       <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />
