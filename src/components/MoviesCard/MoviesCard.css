@@ -1,20 +1,25 @@
-.card {
+.card__link {
   display: grid;
   grid-template-areas:
     'image image'
     'title like'
     'duration duration';
   max-width: 270px;
+
+  color: #000;
+  text-decoration: none;
+
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
-  .card {
+  .card__link {
     max-width: 339px;
   }
 }
 
 @media screen and (max-width: 320px) {
-  .card {
+  .card__link {
     width: 300px;
   }
 }

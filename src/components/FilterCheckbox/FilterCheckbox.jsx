@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import './FilterCheckbox.css';
 
-const FilterCheckbox = () => {
-  const [isChecked, setIsChecked] = useState(false);
+const FilterCheckbox = ({ isShortFilm,
+  setIsShortFilm }) => {
+  // const [isChecked, setIsChecked] = useState(false);
 
   const onCheck = () => {
-    setIsChecked(!isChecked);
+    setIsShortFilm(!isShortFilm);
   };
 
   return (
     <div className="checkbox-container">
       <button
-        className={isChecked ? `checkbox checkbox_checked` : `checkbox`}
+        className={isShortFilm ? `checkbox checkbox_checked` : `checkbox`}
         type="button"
         aria-label="Кнопка переключения фильмов"
         onClick={onCheck}

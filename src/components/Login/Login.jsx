@@ -2,11 +2,23 @@ import React from 'react';
 import logo from '../../images/logo.svg';
 import './Login.css';
 import { Link } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 
-const Login = () => {
+const Login = ({ handleAuthorize }) => {
+  const { values, handleChange } = useForm({});
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    if (!values.email || !values.password) {
+      return;
+    }
+    handleAuthorize(values.email, values.password);
+  };
+
   return (
     <main className="login">
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleSubmit}>
         <Link to="/">
           <img className="logo" src={logo} alt="Лого сервиса Movies Explorer" />
         </Link>
@@ -16,8 +28,10 @@ const Login = () => {
           <input
             className="login-form__item"
             type="email"
+            placeholder="Email"
             name="email"
-            value="pochta@yandex.ru"
+            value={values.email || ''}
+            onChange={handleChange}
             required
           />
           <span className="login-form__item-error email-input-error"></span>
@@ -27,7 +41,10 @@ const Login = () => {
           <input
             className="login-form__item"
             type="password"
+            placeholder="Пароль"
             name="password"
+            value={values.password || ''}
+            onChange={handleChange}
             required
           />
           <span className="login-form__item-error email-input-error"></span>

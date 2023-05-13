@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Main from '../Main/Main';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
@@ -9,29 +9,67 @@ import Login from '../Login/Login';
 import '../../index.css';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import { moviesApi } from '../../utils/MoviesApi';
+import * as auth from '../../utils/auth';
+import { mainApi } from '../../utils/MainApi';
 
 const App = () => {
+  const navigate = useNavigate();
+  const [films, setFilms] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isShowNavigation, setIsShowNavigation] = useState(true);
-  const [films, setFilms] = useState(null);
-  console.log(films)
 
   const handleBurgerClick = () => {
     setPopupOpen(true);
   };
 
+  // Функция регистрации
+  function handleRegister(name, email, password) {
+    auth
+      .register(name, email, password)
+      .then((res) => {
+        navigate('/', { replace: true });
+        return res;
+      })
+      .catch((err) => console.log(err));
+  }
+
+  // Функция авторизации
+  function handleAuthorize(email, password) {
+    return auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data.jwt) {
+          localStorage.setItem('jwt', data.jwt);
+          setLoggedIn(true);
+          navigate('/', { replace: true });
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   const closePopup = () => {
     setPopupOpen(false);
   };
 
-  // Функция эффекта для данных фильмов
-  useEffect(() => {
-    moviesApi
-      .getFilms()
-      .then((films) => setFilms(films))
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  }, []);
+  const handleAddToSaved = (movie) => {
+    if (saved.find((savedMovie) => savedMovie._id === savedMovie._id)) {
+      mainApi
+        .deleteMovieFromSaved(_id)
+        .then(
+          setSaved((prev) =>
+            prev
+              .filter((item) => item.itemId !== card.itemId)
+              .catch((error) => console.log(`Ошибка: ${error}`))
+          )
+        );
+    } else {
+      mainApi
+        .addMovieToSaved(_id)
+        .then(setSaved((prev) => [...prev, data]))
+        .catch((error) => console.log(`Ошибка: ${error}`));
+    }
+  };
 
   // Функция эффекта для Escape
   useEffect(() => {
@@ -65,6 +103,8 @@ const App = () => {
         path="/movies"
         element={
           <Movies
+            films={films}
+            setFilms={setFilms}
             isPopupOpen={isPopupOpen}
             openPopup={handleBurgerClick}
             closePopup={closePopup}
@@ -72,8 +112,6 @@ const App = () => {
             setLoggedIn={setLoggedIn}
             isShowNavigation={isShowNavigation}
             setIsShowNavigation={setIsShowNavigation}
-            films={films}
-            setFilms={setFilms}
           />
         }
       />
@@ -103,8 +141,14 @@ const App = () => {
           />
         }
       />
-      <Route path="/signup" element={<Register />} />
-      <Route path="/signin" element={<Login />} />
+      <Route
+        path="/signup"
+        element={<Register handleRegister={handleRegister} />}
+      />
+      <Route
+        path="/signin"
+        element={<Login handleAuthorize={handleAuthorize} />}
+      />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

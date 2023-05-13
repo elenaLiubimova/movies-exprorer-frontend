@@ -4,6 +4,7 @@ import banksy from '../images/banksy.png';
 
 export const windowWidth = window.innerWidth;
 export const filmApiUrl = 'https://api.nomoreparties.co/';
+export const token = localStorage.getItem('jwt');
 
 export const savedCards = [
   {

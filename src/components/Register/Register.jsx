@@ -2,11 +2,20 @@ import React from 'react';
 import logo from '../../images/logo.svg';
 import './Register.css';
 import { Link } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 
-const Register = () => {
+const Register = ({ handleRegister }) => {
+  const { values, handleChange } = useForm({});
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const { name, email, password } = values;
+    handleRegister(name, email, password);
+  };
+
   return (
     <main className="register">
-      <form className="register-form">
+      <form className="register-form" onSubmit={handleSubmit}>
         <Link to="/">
           <img className="logo" src={logo} alt="Лого сервиса Movies Explorer" />
         </Link>
@@ -16,7 +25,9 @@ const Register = () => {
           <input
             className="register-form__item"
             name="name"
-            value="Виталий"
+            placeholder="Имя"
+            value={values.name || ''}
+            onChange={handleChange}
             required
           />
           <span className="register-form__item-error name-input-error"></span>
@@ -27,7 +38,9 @@ const Register = () => {
             className="register-form__item"
             type="email"
             name="email"
-            value="pochta@yandex.ru"
+            placeholder="Email"
+            value={values.email || ''}
+            onChange={handleChange}
             required
           />
           <span className="register-form__item-error email-input-error"></span>
@@ -35,15 +48,15 @@ const Register = () => {
         <label className="register-form__field">
           Пароль
           <input
-            className="register-form__item register-form__item_type_error"
+            className="register-form__item"
             type="password"
+            placeholder="Пароль"
             name="password"
-            value="11111111111"
+            value={values.password || ''}
+            onChange={handleChange}
             required
           />
-          <span className="register-form__item-error email-input-error">
-            Что-то пошло не так...
-          </span>
+          <span className="register-form__item-error email-input-error"></span>
         </label>
         <button
           className="register-form__button"

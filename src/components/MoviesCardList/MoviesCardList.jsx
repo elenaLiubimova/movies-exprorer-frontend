@@ -2,15 +2,27 @@ import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = ({ films }) => {
-  console.log(films)
+const MoviesCardList = ({
+  films,
+  searchedFilm,
+  isShortFilm,
+}) => {
+  const toggleShortFilm = (films) => {
+    if (isShortFilm) {
+      return films.filter((film) => film.duration <= 40);
+    } else return films;
+  }
+
   return (
     <section className="movies-container">
       <ul className="movies-container__cards">
-        {/* Отрисовка карточек из массива */}
-        {films.map((film, i) => (
-          <MoviesCard film={film} key={i} />
-        ))}
+        {toggleShortFilm(films)
+          .filter((film) =>
+            film.nameRU.toLowerCase().includes(searchedFilm.toLowerCase())
+          )
+          .map((film) => (
+            <MoviesCard film={film} key={film.id} />
+          ))}
       </ul>
       <button
         className="movies-container__more-button"
