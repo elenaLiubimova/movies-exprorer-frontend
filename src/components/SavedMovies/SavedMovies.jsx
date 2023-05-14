@@ -21,7 +21,6 @@ const SavedMovies = ({
   setLoggedIn(true);
   setIsShowNavigation(false);
   // const [savedMovies, setSavedMovies] = useState(null);
-  console.log(savedMovies)
   const [searchedFilm, setSearchedFilm] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
 

@@ -3,7 +3,7 @@ import './MoviesCard.css';
 import { filmApiUrl } from '../../utils/constants';
 import { timeConverter } from '../../utils/utils';
 
-const MoviesCard = ({ film, handleAddToSaved }) => {
+const MoviesCard = ({ film, handleAddToSaved, trailerLink, imageUrl }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const onLike = () => {
@@ -16,13 +16,11 @@ const MoviesCard = ({ film, handleAddToSaved }) => {
       <a
         className="card__link"
         target="_blank"
-        // href={film.trailerLink}
-        href={film.trailer}
+        href={film.trailerLink || film.trailer}
       >
         <img
           className="card__image"
-          // src={filmApiUrl + film.image.url}
-          src={film.image}
+          src={filmApiUrl + film.image.url || film.image}
           alt="Обложка фильма"
         />
         <h2 className="card__title">{film.nameRU}</h2>

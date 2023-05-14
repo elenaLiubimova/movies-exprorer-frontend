@@ -2,10 +2,10 @@ import React from 'react';
 import logo from '../../images/logo.svg';
 import './Login.css';
 import { Link } from 'react-router-dom';
-import { useForm } from '../../hooks/useForm';
+import { useFormWithValidation } from '../../hooks/useForm';
 
 const Login = ({ handleAuthorize }) => {
-  const { values, handleChange } = useForm({});
+  const { values, errors, handleChange } = useFormWithValidation({});
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -18,7 +18,7 @@ const Login = ({ handleAuthorize }) => {
 
   return (
     <main className="login">
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}  noValidate>
         <Link to="/">
           <img className="logo" src={logo} alt="Лого сервиса Movies Explorer" />
         </Link>
@@ -34,7 +34,7 @@ const Login = ({ handleAuthorize }) => {
             onChange={handleChange}
             required
           />
-          <span className="login-form__item-error email-input-error"></span>
+          <span className="login-form__item-error email-input-error">{errors.email}</span>
         </label>
         <label className="login-form__field">
           Пароль
@@ -47,7 +47,7 @@ const Login = ({ handleAuthorize }) => {
             onChange={handleChange}
             required
           />
-          <span className="login-form__item-error email-input-error"></span>
+          <span className="login-form__item-error password-input-error">{errors.password}</span>
         </label>
         <button
           className="login-form__button"
