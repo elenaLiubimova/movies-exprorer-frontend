@@ -17,11 +17,11 @@ const Movies = ({
   loggedIn,
   setLoggedIn,
   isShowNavigation,
-  setIsShowNavigation
+  setIsShowNavigation,
+  handleAddToSaved,
 }) => {
   setLoggedIn(true);
   setIsShowNavigation(false);
-  // const [films, setFilms] = useState(null);
   const [searchedFilm, setSearchedFilm] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
 
@@ -29,7 +29,7 @@ const Movies = ({
     moviesApi
       .getFilms()
       .then((films) => setFilms(films))
-      .catch((error) => console.log(`Ошибка: ${error}`))
+      .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
   return (
@@ -51,8 +51,15 @@ const Movies = ({
           isShortFilm={isShortFilm}
           setIsShortFilm={setIsShortFilm}
         />
-        {/* {films ? <MoviesCardList films={films} searchedFilm={searchedFilm} /> : <Preloader />} */}
-        {films && <MoviesCardList films={films} searchedFilm={searchedFilm} isShortFilm={isShortFilm} />}
+        {/* {films ? <MoviesCardList films={films} searchedFilm={searchedFilm} handleAddToSaved={handleAddToSaved} /> : <Preloader />} */}
+        {films && (
+          <MoviesCardList
+            films={films}
+            searchedFilm={searchedFilm}
+            isShortFilm={isShortFilm}
+            handleAddToSaved={handleAddToSaved}
+          />
+        )}
       </main>
       <Footer />
       <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />

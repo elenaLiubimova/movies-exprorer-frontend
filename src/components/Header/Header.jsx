@@ -13,9 +13,11 @@ const Header = ({
   setloggedIn,
   closePopup,
   isShowNavigation,
+  isMainPage
 }) => {
+  console.log(isMainPage)
   return (
-    <header className={loggedIn ? 'header' : 'header header_unauthorized'}>
+    <header className={isMainPage ? 'header header_main' :  'header'}>
       <Link to="/">
         <img className="logo" src={logo} alt="Лого сервиса Movies Explorer" />
       </Link>

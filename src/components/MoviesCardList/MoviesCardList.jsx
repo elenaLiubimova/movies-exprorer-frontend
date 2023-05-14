@@ -6,12 +6,13 @@ const MoviesCardList = ({
   films,
   searchedFilm,
   isShortFilm,
+  handleAddToSaved,
 }) => {
   const toggleShortFilm = (films) => {
     if (isShortFilm) {
       return films.filter((film) => film.duration <= 40);
     } else return films;
-  }
+  };
 
   return (
     <section className="movies-container">
@@ -21,7 +22,11 @@ const MoviesCardList = ({
             film.nameRU.toLowerCase().includes(searchedFilm.toLowerCase())
           )
           .map((film) => (
-            <MoviesCard film={film} key={film.id} />
+            <MoviesCard
+              film={film}
+              key={film.id}
+              handleAddToSaved={handleAddToSaved}
+            />
           ))}
       </ul>
       <button

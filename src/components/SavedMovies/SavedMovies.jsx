@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Search from '../Search/Search';
 import './SavedMovies.css';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { savedCards } from '../../utils/constants';
 import Popup from '../Popup/Popup';
+import { mainApi } from '../../utils/MainApi';
+import MoviesCard from '../MoviesCard/MoviesCard';
 
 const SavedMovies = ({
   openPopup,
@@ -14,9 +15,25 @@ const SavedMovies = ({
   loggedIn,
   setLoggedIn,
   setIsShowNavigation,
+  savedMovies,
+  setSavedMovies
 }) => {
   setLoggedIn(true);
   setIsShowNavigation(false);
+  // const [savedMovies, setSavedMovies] = useState(null);
+  console.log(savedMovies)
+  const [searchedFilm, setSearchedFilm] = useState('');
+  const [isShortFilm, setIsShortFilm] = useState(false);
+
+  const getSavedMovies = () => {
+    mainApi.getSavedMovies()
+    .then((movies) => setSavedMovies(movies))
+    .catch((error) => console.log(`Ошибка: ${error}`));
+  }
+
+  useEffect(() => {
+    getSavedMovies();
+  }, [])
 
   return (
     <>
@@ -28,7 +45,18 @@ const SavedMovies = ({
       />
       <main className="movies">
         <Search />
-        <MoviesCardList cards={savedCards} />
+        {savedMovies && <MoviesCardList films={savedMovies} searchedFilm={searchedFilm}
+            isShortFilm={isShortFilm} />}
+        {/* <ul className="movies-container__cards">
+        {savedMovies && savedMovies
+          .map((savedMovie) => (
+            <MoviesCard
+              film={savedMovie}
+              key={savedMovie.id}
+              // handleAddToSaved={handleAddToSaved}
+            />
+          ))}
+      </ul> */}
       </main>
       <Footer />
       <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />

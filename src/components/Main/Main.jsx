@@ -14,6 +14,8 @@ const Main = ({
   setIsShowNavigation,
 }) => {
   setIsShowNavigation(true);
+  console.log(loggedIn)
+  const isMainPage = true;
 
   return (
     <>
@@ -22,6 +24,7 @@ const Main = ({
         setloggedIn={setLoggedIn}
         isShowNavigation={isShowNavigation}
         setIsShowNavigation={isShowNavigation}
+        isMainPage={isMainPage}
       />
       <main>
         <Promo />

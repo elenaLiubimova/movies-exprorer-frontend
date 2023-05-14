@@ -110,6 +110,8 @@
 
 .profile__escape {
   margin: 0;
+  border: none;
+  background-color: #fff;
   
   color: #FF4062;
   font-size: 13px;

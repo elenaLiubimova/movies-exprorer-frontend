@@ -1,8 +1,9 @@
 import { token } from './constants';
 
 class MainApi {
-  constructor({ baseUrl }) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
   _checkResponse(res) {
@@ -11,6 +12,13 @@ class MainApi {
 
   _request(url, options) {
     return fetch(url, options).then(this._checkResponse);
+  }
+
+  getSavedMovies() {
+    return this._request(`${this._baseUrl}/movies`, {
+      headers: this._headers,
+      method: "GET",
+    });
   }
 
   addMovieToSaved(
@@ -30,17 +38,17 @@ class MainApi {
       headers: this._headers,
       method: 'POST',
       body: JSON.stringify({
-        country,
-        director,
-        duration,
-        year,
-        description,
-        image,
-        trailer,
-        nameRU,
-        nameEN,
-        thumbnail,
-        movieId,
+        country: country,
+        director: director,
+        duration: duration,
+        year: year,
+        description: description,
+        image: image,
+        trailer: trailer,
+        nameRU: nameRU,
+        nameEN: nameEN,
+        thumbnail: thumbnail,
+        movieId: movieId,
       }),
     });
   }

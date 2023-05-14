@@ -1,7 +1,7 @@
 import React from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Popup from '../Popup/Popup';
 
 const Profile = ({
@@ -14,6 +14,13 @@ const Profile = ({
 }) => {
   setLoggedIn(true);
   setIsShowNavigation(false);
+  const navigate = useNavigate();
+
+  function signOut() {
+    localStorage.removeItem("token");
+    setLoggedIn(false);
+    navigate("/", { replace: true });
+  }
 
   return (
     <>
@@ -37,9 +44,9 @@ const Profile = ({
           </li>
         </ul>
         <a className="profile__edit">Редактировать</a>
-        <Link to="/" className="profile__escape">
+        <button className="profile__escape" onClick={signOut}>
           Выйти из аккаунта
-        </Link>
+        </button>
       </main>
       <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />
     </>
