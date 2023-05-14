@@ -15,7 +15,6 @@ const Header = ({
   isShowNavigation,
   isMainPage
 }) => {
-  console.log(isMainPage)
   return (
     <header className={isMainPage ? 'header header_main' :  'header'}>
       <Link to="/">

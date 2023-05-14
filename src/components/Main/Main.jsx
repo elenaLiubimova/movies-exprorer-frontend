@@ -14,7 +14,6 @@ const Main = ({
   setIsShowNavigation,
 }) => {
   setIsShowNavigation(true);
-  console.log(loggedIn)
   const isMainPage = true;
 
   return (
