@@ -2,7 +2,6 @@ import words from '../images/words.png';
 import design from '../images/design.png';
 import banksy from '../images/banksy.png';
 
-export const windowWidth = window.innerWidth;
 export const filmApiUrl = 'https://api.nomoreparties.co/';
 export const token = localStorage.getItem('jwt');
 

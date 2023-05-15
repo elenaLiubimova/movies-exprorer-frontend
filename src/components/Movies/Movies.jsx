@@ -24,6 +24,25 @@ const Movies = ({
   setIsShowNavigation(false);
   const [searchedFilm, setSearchedFilm] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
+  const [showedMovies, setShowedMovies] = useState([]);
+  // const [numberOfShowingMovies, setNumberOfShowingMovies] = useState(8);
+  // const [startIndexOfMovies, setStartIndexOfMovies] = useState(0);
+  // const [numberOfUploadingMovies, setNumberOfUploadingMovies] = useState(3);
+
+  const toggleShortFilm = (films) => {
+    if (isShortFilm) {
+      return films.filter((film) => film.duration <= 40);
+    } else return films;
+  };
+
+  const filterFilms = (films) => {
+    const filteredFilms = toggleShortFilm(films).filter((film) =>
+      film.nameRU.toLowerCase().includes(searchedFilm.toLowerCase())
+    );
+    return filteredFilms; 
+  };
+
+  const filteredFilms = films && filterFilms(films);
 
   const searchMovies = () => {
     moviesApi
@@ -58,6 +77,7 @@ const Movies = ({
             searchedFilm={searchedFilm}
             isShortFilm={isShortFilm}
             handleAddToSaved={handleAddToSaved}
+            filteredFilms={filteredFilms}
           />
         )}
       </main>
