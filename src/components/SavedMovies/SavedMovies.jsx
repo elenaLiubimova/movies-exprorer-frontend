@@ -15,24 +15,23 @@ const SavedMovies = ({
   loggedIn,
   setLoggedIn,
   setIsShowNavigation,
-  savedMovies,
-  setSavedMovies
+  savedMovies
 }) => {
   setLoggedIn(true);
   setIsShowNavigation(false);
+
   // const [savedMovies, setSavedMovies] = useState(null);
-  const [searchedFilm, setSearchedFilm] = useState('');
-  const [isShortFilm, setIsShortFilm] = useState(false);
 
-  const getSavedMovies = () => {
-    mainApi.getSavedMovies()
-    .then((movies) => setSavedMovies(movies))
-    .catch((error) => console.log(`Ошибка: ${error}`));
-  }
+  // const getSavedMovies = () => {
+  //   mainApi
+  //     .getSavedMovies()
+  //     .then((movies) => setSavedMovies(movies))
+  //     .catch((error) => console.log(`Ошибка: ${error}`));
+  // };
 
-  useEffect(() => {
-    getSavedMovies();
-  }, [])
+  // useEffect(() => {
+  //   getSavedMovies();
+  // }, []);
 
   return (
     <>
@@ -44,18 +43,7 @@ const SavedMovies = ({
       />
       <main className="movies">
         <Search />
-        {savedMovies && <MoviesCardList films={savedMovies} searchedFilm={searchedFilm}
-            isShortFilm={isShortFilm} />}
-        {/* <ul className="movies-container__cards">
-        {savedMovies && savedMovies
-          .map((savedMovie) => (
-            <MoviesCard
-              film={savedMovie}
-              key={savedMovie.id}
-              // handleAddToSaved={handleAddToSaved}
-            />
-          ))}
-      </ul> */}
+        {savedMovies && <MoviesCardList films={savedMovies} />}
       </main>
       <Footer />
       <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />

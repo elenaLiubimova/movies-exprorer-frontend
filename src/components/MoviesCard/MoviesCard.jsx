@@ -3,12 +3,15 @@ import './MoviesCard.css';
 import { filmApiUrl } from '../../utils/constants';
 import { timeConverter } from '../../utils/utils';
 
-const MoviesCard = ({ film, handleAddToSaved, trailerLink, imageUrl }) => {
+const MoviesCard = ({ film, handleAddToSaved, trailerLink, imageUrl, savedMovies }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const onLike = () => {
+    console.log(savedMovies)
+    console.log(film)
+    const notRepeatMovie = savedMovies.find(savedMovie => savedMovie.movieId === film.id);
     setIsLiked(!isLiked);
-    handleAddToSaved(film);
+    !notRepeatMovie && handleAddToSaved(film);
   };
 
   return (

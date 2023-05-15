@@ -20,7 +20,20 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isShowNavigation, setIsShowNavigation] = useState(true);
-  const [savedMovies, setSavedMovies] = useState([]);
+  const [searchedFilm, setSearchedFilm] = useState('');
+  const [isShortFilm, setIsShortFilm] = useState(false);
+  const [savedMovies, setSavedMovies] = useState(null);
+
+  const getSavedMovies = () => {
+    mainApi
+      .getSavedMovies()
+      .then((movies) => setSavedMovies(movies))
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  };
+
+  useEffect(() => {
+    getSavedMovies();
+  }, []);
 
   const handleBurgerClick = () => {
     setPopupOpen(true);
@@ -70,6 +83,19 @@ const App = () => {
 
   const closePopup = () => {
     setPopupOpen(false);
+  };
+
+  const toggleShortFilm = (films) => {
+    if (isShortFilm) {
+      return films.filter((film) => film.duration <= 40);
+    } else return films;
+  };
+
+  const filterFilms = (films) => {
+    const filteredFilms = toggleShortFilm(films).filter((film) =>
+      film.nameRU.toLowerCase().includes(searchedFilm.toLowerCase())
+    );
+    return filteredFilms; 
   };
 
   const handleAddToSaved = (movie) => {
@@ -140,6 +166,12 @@ const App = () => {
             isShowNavigation={isShowNavigation}
             setIsShowNavigation={setIsShowNavigation}
             handleAddToSaved={handleAddToSaved}
+            filterFilms={filterFilms}
+            searchedFilm={searchedFilm}
+            setSearchedFilm={setSearchedFilm}
+            isShortFilm={isShortFilm}
+            setIsShortFilm={setIsShortFilm}
+            savedMovies={savedMovies}
           />
         }
       />
@@ -154,8 +186,12 @@ const App = () => {
             loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
             setIsShowNavigation={setIsShowNavigation}
-            savedMovies={savedMovies}
             setSavedMovies={setSavedMovies}
+            searchedFilm={searchedFilm}
+            setSearchedFilm={setSearchedFilm}
+            isShortFilm={isShortFilm}
+            setIsShortFilm={setIsShortFilm}
+            savedMovies={savedMovies}
           />
         }
       />

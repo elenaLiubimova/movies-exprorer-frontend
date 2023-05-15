@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = ({ handleAddToSaved, filteredFilms }) => {
+const MoviesCardList = ({ handleAddToSaved, films, savedMovies }) => {
   const [numberOfShowingMovies, setNumberOfShowingMovies] = useState(12);
   const [numberOfUploadingMovies, setNumberOfUploadingMovies] = useState(4);
 
@@ -40,13 +40,14 @@ const MoviesCardList = ({ handleAddToSaved, filteredFilms }) => {
   return (
     <section className="movies-container">
       <ul className="movies-container__cards">
-        {filteredFilms &&
-          filteredFilms
-            .map((filteredFilm) => (
+        {films &&
+          films
+            .map((film) => (
               <MoviesCard
-                film={filteredFilm}
-                key={filteredFilm.id}
+                film={film}
+                key={film.id}
                 handleAddToSaved={handleAddToSaved}
+                savedMovies={savedMovies}
               />
             ))
             .slice(0, numberOfShowingMovies)}
