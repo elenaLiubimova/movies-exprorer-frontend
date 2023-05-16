@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
 import { Link, useNavigate } from 'react-router-dom';
 import Popup from '../Popup/Popup';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 const Profile = ({
   openPopup,
@@ -15,11 +16,12 @@ const Profile = ({
   setLoggedIn(true);
   setIsShowNavigation(false);
   const navigate = useNavigate();
+  const currentUser = useContext(CurrentUserContext);
 
   function signOut() {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     setLoggedIn(false);
-    navigate("/", { replace: true });
+    navigate('/', { replace: true });
   }
 
   return (
@@ -32,21 +34,42 @@ const Profile = ({
         closePopup={closePopup}
       />
       <main className="profile">
-        <h1 className="profile__title">Привет, Виталий!</h1>
-        <ul className="profile__list">
-          <li className="profile__element">
-            <p className="profile__param">Имя</p>
-            <p className="profile__value">Виталий</p>
-          </li>
-          <li className="profile__element">
-            <p className="profile__param">E-mail</p>
-            <p className="profile__value">pochta@yandex.ru</p>
-          </li>
-        </ul>
-        <a className="profile__edit">Редактировать</a>
-        <button className="profile__escape" onClick={signOut}>
-          Выйти из аккаунта
-        </button>
+        <form className="profile-form">
+          <h1 className="profile-form__title">{`Привет, ${currentUser.name}!`}</h1>
+          <label className="profile-form__field">
+            <span className="profile-form__label">Имя</span>
+            <input
+              className="profile-form__item"
+              type="text"
+              placeholder="Имя"
+              name="name"
+              value={currentUser.name || ''}
+              // onChange={handleChange}
+              required
+            />
+            <span className="profile-form__item-error name-input-error"></span>
+          </label>
+          <label className="profile-form__field">
+            <span className="profile-form__label">E-mail</span>
+            <input
+              className="profile-form__item profile-form__item_last"
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={currentUser.email || ''}
+              // onChange={handleChange}
+              required
+            />
+            <span className="profile-form__item-error email-input-error"></span>
+          </label>
+          <button className="profile-form__button">Редактировать</button>
+          <button
+            className="profile-form__button profile-form__button_escape"
+            onClick={signOut}
+          >
+            Выйти из аккаунта
+          </button>
+        </form>
       </main>
       <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />
     </>

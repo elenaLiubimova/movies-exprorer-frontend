@@ -13,6 +13,7 @@ import * as auth from '../../utils/auth';
 import { mainApi } from '../../utils/MainApi';
 import { filmApiUrl } from '../../utils/constants';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 const App = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const App = () => {
   const [searchedFilm, setSearchedFilm] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [savedMovies, setSavedMovies] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const getSavedMovies = () => {
     mainApi
@@ -139,10 +141,11 @@ const App = () => {
   useEffect(() => {
     tokenCheck();
     if (loggedIn) {
-      Promise.all([moviesApi.getFilms(), mainApi.getSavedMovies()])
-        .then(([films, savedMovies]) => {
+      Promise.all([moviesApi.getFilms(), mainApi.getSavedMovies(), mainApi.getCurrentUser()])
+        .then(([films, savedMovies, currentUser]) => {
           setFilms(films);
           setSavedMovies(savedMovies);
+          setCurrentUser(currentUser);
         })
         .catch((error) => {
           console.log(
@@ -168,88 +171,90 @@ const App = () => {
   }, [isPopupOpen]);
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Main
-            isShowNavigation={isShowNavigation}
-            setIsShowNavigation={setIsShowNavigation}
-            loggedIn={loggedIn}
-            setLoggedIn={setLoggedIn}
-          />
-        }
-      />
-      <Route
-        path="/movies"
-        element={
-          <ProtectedRoute
-            component={Movies}
-            films={films}
-            setFilms={setFilms}
-            isPopupOpen={isPopupOpen}
-            openPopup={handleBurgerClick}
-            closePopup={closePopup}
-            loggedIn={loggedIn}
-            setLoggedIn={setLoggedIn}
-            isShowNavigation={isShowNavigation}
-            setIsShowNavigation={setIsShowNavigation}
-            handleAddToSaved={handleAddToSaved}
-            filterFilms={filterFilms}
-            searchedFilm={searchedFilm}
-            setSearchedFilm={setSearchedFilm}
-            isShortFilm={isShortFilm}
-            setIsShortFilm={setIsShortFilm}
-            savedMovies={savedMovies}
-            handleRemoveFromSaved={handleRemoveFromSaved}
-          />
-        }
-      />
-      <Route
-        path="/saved-movies"
-        element={
-          <ProtectedRoute
-            component={SavedMovies}
-            isPopupOpen={isPopupOpen}
-            openPopup={handleBurgerClick}
-            closePopup={closePopup}
-            loggedIn={loggedIn}
-            setLoggedIn={setLoggedIn}
-            setIsShowNavigation={setIsShowNavigation}
-            setSavedMovies={setSavedMovies}
-            searchedFilm={searchedFilm}
-            setSearchedFilm={setSearchedFilm}
-            isShortFilm={isShortFilm}
-            setIsShortFilm={setIsShortFilm}
-            savedMovies={savedMovies}
-            handleRemoveFromSaved={handleRemoveFromSaved}
-          />
-        }
-      />
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute
-            component={Profile}
-            isPopupOpen={isPopupOpen}
-            openPopup={handleBurgerClick}
-            closePopup={closePopup}
-            loggedIn={loggedIn}
-            setLoggedIn={setLoggedIn}
-            setIsShowNavigation={setIsShowNavigation}
-          />
-        }
-      />
-      <Route
-        path="/signup"
-        element={<Register handleRegister={handleRegister} />}
-      />
-      <Route
-        path="/signin"
-        element={<Login handleAuthorize={handleAuthorize} />}
-      />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <CurrentUserContext.Provider value={currentUser}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Main
+              isShowNavigation={isShowNavigation}
+              setIsShowNavigation={setIsShowNavigation}
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+            />
+          }
+        />
+        <Route
+          path="/movies"
+          element={
+            <ProtectedRoute
+              component={Movies}
+              films={films}
+              setFilms={setFilms}
+              isPopupOpen={isPopupOpen}
+              openPopup={handleBurgerClick}
+              closePopup={closePopup}
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+              isShowNavigation={isShowNavigation}
+              setIsShowNavigation={setIsShowNavigation}
+              handleAddToSaved={handleAddToSaved}
+              filterFilms={filterFilms}
+              searchedFilm={searchedFilm}
+              setSearchedFilm={setSearchedFilm}
+              isShortFilm={isShortFilm}
+              setIsShortFilm={setIsShortFilm}
+              savedMovies={savedMovies}
+              handleRemoveFromSaved={handleRemoveFromSaved}
+            />
+          }
+        />
+        <Route
+          path="/saved-movies"
+          element={
+            <ProtectedRoute
+              component={SavedMovies}
+              isPopupOpen={isPopupOpen}
+              openPopup={handleBurgerClick}
+              closePopup={closePopup}
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+              setIsShowNavigation={setIsShowNavigation}
+              setSavedMovies={setSavedMovies}
+              searchedFilm={searchedFilm}
+              setSearchedFilm={setSearchedFilm}
+              isShortFilm={isShortFilm}
+              setIsShortFilm={setIsShortFilm}
+              savedMovies={savedMovies}
+              handleRemoveFromSaved={handleRemoveFromSaved}
+            />
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute
+              component={Profile}
+              isPopupOpen={isPopupOpen}
+              openPopup={handleBurgerClick}
+              closePopup={closePopup}
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+              setIsShowNavigation={setIsShowNavigation}
+            />
+          }
+        />
+        <Route
+          path="/signup"
+          element={<Register handleRegister={handleRegister} />}
+        />
+        <Route
+          path="/signin"
+          element={<Login handleAuthorize={handleAuthorize} />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </CurrentUserContext.Provider>
   );
 };
 
