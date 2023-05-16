@@ -24,7 +24,8 @@ const Movies = ({
   setSearchedFilm,
   isShortFilm,
   setIsShortFilm,
-  savedMovies
+  savedMovies,
+  handleRemoveFromSaved,
 }) => {
   setIsShowNavigation(false);
 
@@ -64,6 +65,7 @@ const Movies = ({
             handleAddToSaved={handleAddToSaved}
             films={filteredFilms}
             savedMovies={savedMovies}
+            handleRemoveFromSaved={handleRemoveFromSaved}
           />
         )}
       </main>

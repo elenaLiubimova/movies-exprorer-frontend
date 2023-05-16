@@ -1,17 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MoviesCard.css';
 import { filmApiUrl } from '../../utils/constants';
 import { timeConverter } from '../../utils/utils';
 
-const MoviesCard = ({ film, handleAddToSaved, trailerLink, imageUrl, savedMovies }) => {
+const MoviesCard = ({
+  film,
+  handleAddToSaved,
+  trailerLink,
+  imageUrl,
+  savedMovies,
+  handleRemoveFromSaved,
+  isMovieSaved,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
 
+  useEffect(() => {
+    if (isMovieSaved(film)) {
+      setIsLiked(true);
+    };
+  }, []);
+
   const onLike = () => {
-    console.log(savedMovies)
-    console.log(film)
-    const notRepeatMovie = savedMovies.find(savedMovie => savedMovie.movieId === film.id);
+    if (isLiked) {
+      handleRemoveFromSaved(film);
+    } else {
+      const notRepeatMovie = savedMovies.find(
+        (savedMovie) => savedMovie.movieId === film.id
+      );
+      !notRepeatMovie && handleAddToSaved(film);
+    }
     setIsLiked(!isLiked);
-    !notRepeatMovie && handleAddToSaved(film);
   };
 
   return (
@@ -19,7 +37,7 @@ const MoviesCard = ({ film, handleAddToSaved, trailerLink, imageUrl, savedMovies
       <a
         className="card__link"
         target="_blank"
-        href={film.trailerLink || film.trailer}
+        // href={film.trailerLink || film.trailer}
       >
         <img
           className="card__image"

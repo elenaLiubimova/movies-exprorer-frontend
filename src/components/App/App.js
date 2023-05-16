@@ -12,7 +12,7 @@ import { moviesApi } from '../../utils/MoviesApi';
 import * as auth from '../../utils/auth';
 import { mainApi } from '../../utils/MainApi';
 import { filmApiUrl } from '../../utils/constants';
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 const App = () => {
   const navigate = useNavigate();
@@ -95,7 +95,7 @@ const App = () => {
     const filteredFilms = toggleShortFilm(films).filter((film) =>
       film.nameRU.toLowerCase().includes(searchedFilm.toLowerCase())
     );
-    return filteredFilms; 
+    return filteredFilms;
   };
 
   const handleAddToSaved = (movie) => {
@@ -119,9 +119,38 @@ const App = () => {
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
+  const handleRemoveFromSaved = (movie) => {
+    let id;
+    if (!movie._id) {
+      id = savedMovies.find(
+        (removingMovie) => removingMovie.movieId === movie.id
+      )._id;
+    } else id = movie._id;
+    mainApi
+      .deleteMovieFromSaved(id)
+      .then(() => {
+        setSavedMovies((savedMovies) =>
+          savedMovies.filter((movie) => movie._id !== id)
+        );
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  };
+
   useEffect(() => {
     tokenCheck();
-  }, []);
+    if (loggedIn) {
+      Promise.all([moviesApi.getFilms(), mainApi.getSavedMovies()])
+        .then(([films, savedMovies]) => {
+          setFilms(films);
+          setSavedMovies(savedMovies);
+        })
+        .catch((error) => {
+          console.log(
+            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+          );
+        });
+    }
+  }, [loggedIn]);
 
   // Функция эффекта для Escape
   useEffect(() => {
@@ -172,6 +201,7 @@ const App = () => {
             isShortFilm={isShortFilm}
             setIsShortFilm={setIsShortFilm}
             savedMovies={savedMovies}
+            handleRemoveFromSaved={handleRemoveFromSaved}
           />
         }
       />
@@ -192,6 +222,7 @@ const App = () => {
             isShortFilm={isShortFilm}
             setIsShortFilm={setIsShortFilm}
             savedMovies={savedMovies}
+            handleRemoveFromSaved={handleRemoveFromSaved}
           />
         }
       />

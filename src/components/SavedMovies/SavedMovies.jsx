@@ -15,23 +15,11 @@ const SavedMovies = ({
   loggedIn,
   setLoggedIn,
   setIsShowNavigation,
-  savedMovies
+  savedMovies,
+  handleRemoveFromSaved
 }) => {
   setLoggedIn(true);
   setIsShowNavigation(false);
-
-  // const [savedMovies, setSavedMovies] = useState(null);
-
-  // const getSavedMovies = () => {
-  //   mainApi
-  //     .getSavedMovies()
-  //     .then((movies) => setSavedMovies(movies))
-  //     .catch((error) => console.log(`Ошибка: ${error}`));
-  // };
-
-  // useEffect(() => {
-  //   getSavedMovies();
-  // }, []);
 
   return (
     <>
@@ -43,7 +31,7 @@ const SavedMovies = ({
       />
       <main className="movies">
         <Search />
-        {savedMovies && <MoviesCardList films={savedMovies} />}
+        {savedMovies && <MoviesCardList films={savedMovies} handleRemoveFromSaved={handleRemoveFromSaved} />}
       </main>
       <Footer />
       <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />

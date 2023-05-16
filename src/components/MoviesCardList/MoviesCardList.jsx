@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import { is } from '@babel/types';
 
-const MoviesCardList = ({ handleAddToSaved, films, savedMovies }) => {
+const MoviesCardList = ({
+  handleAddToSaved,
+  films,
+  savedMovies,
+  handleRemoveFromSaved,
+}) => {
   const [numberOfShowingMovies, setNumberOfShowingMovies] = useState(12);
   const [numberOfUploadingMovies, setNumberOfUploadingMovies] = useState(4);
 
   const onUploadMovies = () => {
     setNumberOfShowingMovies(numberOfShowingMovies + numberOfUploadingMovies);
-  }
+  };
 
   const handleWindowWidthChange = () => {
     if (window.innerWidth > 768) {
@@ -21,7 +27,7 @@ const MoviesCardList = ({ handleAddToSaved, films, savedMovies }) => {
       setNumberOfShowingMovies(5);
       setNumberOfUploadingMovies(2);
     }
-  }
+  };
 
   useEffect(() => {
     let timeout;
@@ -30,12 +36,16 @@ const MoviesCardList = ({ handleAddToSaved, films, savedMovies }) => {
       timeout = setTimeout(handleWindowWidthChange, 1000);
     };
 
-    window.addEventListener("resize", handleWindowWidthChangeWithResize);
+    window.addEventListener('resize', handleWindowWidthChangeWithResize);
     return () => {
-      window.removeEventListener("resize", handleWindowWidthChangeWithResize);
+      window.removeEventListener('resize', handleWindowWidthChangeWithResize);
       clearTimeout(timeout);
     };
   });
+
+  const isMovieSaved = (movie) => {
+    return savedMovies?.some((savedMovie) => savedMovie.movieId === movie.id);
+  }
 
   return (
     <section className="movies-container">
@@ -48,6 +58,8 @@ const MoviesCardList = ({ handleAddToSaved, films, savedMovies }) => {
                 key={film.id}
                 handleAddToSaved={handleAddToSaved}
                 savedMovies={savedMovies}
+                handleRemoveFromSaved={handleRemoveFromSaved}
+                isMovieSaved={isMovieSaved}
               />
             ))
             .slice(0, numberOfShowingMovies)}
