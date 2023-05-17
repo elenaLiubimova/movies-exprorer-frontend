@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './FilterCheckbox.css';
 
 const FilterCheckbox = ({ isShortFilm,
   setIsShortFilm }) => {
-  // const [isChecked, setIsChecked] = useState(false);
 
   const onCheck = () => {
     setIsShortFilm(!isShortFilm);
+    console.log(isShortFilm)
+    localStorage.setItem('filter', isShortFilm);
   };
 
   return (

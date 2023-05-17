@@ -21,7 +21,7 @@ class MainApi {
     });
   }
 
-  setCurrentUser(name, email) {
+  updateUser(name, email) {
     return this._request(`${this._baseUrl}/users/me`, {
       headers: this._headers,
       method: "PATCH",

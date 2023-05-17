@@ -15,11 +15,19 @@ const SavedMovies = ({
   loggedIn,
   setLoggedIn,
   setIsShowNavigation,
+  setSavedMovies,
   savedMovies,
-  handleRemoveFromSaved
+  handleRemoveFromSaved,
+  isSavedMoviesPage,
+  setIsSavedMoviesPage,
+  filterFilms,
+  isShortFilm,
+  setSearchedFilm,
+  setIsShortFilm
 }) => {
   setLoggedIn(true);
   setIsShowNavigation(false);
+  setIsSavedMoviesPage(true);
 
   return (
     <>
@@ -30,8 +38,23 @@ const SavedMovies = ({
         setLoggedIn={setLoggedIn}
       />
       <main className="movies">
-        <Search />
-        {savedMovies && <MoviesCardList films={savedMovies} handleRemoveFromSaved={handleRemoveFromSaved} />}
+        <Search
+          filterFilms={filterFilms}
+          isSavedMoviesPage={isSavedMoviesPage}
+          savedMovies={savedMovies}
+          setSavedMovies={setSavedMovies}
+          isShortFilm={isShortFilm}
+          setSearchedFilm={setSearchedFilm}
+          setIsShortFilm={setIsShortFilm}
+        />
+        {savedMovies && (
+          <MoviesCardList
+            films={savedMovies}
+            handleRemoveFromSaved={handleRemoveFromSaved}
+            isSavedMoviesPage={isSavedMoviesPage}
+            setIsSavedMoviesPage={setIsSavedMoviesPage}
+          />
+        )}
       </main>
       <Footer />
       <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />

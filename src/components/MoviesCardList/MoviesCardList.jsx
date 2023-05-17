@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { is } from '@babel/types';
 
 const MoviesCardList = ({
   handleAddToSaved,
   films,
   savedMovies,
   handleRemoveFromSaved,
+  isSavedMoviesPage,
+  setIsSavedMoviesPage,
 }) => {
   const [numberOfShowingMovies, setNumberOfShowingMovies] = useState(12);
   const [numberOfUploadingMovies, setNumberOfUploadingMovies] = useState(4);
@@ -60,6 +61,8 @@ const MoviesCardList = ({
                 savedMovies={savedMovies}
                 handleRemoveFromSaved={handleRemoveFromSaved}
                 isMovieSaved={isMovieSaved}
+                isSavedMoviesPage={isSavedMoviesPage}
+                setIsSavedMoviesPage={setIsSavedMoviesPage}
               />
             ))
             .slice(0, numberOfShowingMovies)}

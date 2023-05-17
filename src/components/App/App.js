@@ -25,6 +25,15 @@ const App = () => {
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [savedMovies, setSavedMovies] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSavedMoviesPage, setIsSavedMoviesPage] = useState(false);
+
+  useEffect(() => {
+    const isShortFilmState = localStorage.getItem('filter');
+    setIsShortFilm(isShortFilmState);
+    const savedSearchResult = localStorage.getItem('search');
+    setSearchedFilm(savedSearchResult);
+  }, []);
 
   const getSavedMovies = () => {
     mainApi
@@ -66,6 +75,18 @@ const App = () => {
       .catch((err) => console.log(err));
   }
 
+  // Функция обновления данных профиля
+  function handleUpdateUser({ name, email }) {
+    setIsLoading(true);
+    mainApi
+      .updateUser(name, email)
+      .then((currentUser) => {
+        setCurrentUser(currentUser);
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`))
+      .finally(() => setIsLoading(false));
+  }
+
   //Функция проверки токена
   function tokenCheck() {
     if (localStorage.getItem('jwt')) {
@@ -95,8 +116,9 @@ const App = () => {
 
   const filterFilms = (films) => {
     const filteredFilms = toggleShortFilm(films).filter((film) =>
-      film.nameRU.toLowerCase().includes(searchedFilm.toLowerCase())
+      film.nameRU.toLowerCase().includes(searchedFilm.toLowerCase()) 
     );
+    
     return filteredFilms;
   };
 
@@ -141,7 +163,11 @@ const App = () => {
   useEffect(() => {
     tokenCheck();
     if (loggedIn) {
-      Promise.all([moviesApi.getFilms(), mainApi.getSavedMovies(), mainApi.getCurrentUser()])
+      Promise.all([
+        moviesApi.getFilms(),
+        mainApi.getSavedMovies(),
+        mainApi.getCurrentUser(),
+      ])
         .then(([films, savedMovies, currentUser]) => {
           setFilms(films);
           setSavedMovies(savedMovies);
@@ -206,6 +232,8 @@ const App = () => {
               setIsShortFilm={setIsShortFilm}
               savedMovies={savedMovies}
               handleRemoveFromSaved={handleRemoveFromSaved}
+              isSavedMoviesPage={isSavedMoviesPage}
+              setIsSavedMoviesPage={setIsSavedMoviesPage}
             />
           }
         />
@@ -227,6 +255,9 @@ const App = () => {
               setIsShortFilm={setIsShortFilm}
               savedMovies={savedMovies}
               handleRemoveFromSaved={handleRemoveFromSaved}
+              isSavedMoviesPage={isSavedMoviesPage}
+              setIsSavedMoviesPage={setIsSavedMoviesPage}
+              filterFilms={filterFilms}
             />
           }
         />
@@ -241,6 +272,7 @@ const App = () => {
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
               setIsShowNavigation={setIsShowNavigation}
+              onUpdateUser={handleUpdateUser}
             />
           }
         />

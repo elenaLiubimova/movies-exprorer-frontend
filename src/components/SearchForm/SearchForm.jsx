@@ -1,36 +1,46 @@
-import React, { useState } from 'react';
 import './SearchForm.css';
 import search from '../../images/search.svg';
+import { useFormWithValidation } from '../../hooks/useForm';
 
-const SearchForm = ({ searchMovies, searchedFilm, setSearchedFilm }) => {
-  const [inputValue, setInputValue] = useState('');
-  
-  const onChangeInput = (evt) => {
-    setInputValue(evt.target.value);
+const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, filterFilms, savedMovies, setSavedMovies, searchedFilm }) => {
+  const { values, errors, handleChange } = useFormWithValidation({});
+
+  const onSearch = (evt) => {
+    evt.preventDefault();
+    if (!isSavedMoviesPage) {
+      setSearchedFilm(values.search);
+      localStorage.setItem('search', values.search);
+      searchMovies();
+    } else {
+      setSearchedFilm(values.search);
+      const filteredSavedMovies = filterFilms(savedMovies);
+      setSavedMovies(filteredSavedMovies);
+    }
   };
 
-  const onSearch = () => {
-    setSearchedFilm(inputValue);
-    searchMovies();
-  }
-
   return (
-    <div className="input">
+    <form className="input" onSubmit={onSearch} noValidate>
       <img className="input__icon" src={search} alt="Иконка поиска" />
       <input
         className="input__field"
+        type="text"
+        name="search"
+        value={values.search || searchedFilm}
         placeholder="Фильм"
-        onChange={onChangeInput}
+        onChange={handleChange}
+        minLength="1"
+        required
       />
+      {errors.search && <span className="input__error">Нужно ввести ключевое слово</span>}
       <button
         className="input__search-button"
-        type="button"
+        type="submit"
         aria-label="Кнопка поиска"
-        onClick={onSearch}
+        disabled={(searchedFilm || values.search) ? false : true}
       >
         Найти
       </button>
-    </div>
+    </form>
   );
 };
 

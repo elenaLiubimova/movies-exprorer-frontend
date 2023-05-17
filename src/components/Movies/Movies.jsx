@@ -52,10 +52,10 @@ const Movies = ({
       <main className="movies">
         <Search
           searchMovies={searchMovies}
-          searchedFilm={searchedFilm}
           setSearchedFilm={setSearchedFilm}
           isShortFilm={isShortFilm}
           setIsShortFilm={setIsShortFilm}
+          searchedFilm={searchedFilm}
         />
         {/* {films ? <MoviesCardList films={films} searchedFilm={searchedFilm} handleAddToSaved={handleAddToSaved} /> : <Preloader />} */}
         {films && (

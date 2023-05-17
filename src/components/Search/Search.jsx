@@ -5,17 +5,26 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 const Search = ({
   searchMovies,
-  searchedFilm,
   setSearchedFilm,
   isShortFilm,
   setIsShortFilm,
+  filterFilms,
+  isSavedMoviesPage,
+  savedMovies,
+  setSavedMovies,
+  searchedFilm
 }) => {
   return (
     <section className="search">
       <SearchForm
         searchMovies={searchMovies}
-        searchedFilm={searchedFilm}
         setSearchedFilm={setSearchedFilm}
+        isSavedMoviesPage={isSavedMoviesPage}
+        filterFilms={filterFilms}
+        savedMovies={savedMovies}
+        setSavedMovies={setSavedMovies}
+        isShortFilm={isShortFilm}
+        searchedFilm={searchedFilm}
       />
       <FilterCheckbox isShortFilm={isShortFilm}
           setIsShortFilm={setIsShortFilm} />

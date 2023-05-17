@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
 import { Link, useNavigate } from 'react-router-dom';
 import Popup from '../Popup/Popup';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useFormWithValidation } from '../../hooks/useForm';
 
 const Profile = ({
   openPopup,
@@ -12,17 +13,34 @@ const Profile = ({
   loggedIn,
   setLoggedIn,
   setIsShowNavigation,
+  onUpdateUser,
 }) => {
+  const { values, setValues, errors, handleChange } = useFormWithValidation({});
   setLoggedIn(true);
   setIsShowNavigation(false);
   const navigate = useNavigate();
   const currentUser = useContext(CurrentUserContext);
 
-  function signOut() {
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onUpdateUser({
+      name: values.name,
+      email: values.email,
+    });
+  };
+
+  const signOut = () => {
     localStorage.removeItem('token');
     setLoggedIn(false);
     navigate('/', { replace: true });
-  }
+  };
+
+  useEffect(() => {
+    setValues({
+      name: currentUser.name,
+      email: currentUser.email,
+    });
+  }, [currentUser]);
 
   return (
     <>
@@ -34,7 +52,7 @@ const Profile = ({
         closePopup={closePopup}
       />
       <main className="profile">
-        <form className="profile-form">
+        <form className="profile-form" onSubmit={handleSubmit} noValidate>
           <h1 className="profile-form__title">{`Привет, ${currentUser.name}!`}</h1>
           <label className="profile-form__field">
             <span className="profile-form__label">Имя</span>
@@ -42,13 +60,17 @@ const Profile = ({
               className="profile-form__item"
               type="text"
               placeholder="Имя"
+              minLength="2"
+              maxLength="40"
               name="name"
-              value={currentUser.name || ''}
-              // onChange={handleChange}
+              value={values.name || ''}
+              onChange={handleChange}
               required
             />
-            <span className="profile-form__item-error name-input-error"></span>
           </label>
+          <span className="profile-form__item-error name-input-error">
+            {errors.name}
+          </span>
           <label className="profile-form__field">
             <span className="profile-form__label">E-mail</span>
             <input
@@ -56,15 +78,20 @@ const Profile = ({
               type="email"
               placeholder="Email"
               name="email"
-              value={currentUser.email || ''}
-              // onChange={handleChange}
+              value={values.email || ''}
+              onChange={handleChange}
               required
             />
-            <span className="profile-form__item-error email-input-error"></span>
           </label>
-          <button className="profile-form__button">Редактировать</button>
+          <span className="profile-form__item-error profile-form__item-error_last email-input-error">
+            {errors.email}
+          </span>
+          <button className="profile-form__button" type="submit">
+            Редактировать
+          </button>
           <button
             className="profile-form__button profile-form__button_escape"
+            type="button"
             onClick={signOut}
           >
             Выйти из аккаунта
