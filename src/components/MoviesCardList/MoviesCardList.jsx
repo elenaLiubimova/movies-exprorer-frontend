@@ -71,14 +71,14 @@ const MoviesCardList = ({
             ))
             .slice(0, numberOfShowingMovies)}
       </ul>
-      <button
+      {films && (films.length > numberOfShowingMovies) && ((films.length - numberOfShowingMovies) != 0) && <button
         className="movies-container__more-button"
         type="button"
         aria-label="Кнопка 'Еще'"
         onClick={onUploadMovies}
       >
         <span className="movies-container__more-button-text">Ещё</span>
-      </button>
+      </button>}
     </section>
   );
 };

@@ -49,7 +49,8 @@ const App = () => {
     auth
       .register(name, email, password)
       .then((res) => {
-        navigate('/', { replace: true });
+        auth.authorize(name, email)
+        navigate('/movies', { replace: true });
         return res;
       })
       .catch((err) => console.log(err));
@@ -109,7 +110,6 @@ const App = () => {
   };
 
   const filterFilms = (films) => {
-    console.log(toggleShortFilm(films))
     const filteredFilms = toggleShortFilm(films).filter((film) =>
       film.nameRU.toLowerCase().includes(searchedFilm.toLowerCase()) 
     );
@@ -173,7 +173,6 @@ const App = () => {
       ])
         .then(([films, savedMovies, currentUser]) => {
           setFilms(films);
-          console.log(films)
           setSavedMovies(savedMovies);
           setCurrentUser(currentUser);
         })
@@ -291,7 +290,7 @@ const App = () => {
         />
         <Route
           path="/signup"
-          element={<Register handleRegister={handleRegister} />}
+          element={<Register handleRegister={handleRegister} handleAuthorize={handleAuthorize} />}
         />
         <Route
           path="/signin"

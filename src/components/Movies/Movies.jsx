@@ -30,7 +30,6 @@ const Movies = ({
   // setIsLiked
 }) => {
   setIsShowNavigation(false);
-  console.log(films)
 
   const searchMovies = () => {
     moviesApi

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import logo from '../../images/logo.svg';
 import './Register.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFormWithValidation } from '../../hooks/useForm';
 
-const Register = ({ handleRegister }) => {
-  const { values, errors, handleChange } = useFormWithValidation({});
+const Register = ({ handleRegister, handleAuthorize }) => {
+  const { values, isValid, errors, handleChange } = useFormWithValidation({});
+  const navigate = useNavigate();
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
@@ -13,6 +15,8 @@ const Register = ({ handleRegister }) => {
       return;
     }
     handleRegister(values.name, values.email, values.password);
+    // handleAuthorize(values.email, values.password);
+    // navigate('/movies', {replace: true});
   };
 
   return (
@@ -66,6 +70,7 @@ const Register = ({ handleRegister }) => {
           className="register-form__button"
           type="submit"
           aria-label="Кнопка регистрации"
+          disabled={!isValid}
         >
           Зарегистрироваться
         </button>

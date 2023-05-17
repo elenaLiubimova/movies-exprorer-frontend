@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useFormWithValidation } from '../../hooks/useForm';
 
 const Login = ({ handleAuthorize }) => {
-  const { values, errors, handleChange } = useFormWithValidation({});
+  const { values, isValid, errors, handleChange } = useFormWithValidation({});
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -34,7 +34,7 @@ const Login = ({ handleAuthorize }) => {
             onChange={handleChange}
             required
           />
-          <span className="login-form__item-error email-input-error">{errors.email}</span>
+          <span className="login-form__item-error email-input-error">{errors.email || ''}</span>
         </label>
         <label className="login-form__field">
           Пароль
@@ -47,12 +47,13 @@ const Login = ({ handleAuthorize }) => {
             onChange={handleChange}
             required
           />
-          <span className="login-form__item-error password-input-error">{errors.password}</span>
+          <span className="login-form__item-error password-input-error">{errors.password || ''}</span>
         </label>
         <button
           className="login-form__button"
           type="submit"
           aria-label="Кнопка регистрации"
+          disabled={!isValid}
         >
           Войти
         </button>
