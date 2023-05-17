@@ -1,9 +1,10 @@
 import './SearchForm.css';
 import search from '../../images/search.svg';
 import { useFormWithValidation } from '../../hooks/useForm';
+import { useEffect } from 'react';
 
 const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, filterFilms, savedMovies, setSavedMovies, searchedFilm }) => {
-  const { values, errors, handleChange } = useFormWithValidation({});
+  const { values, setValues, errors, handleChange } = useFormWithValidation({});
 
   const onSearch = (evt) => {
     evt.preventDefault();
@@ -18,6 +19,10 @@ const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, filterFi
     }
   };
 
+  // useEffect(() => {
+  //   setValues(searchedFilm);
+  // }, []);
+
   return (
     <form className="input" onSubmit={onSearch} noValidate>
       <img className="input__icon" src={search} alt="Иконка поиска" />
@@ -25,7 +30,7 @@ const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, filterFi
         className="input__field"
         type="text"
         name="search"
-        value={values.search || searchedFilm}
+        value={values.search || ''}
         placeholder="Фильм"
         onChange={handleChange}
         minLength="1"
@@ -36,7 +41,7 @@ const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, filterFi
         className="input__search-button"
         type="submit"
         aria-label="Кнопка поиска"
-        disabled={(searchedFilm || values.search) ? false : true}
+        disabled={(values.search) ? false : true}
       >
         Найти
       </button>

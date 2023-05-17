@@ -13,6 +13,8 @@ const MoviesCard = ({
   isMovieSaved,
   isSavedMoviesPage,
   setIsSavedMoviesPage,
+  // isLiked,
+  // setIsLiked
 }) => {
   const [isLiked, setIsLiked] = useState(false);
 
@@ -20,18 +22,25 @@ const MoviesCard = ({
     if (isMovieSaved(film)) {
       setIsLiked(true);
     }
+    // isSavedMoviesPage && setIsLiked(true);
   }, []);
 
   const onLike = () => {
     if (isLiked) {
       handleRemoveFromSaved(film);
+      setIsLiked(false);
     } else {
       const notRepeatMovie = savedMovies.find(
         (savedMovie) => savedMovie.movieId === film.id
       );
       !notRepeatMovie && handleAddToSaved(film);
+      setIsLiked(true);
     }
-    setIsLiked(!isLiked);
+    // setIsLiked(!isLiked);
+  };
+
+  const onDelete = () => {
+    handleRemoveFromSaved(film);
   };
 
   return (
@@ -48,11 +57,24 @@ const MoviesCard = ({
         />
       </a>
       <h2 className="card__title">{film.nameRU}</h2>
-      <button
-        className={isLiked ? `card__like card__like_active` : `card__like`}
-        onClick={onLike}
-        type="button"
-      />
+      {!isSavedMoviesPage && (
+        <button
+          className={
+            isLiked
+              ? `card__button card__button_type_like card__button_type_like_active`
+              : `card__button card__button_type_like`
+          }
+          onClick={onLike}
+          type="button"
+        />
+      )}
+      {isSavedMoviesPage && (
+        <button
+          className={'card__button card__button_type_delete'}
+          onClick={onDelete}
+          type="button"
+        />
+      )}
       <p className="card__duration">{timeConverter(film.duration)}</p>
     </li>
   );

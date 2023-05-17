@@ -26,8 +26,11 @@ const Movies = ({
   setIsShortFilm,
   savedMovies,
   handleRemoveFromSaved,
+  // isLiked,
+  // setIsLiked
 }) => {
   setIsShowNavigation(false);
+  console.log(films)
 
   const searchMovies = () => {
     moviesApi
@@ -58,7 +61,7 @@ const Movies = ({
           searchedFilm={searchedFilm}
         />
         {/* {films ? <MoviesCardList films={films} searchedFilm={searchedFilm} handleAddToSaved={handleAddToSaved} /> : <Preloader />} */}
-        {films && (
+        {films ? (
           <MoviesCardList
             searchedFilm={searchedFilm}
             isShortFilm={isShortFilm}
@@ -66,8 +69,10 @@ const Movies = ({
             films={filteredFilms}
             savedMovies={savedMovies}
             handleRemoveFromSaved={handleRemoveFromSaved}
+            // isLiked={isLiked}
+            // setIsLiked={setIsLiked}
           />
-        )}
+        ) : <Preloader />}
       </main>
       <Footer />
       <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />

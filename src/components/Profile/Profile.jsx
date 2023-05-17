@@ -14,9 +14,11 @@ const Profile = ({
   setLoggedIn,
   setIsShowNavigation,
   onUpdateUser,
+  setIsShortFilm,
+  setSearchedFilm,
+  setFilms
 }) => {
   const { values, setValues, errors, handleChange } = useFormWithValidation({});
-  setLoggedIn(true);
   setIsShowNavigation(false);
   const navigate = useNavigate();
   const currentUser = useContext(CurrentUserContext);
@@ -30,9 +32,15 @@ const Profile = ({
   };
 
   const signOut = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('jwt');
+    // localStorage.removeItem('filter');
+    // localStorage.removeItem('search');
+    setIsShortFilm(false);
+    setSearchedFilm('');
     setLoggedIn(false);
+    setFilms([]);
     navigate('/', { replace: true });
+    console.log(loggedIn)
   };
 
   useEffect(() => {

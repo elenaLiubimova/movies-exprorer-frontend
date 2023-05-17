@@ -23,7 +23,10 @@ const SavedMovies = ({
   filterFilms,
   isShortFilm,
   setSearchedFilm,
-  setIsShortFilm
+  setIsShortFilm,
+  isMovieSaved
+  // isLiked,
+  // setIsLiked
 }) => {
   setLoggedIn(true);
   setIsShowNavigation(false);
@@ -53,6 +56,9 @@ const SavedMovies = ({
             handleRemoveFromSaved={handleRemoveFromSaved}
             isSavedMoviesPage={isSavedMoviesPage}
             setIsSavedMoviesPage={setIsSavedMoviesPage}
+            // isMovieSaved={isMovieSaved}
+            // isLiked={isLiked}
+            // setIsLiked={setIsLiked}
           />
         )}
       </main>

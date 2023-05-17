@@ -17,7 +17,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 const App = () => {
   const navigate = useNavigate();
-  const [films, setFilms] = useState(null);
+  const [films, setFilms] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isShowNavigation, setIsShowNavigation] = useState(true);
@@ -27,13 +27,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSavedMoviesPage, setIsSavedMoviesPage] = useState(false);
-
-  useEffect(() => {
-    const isShortFilmState = localStorage.getItem('filter');
-    setIsShortFilm(isShortFilmState);
-    const savedSearchResult = localStorage.getItem('search');
-    setSearchedFilm(savedSearchResult);
-  }, []);
+  // const [isLiked, setIsLiked] = useState(false);
 
   const getSavedMovies = () => {
     mainApi
@@ -115,6 +109,7 @@ const App = () => {
   };
 
   const filterFilms = (films) => {
+    console.log(toggleShortFilm(films))
     const filteredFilms = toggleShortFilm(films).filter((film) =>
       film.nameRU.toLowerCase().includes(searchedFilm.toLowerCase()) 
     );
@@ -160,6 +155,14 @@ const App = () => {
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
+  
+  // useEffect(() => {
+  //   const isShortFilmState = localStorage.getItem('filter');
+  //   setIsShortFilm(isShortFilmState);
+  //   const savedSearchResult = localStorage.getItem('search');
+  //   setSearchedFilm(savedSearchResult);
+  // }, []);
+
   useEffect(() => {
     tokenCheck();
     if (loggedIn) {
@@ -170,6 +173,7 @@ const App = () => {
       ])
         .then(([films, savedMovies, currentUser]) => {
           setFilms(films);
+          console.log(films)
           setSavedMovies(savedMovies);
           setCurrentUser(currentUser);
         })
@@ -177,7 +181,8 @@ const App = () => {
           console.log(
             'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
           );
-        });
+        })
+        .finally(() => setIsLoading(false));
     }
   }, [loggedIn]);
 
@@ -234,6 +239,8 @@ const App = () => {
               handleRemoveFromSaved={handleRemoveFromSaved}
               isSavedMoviesPage={isSavedMoviesPage}
               setIsSavedMoviesPage={setIsSavedMoviesPage}
+              // isLiked={isLiked}
+              // setIsLiked={setIsLiked}
             />
           }
         />
@@ -258,6 +265,9 @@ const App = () => {
               isSavedMoviesPage={isSavedMoviesPage}
               setIsSavedMoviesPage={setIsSavedMoviesPage}
               filterFilms={filterFilms}
+              // isMovieSaved={isMovieSaved}
+              // isLiked={isLiked}
+              // setIsLiked={setIsLiked}
             />
           }
         />
@@ -273,6 +283,9 @@ const App = () => {
               setLoggedIn={setLoggedIn}
               setIsShowNavigation={setIsShowNavigation}
               onUpdateUser={handleUpdateUser}
+              setSearchedFilm={setSearchedFilm}
+              setIsShortFilm={setSearchedFilm}
+              setFilms={setFilms}
             />
           }
         />

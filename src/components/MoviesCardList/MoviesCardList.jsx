@@ -9,6 +9,8 @@ const MoviesCardList = ({
   handleRemoveFromSaved,
   isSavedMoviesPage,
   setIsSavedMoviesPage,
+  isLiked,
+  setIsLiked
 }) => {
   const [numberOfShowingMovies, setNumberOfShowingMovies] = useState(12);
   const [numberOfUploadingMovies, setNumberOfUploadingMovies] = useState(4);
@@ -63,6 +65,8 @@ const MoviesCardList = ({
                 isMovieSaved={isMovieSaved}
                 isSavedMoviesPage={isSavedMoviesPage}
                 setIsSavedMoviesPage={setIsSavedMoviesPage}
+                isLiked={isLiked}
+                setIsLiked={setIsLiked}
               />
             ))
             .slice(0, numberOfShowingMovies)}
