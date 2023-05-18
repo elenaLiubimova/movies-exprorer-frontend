@@ -26,19 +26,19 @@ const App = () => {
   const [savedMovies, setSavedMovies] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isSavedMoviesPage, setIsSavedMoviesPage] = useState(false);
+  // const [isSavedMoviesPage, setIsSavedMoviesPage] = useState(false);
   // const [isLiked, setIsLiked] = useState(false);
 
-  const getSavedMovies = () => {
-    mainApi
-      .getSavedMovies()
-      .then((movies) => setSavedMovies(movies))
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  };
+  // const getSavedMovies = () => {
+  //   mainApi
+  //     .getSavedMovies()
+  //     .then((movies) => setSavedMovies(movies))
+  //     .catch((error) => console.log(`Ошибка: ${error}`));
+  // };
 
-  useEffect(() => {
-    getSavedMovies();
-  }, []);
+  // useEffect(() => {
+  //   getSavedMovies();
+  // }, []);
 
   const handleBurgerClick = () => {
     setPopupOpen(true);
@@ -52,7 +52,7 @@ const App = () => {
         auth
           .authorize(email, password)
           .then((res) => {
-            localStorage.setItem('jwt', res.token);
+            localStorage.setItem('jwt', res.jwt);
             setLoggedIn(true);
             navigate('/movies', { replace: true });
           })
@@ -88,7 +88,7 @@ const App = () => {
   }
 
   //Функция проверки токена
-  function tokenCheck() {
+  const tokenCheck = () => {
     if (localStorage.getItem('jwt')) {
       const token = localStorage.getItem('jwt');
       if (token) {
@@ -245,8 +245,8 @@ const App = () => {
               setIsShortFilm={setIsShortFilm}
               savedMovies={savedMovies}
               handleRemoveFromSaved={handleRemoveFromSaved}
-              isSavedMoviesPage={isSavedMoviesPage}
-              setIsSavedMoviesPage={setIsSavedMoviesPage}
+              // isSavedMoviesPage={isSavedMoviesPage}
+              // setIsSavedMoviesPage={setIsSavedMoviesPage}
               // isLiked={isLiked}
               // setIsLiked={setIsLiked}
             />
@@ -270,8 +270,8 @@ const App = () => {
               setIsShortFilm={setIsShortFilm}
               savedMovies={savedMovies}
               handleRemoveFromSaved={handleRemoveFromSaved}
-              isSavedMoviesPage={isSavedMoviesPage}
-              setIsSavedMoviesPage={setIsSavedMoviesPage}
+              // isSavedMoviesPage={isSavedMoviesPage}
+              // setIsSavedMoviesPage={setIsSavedMoviesPage}
               filterFilms={filterFilms}
               // isMovieSaved={isMovieSaved}
               // isLiked={isLiked}
@@ -302,7 +302,6 @@ const App = () => {
           element={
             <Register
               handleRegister={handleRegister}
-              handleAuthorize={handleAuthorize}
             />
           }
         />

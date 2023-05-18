@@ -4,7 +4,7 @@ import './Register.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormWithValidation } from '../../hooks/useForm';
 
-const Register = ({ handleRegister, handleAuthorize }) => {
+const Register = ({ handleRegister }) => {
   const { values, isValid, errors, handleChange } = useFormWithValidation({});
 
   const handleSubmit = (evt) => {

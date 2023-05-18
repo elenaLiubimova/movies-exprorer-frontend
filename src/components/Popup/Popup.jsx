@@ -2,7 +2,13 @@ import React from 'react';
 import './Popup.css';
 import NavTab from '../NavTab/NavTab';
 
-const Popup = ({ isPopupOpen, closePopup, isMainPage, isMoviesPage, isSavedMoviesPage }) => {
+const Popup = ({
+  isPopupOpen,
+  closePopup,
+  isMainPage,
+  isMoviesPage,
+  isSavedMoviesPage,
+}) => {
   return (
     <div
       className={isPopupOpen ? `popup popup_opened` : `popup`}

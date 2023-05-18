@@ -28,7 +28,8 @@ const Movies = ({
   handleRemoveFromSaved,
 }) => {
   const [isMoviesPage, setIsMoviesPage] = useState(true);
-  setIsShowNavigation(false);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  // setIsShowNavigation(false);
 
   const searchMovies = () => {
     moviesApi
@@ -37,7 +38,8 @@ const Movies = ({
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
-  const filteredFilms = filterFilms(films);
+  // const filteredMovies = filterFilms(films);
+  console.log(filteredMovies)
 
   return (
     <>
@@ -57,6 +59,9 @@ const Movies = ({
           isShortFilm={isShortFilm}
           setIsShortFilm={setIsShortFilm}
           searchedFilm={searchedFilm}
+          setFilteredMovies={setFilteredMovies}
+          films={films}
+          filterFilms={filterFilms}
         />
         {/* {films ? <MoviesCardList films={films} searchedFilm={searchedFilm} handleAddToSaved={handleAddToSaved} /> : <Preloader />} */}
         {films ? (
@@ -64,7 +69,7 @@ const Movies = ({
             searchedFilm={searchedFilm}
             isShortFilm={isShortFilm}
             handleAddToSaved={handleAddToSaved}
-            films={filteredFilms}
+            films={filteredMovies}
             savedMovies={savedMovies}
             handleRemoveFromSaved={handleRemoveFromSaved}
             // isLiked={isLiked}

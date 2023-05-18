@@ -3,7 +3,7 @@ import search from '../../images/search.svg';
 import { useFormWithValidation } from '../../hooks/useForm';
 import { useEffect } from 'react';
 
-const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, searchSavedMovies }) => {
+const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, filterFilms, savedMovies, setSavedMovies, searchedFilm, searchSavedMovies, setFilteredMovies, films }) => {
   const { values, setValues, errors, handleChange } = useFormWithValidation({});
 
   const onSearch = (evt) => {
@@ -12,8 +12,11 @@ const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, searchSa
       setSearchedFilm(values.search);
       // localStorage.setItem('search', values.search);
       searchMovies();
+      setFilteredMovies(filterFilms(films));
     } else {
       setSearchedFilm(values.search);
+      // const filteredSavedMovies = filterFilms(savedMovies);
+      // setSavedMovies(filteredSavedMovies);
       searchSavedMovies();
     }
   };
