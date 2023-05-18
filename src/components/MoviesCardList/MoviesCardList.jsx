@@ -58,7 +58,7 @@ const MoviesCardList = ({
             .map((film) => (
               <MoviesCard
                 film={film}
-                key={film.id}
+                key={film.id || film._id}
                 handleAddToSaved={handleAddToSaved}
                 savedMovies={savedMovies}
                 handleRemoveFromSaved={handleRemoveFromSaved}

@@ -16,7 +16,7 @@ const Profile = ({
   onUpdateUser,
   setIsShortFilm,
   setSearchedFilm,
-  setFilms
+  setFilms,
 }) => {
   const { values, setValues, errors, handleChange } = useFormWithValidation({});
   setIsShowNavigation(false);
@@ -40,7 +40,6 @@ const Profile = ({
     setLoggedIn(false);
     setFilms([]);
     navigate('/', { replace: true });
-    console.log(loggedIn)
   };
 
   useEffect(() => {
@@ -94,7 +93,11 @@ const Profile = ({
           <span className="profile-form__item-error profile-form__item-error_last email-input-error">
             {errors.email}
           </span>
-          <button className="profile-form__button" type="submit">
+          <button
+            className="profile-form__button"
+            type="submit"
+            disabled={currentUser.name === values.name && currentUser.email === values.email}
+          >
             Редактировать
           </button>
           <button

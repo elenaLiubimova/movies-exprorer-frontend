@@ -1,10 +1,10 @@
 import React from 'react';
 import './BurgerButton.css';
 
-const BurgerButton = ({ openPopup }) => {
+const BurgerButton = ({ openPopup, isMainPage }) => {
   return (
     <button
-      className="burger-button"
+      className={isMainPage ? `burger-button burger-button_main` : `burger-button`}
       type="button"
       aria-label="Кнопка меню"
       onClick={openPopup}

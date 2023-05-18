@@ -6,7 +6,6 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Popup from '../Popup/Popup';
 import { mainApi } from '../../utils/MainApi';
-import MoviesCard from '../MoviesCard/MoviesCard';
 
 const SavedMovies = ({
   openPopup,
@@ -24,13 +23,19 @@ const SavedMovies = ({
   isShortFilm,
   setSearchedFilm,
   setIsShortFilm,
-  isMovieSaved
-  // isLiked,
-  // setIsLiked
 }) => {
   setLoggedIn(true);
   setIsShowNavigation(false);
   setIsSavedMoviesPage(true);
+
+  const searchSavedMovies = () => {
+    mainApi
+      .getSavedMovies()
+      .then((savedMovies) => setSavedMovies(savedMovies))
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  };
+
+  const filteredSavedMovies = filterFilms(savedMovies);
 
   return (
     <>
@@ -42,23 +47,18 @@ const SavedMovies = ({
       />
       <main className="movies">
         <Search
-          filterFilms={filterFilms}
           isSavedMoviesPage={isSavedMoviesPage}
-          savedMovies={savedMovies}
-          setSavedMovies={setSavedMovies}
           isShortFilm={isShortFilm}
           setSearchedFilm={setSearchedFilm}
           setIsShortFilm={setIsShortFilm}
+          searchSavedMovies={searchSavedMovies}
         />
         {savedMovies && (
           <MoviesCardList
-            films={savedMovies}
+            films={filteredSavedMovies}
             handleRemoveFromSaved={handleRemoveFromSaved}
             isSavedMoviesPage={isSavedMoviesPage}
             setIsSavedMoviesPage={setIsSavedMoviesPage}
-            // isMovieSaved={isMovieSaved}
-            // isLiked={isLiked}
-            // setIsLiked={setIsLiked}
           />
         )}
       </main>

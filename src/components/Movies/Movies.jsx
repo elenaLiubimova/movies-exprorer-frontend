@@ -38,7 +38,7 @@ const Movies = ({
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
   
-  const filteredFilms = films && filterFilms(films);
+  const filteredFilms = filterFilms(films);
 
   return (
     <>

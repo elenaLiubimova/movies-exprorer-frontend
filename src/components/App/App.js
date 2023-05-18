@@ -20,7 +20,7 @@ const App = () => {
   const [films, setFilms] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const [isShowNavigation, setIsShowNavigation] = useState(true);
+  const [isShowNavigation, setIsShowNavigation] = useState(false);
   const [searchedFilm, setSearchedFilm] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [savedMovies, setSavedMovies] = useState(null);
@@ -106,7 +106,8 @@ const App = () => {
   const toggleShortFilm = (films) => {
     if (isShortFilm) {
       return films.filter((film) => film.duration <= 40);
-    } else return films;
+    } else {
+      return films};
   };
 
   const filterFilms = (films) => {
@@ -211,6 +212,9 @@ const App = () => {
               setIsShowNavigation={setIsShowNavigation}
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
+              isPopupOpen={isPopupOpen}
+              openPopup={handleBurgerClick}
+              closePopup={closePopup}
             />
           }
         />

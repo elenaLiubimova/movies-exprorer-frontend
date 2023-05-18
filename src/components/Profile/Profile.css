@@ -154,6 +154,14 @@
   transition: ease-out 0.2s;
 }
 
+.profile-form__button:disabled {
+  opacity: .3;
+}
+
+.profile-form__button:disabled:hover {
+  opacity: .3;
+}
+
 .profile-form__button_escape {
   color: #FF4062;
 }

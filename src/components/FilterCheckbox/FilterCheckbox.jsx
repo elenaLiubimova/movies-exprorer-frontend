@@ -6,8 +6,7 @@ const FilterCheckbox = ({ isShortFilm,
 
   const onCheck = () => {
     setIsShortFilm(!isShortFilm);
-    console.log(isShortFilm)
-    localStorage.setItem('filter', isShortFilm);
+    // localStorage.setItem('filter', isShortFilm);
   };
 
   return (

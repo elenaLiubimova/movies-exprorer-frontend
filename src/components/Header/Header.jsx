@@ -13,10 +13,10 @@ const Header = ({
   setloggedIn,
   closePopup,
   isShowNavigation,
-  isMainPage
+  isMainPage,
 }) => {
   return (
-    <header className={isMainPage ? 'header header_main' :  'header'}>
+    <header className={isMainPage ? 'header header_main' : 'header'}>
       <Link to="/">
         <img className="logo" src={logo} alt="Лого сервиса Movies Explorer" />
       </Link>
@@ -37,7 +37,10 @@ const Header = ({
         />
       </div>
       {loggedIn && (
-        <BurgerButton openPopup={openPopup} isPopupOpen={isPopupOpen} />
+        <BurgerButton
+          openPopup={openPopup}
+          isMainPage={isMainPage}
+        />
       )}
     </header>
   );

@@ -3,25 +3,20 @@ import search from '../../images/search.svg';
 import { useFormWithValidation } from '../../hooks/useForm';
 import { useEffect } from 'react';
 
-const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, filterFilms, savedMovies, setSavedMovies, searchedFilm }) => {
+const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, searchSavedMovies }) => {
   const { values, setValues, errors, handleChange } = useFormWithValidation({});
 
   const onSearch = (evt) => {
     evt.preventDefault();
     if (!isSavedMoviesPage) {
       setSearchedFilm(values.search);
-      localStorage.setItem('search', values.search);
+      // localStorage.setItem('search', values.search);
       searchMovies();
     } else {
       setSearchedFilm(values.search);
-      const filteredSavedMovies = filterFilms(savedMovies);
-      setSavedMovies(filteredSavedMovies);
+      searchSavedMovies();
     }
   };
-
-  // useEffect(() => {
-  //   setValues(searchedFilm);
-  // }, []);
 
   return (
     <form className="input" onSubmit={onSearch} noValidate>

@@ -34,6 +34,7 @@ const NavTab = ({ popup, loggedIn, closePopup }) => {
                 ? `nav-tab__authorized-link`
                 : `nav-tab__authorized-link nav-tab__authorized-link-width-768`
             }
+            onClick={closePopup}
           >
             Главная
           </Link>
