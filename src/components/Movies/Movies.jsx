@@ -26,9 +26,8 @@ const Movies = ({
   setIsShortFilm,
   savedMovies,
   handleRemoveFromSaved,
-  // isLiked,
-  // setIsLiked
 }) => {
+  const [isMoviesPage, setIsMoviesPage] = useState(true);
   setIsShowNavigation(false);
 
   const searchMovies = () => {
@@ -37,7 +36,7 @@ const Movies = ({
       .then((films) => setFilms(films))
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
-  
+
   const filteredFilms = filterFilms(films);
 
   return (
@@ -71,10 +70,16 @@ const Movies = ({
             // isLiked={isLiked}
             // setIsLiked={setIsLiked}
           />
-        ) : <Preloader />}
+        ) : (
+          <Preloader />
+        )}
       </main>
       <Footer />
-      <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />
+      <Popup
+        isPopupOpen={isPopupOpen}
+        closePopup={closePopup}
+        isMoviesPage={setIsMoviesPage}
+      />
     </>
   );
 };

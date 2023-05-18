@@ -2,7 +2,7 @@ import React from 'react';
 import './Popup.css';
 import NavTab from '../NavTab/NavTab';
 
-const Popup = ({ isPopupOpen, closePopup }) => {
+const Popup = ({ isPopupOpen, closePopup, isMainPage, isMoviesPage, isSavedMoviesPage }) => {
   return (
     <div
       className={isPopupOpen ? `popup popup_opened` : `popup`}
@@ -12,7 +12,14 @@ const Popup = ({ isPopupOpen, closePopup }) => {
         className={`popup__container`}
         onClick={(evt) => evt.stopPropagation()}
       >
-        <NavTab popup={true} loggedIn={true} closePopup={closePopup} />
+        <NavTab
+          popup={true}
+          loggedIn={true}
+          isMainPage={isMainPage}
+          isMoviesPage={isMoviesPage}
+          isSavedMoviesPage={isSavedMoviesPage}
+          closePopup={closePopup}
+        />
         <button
           className="popup__close-button"
           type="button"

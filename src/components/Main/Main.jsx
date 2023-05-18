@@ -39,7 +39,11 @@ const Main = ({
         <Portfolio />
       </main>
       <Footer />
-      <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />
+      <Popup
+        isPopupOpen={isPopupOpen}
+        closePopup={closePopup}
+        isMainPage={isMainPage}
+      />
     </>
   );
 };

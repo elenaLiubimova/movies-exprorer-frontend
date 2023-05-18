@@ -24,6 +24,7 @@ const SavedMovies = ({
   setSearchedFilm,
   setIsShortFilm,
 }) => {
+  // const [isSavedMoviesPage, setIsSavedMoviesPage] = useState(true);
   setLoggedIn(true);
   setIsShowNavigation(false);
   setIsSavedMoviesPage(true);
@@ -63,7 +64,11 @@ const SavedMovies = ({
         )}
       </main>
       <Footer />
-      <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} />
+      <Popup
+        isPopupOpen={isPopupOpen}
+        closePopup={closePopup}
+        isSavedMoviesPage={isSavedMoviesPage}
+      />
     </>
   );
 };
