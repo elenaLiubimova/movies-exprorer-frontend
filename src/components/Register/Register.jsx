@@ -6,7 +6,6 @@ import { useFormWithValidation } from '../../hooks/useForm';
 
 const Register = ({ handleRegister, handleAuthorize }) => {
   const { values, isValid, errors, handleChange } = useFormWithValidation({});
-  const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -15,8 +14,6 @@ const Register = ({ handleRegister, handleAuthorize }) => {
       return;
     }
     handleRegister(values.name, values.email, values.password);
-    // handleAuthorize(values.email, values.password);
-    // navigate('/movies', {replace: true});
   };
 
   return (

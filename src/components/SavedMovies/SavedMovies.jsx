@@ -54,7 +54,7 @@ const SavedMovies = ({
           setIsShortFilm={setIsShortFilm}
           searchSavedMovies={searchSavedMovies}
         />
-        {savedMovies && (
+        {filteredSavedMovies && (
           <MoviesCardList
             films={filteredSavedMovies}
             handleRemoveFromSaved={handleRemoveFromSaved}

@@ -45,27 +45,24 @@ const App = () => {
   };
 
   // Функция регистрации
-  function handleRegister(name, email, password) {
+  const handleRegister = (name, email, password) => {
     auth
       .register(name, email, password)
       .then((res) => {
-        console.log(res);
         auth
-          .authorize(res.name, res.email)
-          .then((data) => {
-            if (data.jwt) {
-              localStorage.setItem('jwt', data.jwt);
-              setLoggedIn(true);
-              navigate('/movies', { replace: true });
-            }
+          .authorize(email, password)
+          .then((res) => {
+            localStorage.setItem('jwt', res.token);
+            setLoggedIn(true);
+            navigate('/movies', { replace: true });
           })
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
-  }
+  };
 
   // Функция авторизации
-  function handleAuthorize(email, password) {
+  const handleAuthorize = (email, password) => {
     return auth
       .authorize(email, password)
       .then((data) => {
@@ -76,7 +73,7 @@ const App = () => {
         }
       })
       .catch((err) => console.log(err));
-  }
+  };
 
   // Функция обновления данных профиля
   function handleUpdateUser({ name, email }) {
