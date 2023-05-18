@@ -49,9 +49,17 @@ const App = () => {
     auth
       .register(name, email, password)
       .then((res) => {
-        auth.authorize(name, email)
-        navigate('/movies', { replace: true });
-        return res;
+        console.log(res);
+        auth
+          .authorize(res.name, res.email)
+          .then((data) => {
+            if (data.jwt) {
+              localStorage.setItem('jwt', data.jwt);
+              setLoggedIn(true);
+              navigate('/movies', { replace: true });
+            }
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   }
@@ -64,7 +72,7 @@ const App = () => {
         if (data.jwt) {
           localStorage.setItem('jwt', data.jwt);
           setLoggedIn(true);
-          navigate('/', { replace: true });
+          navigate('/movies', { replace: true });
         }
       })
       .catch((err) => console.log(err));
@@ -107,14 +115,15 @@ const App = () => {
     if (isShortFilm) {
       return films.filter((film) => film.duration <= 40);
     } else {
-      return films};
+      return films;
+    }
   };
 
   const filterFilms = (films) => {
     const filteredFilms = toggleShortFilm(films).filter((film) =>
-      film.nameRU.toLowerCase().includes(searchedFilm.toLowerCase()) 
+      film.nameRU.toLowerCase().includes(searchedFilm.toLowerCase())
     );
-    
+
     return filteredFilms;
   };
 
@@ -156,7 +165,6 @@ const App = () => {
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
-  
   // useEffect(() => {
   //   const isShortFilmState = localStorage.getItem('filter');
   //   setIsShortFilm(isShortFilmState);
@@ -294,7 +302,12 @@ const App = () => {
         />
         <Route
           path="/signup"
-          element={<Register handleRegister={handleRegister} handleAuthorize={handleAuthorize} />}
+          element={
+            <Register
+              handleRegister={handleRegister}
+              handleAuthorize={handleAuthorize}
+            />
+          }
         />
         <Route
           path="/signin"
