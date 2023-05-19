@@ -34,7 +34,6 @@ const Login = ({ handleAuthorize }) => {
             onChange={handleChange}
             required
           />
-          <span className="login-form__item-error email-input-error">{errors.email || ''}</span>
         </label>
         <label className="login-form__field">
           Пароль
@@ -47,7 +46,7 @@ const Login = ({ handleAuthorize }) => {
             onChange={handleChange}
             required
           />
-          <span className="login-form__item-error password-input-error">{errors.password || ''}</span>
+          <span className="login-form__item-error password-input-error">{(errors.email || errors.password) && 'Что-то пошло не так...' || ''}</span>
         </label>
         <button
           className="login-form__button"

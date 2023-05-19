@@ -5,7 +5,6 @@ import { searchMovies } from '../../utils/utils';
 import { useEffect } from 'react';
 
 const SearchForm = ({
-  getMovies,
   setEnteredToInputMovie,
   isSavedMoviesPage,
   setSavedMovies,
@@ -23,7 +22,6 @@ const SearchForm = ({
       localStorage.setItem(
         'enteredToInputMovie', values.search
       );
-      getMovies();
       const currentSearchedMovies = searchMovies(films, values.search);
       setSearchedMovies(currentSearchedMovies);
       localStorage.setItem(

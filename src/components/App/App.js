@@ -205,6 +205,8 @@ const App = () => {
               setIsShortFilm={setIsShortFilm}
               savedMovies={savedMovies}
               handleRemoveFromSaved={handleRemoveFromSaved}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
             />
           }
         />
@@ -223,6 +225,8 @@ const App = () => {
               setIsShortFilm={setIsShortFilm}
               savedMovies={savedMovies}
               handleRemoveFromSaved={handleRemoveFromSaved}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
             />
           }
         />
@@ -239,6 +243,8 @@ const App = () => {
               setIsShowNavigation={setIsShowNavigation}
               onUpdateUser={handleUpdateUser}
               setFilms={setFilms}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
             />
           }
         />

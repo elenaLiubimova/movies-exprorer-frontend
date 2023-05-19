@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import logo from '../../images/logo.svg';
 import './Register.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useFormWithValidation } from '../../hooks/useForm';
 
 const Register = ({ handleRegister }) => {
@@ -35,7 +35,6 @@ const Register = ({ handleRegister }) => {
             maxLength="30"
             required
           />
-          <span className="register-form__item-error name-input-error">{errors.name}</span>
         </label>
         <label className="register-form__field">
           E-mail
@@ -48,7 +47,6 @@ const Register = ({ handleRegister }) => {
             onChange={handleChange}
             required
           />
-          <span className="register-form__item-error email-input-error">{errors.email}</span>
         </label>
         <label className="register-form__field">
           Пароль
@@ -61,7 +59,12 @@ const Register = ({ handleRegister }) => {
             onChange={handleChange}
             required
           />
-          <span className="register-form__item-error email-input-error">{errors.password}</span>
+          <span className="register-form__item-error email-input-error">
+            {(errors.name ||
+              errors.email ||
+              errors.password) && 'Что-то пошло не так...' ||
+              ''}
+          </span>
         </label>
         <button
           className="register-form__button"

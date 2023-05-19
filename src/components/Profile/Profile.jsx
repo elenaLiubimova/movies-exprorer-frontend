@@ -14,9 +14,6 @@ const Profile = ({
   setLoggedIn,
   setIsShowNavigation,
   onUpdateUser,
-  setIsShortFilm,
-  setSearchedFilm,
-  setFilms,
 }) => {
   const { values, setValues, errors, handleChange } = useFormWithValidation({});
   const navigate = useNavigate();
@@ -32,12 +29,10 @@ const Profile = ({
 
   const signOut = () => {
     localStorage.removeItem('jwt');
-    // localStorage.removeItem('filter');
-    // localStorage.removeItem('search');
-    setIsShortFilm(false);
-    setSearchedFilm('');
+    localStorage.removeItem('filter');
+    localStorage.removeItem('searchedMovies');
+    localStorage.removeItem('enteredToInputMovie');
     setLoggedIn(false);
-    setFilms([]);
     navigate('/', { replace: true });
   };
 

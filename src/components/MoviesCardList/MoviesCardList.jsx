@@ -10,7 +10,7 @@ const MoviesCardList = ({
   isSavedMoviesPage,
   setIsSavedMoviesPage,
   isLiked,
-  setIsLiked
+  setIsLiked,
 }) => {
   const [numberOfShowingMovies, setNumberOfShowingMovies] = useState(12);
   const [numberOfUploadingMovies, setNumberOfUploadingMovies] = useState(4);
@@ -48,7 +48,7 @@ const MoviesCardList = ({
 
   const isMovieSaved = (movie) => {
     return savedMovies?.some((savedMovie) => savedMovie.movieId === movie.id);
-  }
+  };
 
   return (
     <section className="movies-container">
@@ -71,14 +71,18 @@ const MoviesCardList = ({
             ))
             .slice(0, numberOfShowingMovies)}
       </ul>
-      {films && (films.length > numberOfShowingMovies) && ((films.length - numberOfShowingMovies) != 0) && <button
-        className="movies-container__more-button"
-        type="button"
-        aria-label="Кнопка 'Еще'"
-        onClick={onUploadMovies}
-      >
-        <span className="movies-container__more-button-text">Ещё</span>
-      </button>}
+      {films &&
+        films.length > numberOfShowingMovies &&
+        films.length - numberOfShowingMovies != 0 && (
+          <button
+            className="movies-container__more-button"
+            type="button"
+            aria-label="Кнопка 'Еще'"
+            onClick={onUploadMovies}
+          >
+            <span className="movies-container__more-button-text">Ещё</span>
+          </button>
+        )}
     </section>
   );
 };

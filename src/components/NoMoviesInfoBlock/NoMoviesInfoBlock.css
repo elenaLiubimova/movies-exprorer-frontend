@@ -1,0 +1,13 @@
+.no-movies-info-block {
+  height: calc(100vh - 529px);
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-movies-info-block__message {
+  font-size: 28px;
+  font-weight: 400;
+  color: #A0A0A0;
+}
