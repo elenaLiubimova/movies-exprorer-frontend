@@ -12,3 +12,19 @@ export const timeConverter = (time) => {
     return convertedTime;
   }
 }
+
+export const searchMovies = (movies, searchedMovie) => {
+  const searchedMovies = movies.filter((movie) =>
+  movie.nameRU.toLowerCase().includes(searchedMovie.toLowerCase())
+  );
+
+  return searchedMovies;
+};
+
+export const toggleShortMovie = (movies, isShortMovie) => {
+  if (isShortMovie) {
+    return movies.filter((movie) => movie.duration <= 40);
+  } else {
+    return movies;
+  }
+};

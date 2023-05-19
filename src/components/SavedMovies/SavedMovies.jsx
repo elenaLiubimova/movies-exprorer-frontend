@@ -6,6 +6,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Popup from '../Popup/Popup';
 import { mainApi } from '../../utils/MainApi';
+import { toggleShortMovie } from '../../utils/utils';
 
 const SavedMovies = ({
   openPopup,
@@ -13,30 +14,31 @@ const SavedMovies = ({
   closePopup,
   loggedIn,
   setLoggedIn,
-  setIsShowNavigation,
   setSavedMovies,
   savedMovies,
   handleRemoveFromSaved,
-  // isSavedMoviesPage,
-  // setIsSavedMoviesPage,
   filterFilms,
   isShortFilm,
   setSearchedFilm,
   setIsShortFilm,
 }) => {
   const [isSavedMoviesPage, setIsSavedMoviesPage] = useState(true);
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
   // setLoggedIn(true);
   // setIsShowNavigation(false);
   // setIsSavedMoviesPage(true);
 
-  const searchSavedMovies = () => {
+  const getSavedMovies = () => {
     mainApi
       .getSavedMovies()
       .then((savedMovies) => setSavedMovies(savedMovies))
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
-  const filteredSavedMovies = filterFilms(savedMovies);
+  useEffect(() => {
+    const toggledSavedMovies = toggleShortMovie(savedMovies, isShortFilm);
+    setFilteredSavedMovies(toggledSavedMovies);
+  }, [savedMovies, isShortFilm]);
 
   return (
     <>
@@ -52,7 +54,7 @@ const SavedMovies = ({
           isShortFilm={isShortFilm}
           setSearchedFilm={setSearchedFilm}
           setIsShortFilm={setIsShortFilm}
-          searchSavedMovies={searchSavedMovies}
+          getSavedMovies={getSavedMovies}
         />
         {filteredSavedMovies && (
           <MoviesCardList

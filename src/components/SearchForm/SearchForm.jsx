@@ -1,23 +1,35 @@
 import './SearchForm.css';
 import search from '../../images/search.svg';
 import { useFormWithValidation } from '../../hooks/useForm';
-import { useEffect } from 'react';
+import { searchMovies } from '../../utils/utils';
 
-const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, filterFilms, savedMovies, setSavedMovies, searchedFilm, searchSavedMovies, setFilteredMovies, films }) => {
-  const { values, setValues, errors, handleChange } = useFormWithValidation({});
+const SearchForm = ({
+  getMovies,
+  setEnteredToInputMovie,
+  isSavedMoviesPage,
+  setSavedMovies,
+  getSavedMovies,
+  setSearchedMovies,
+  films,
+}) => {
+  const { values, errors, handleChange } = useFormWithValidation({});
 
   const onSearch = (evt) => {
     evt.preventDefault();
     if (!isSavedMoviesPage) {
-      setSearchedFilm(values.search);
-      // localStorage.setItem('search', values.search);
-      searchMovies();
-      setFilteredMovies(filterFilms(films));
+      setEnteredToInputMovie(values.search);
+      getMovies();
+      const currentSearchedMovies = searchMovies(films, values.search);
+      setSearchedMovies(currentSearchedMovies);
+      localStorage.setItem(
+        'searchedMovies',
+        JSON.stringify(currentSearchedMovies)
+      );
     } else {
-      setSearchedFilm(values.search);
-      // const filteredSavedMovies = filterFilms(savedMovies);
-      // setSavedMovies(filteredSavedMovies);
-      searchSavedMovies();
+      setEnteredToInputMovie(values.search);
+      getSavedMovies();
+      const currentSearchedMovies = searchMovies(films, values.search);
+      setSavedMovies(currentSearchedMovies);
     }
   };
 
@@ -34,12 +46,14 @@ const SearchForm = ({ searchMovies, setSearchedFilm, isSavedMoviesPage, filterFi
         minLength="1"
         required
       />
-      {errors.search && <span className="input__error">Нужно ввести ключевое слово</span>}
+      {errors.search && (
+        <span className="input__error">Нужно ввести ключевое слово</span>
+      )}
       <button
         className="input__search-button"
         type="submit"
         aria-label="Кнопка поиска"
-        disabled={(values.search) ? false : true}
+        disabled={values.search ? false : true}
       >
         Найти
       </button>

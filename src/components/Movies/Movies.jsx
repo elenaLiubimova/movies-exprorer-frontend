@@ -7,6 +7,7 @@ import Footer from '../Footer/Footer';
 import Popup from '../Popup/Popup';
 import Preloader from '../Preloader/Preloader';
 import { moviesApi } from '../../utils/MoviesApi';
+import { toggleShortMovie } from '../../utils/utils';
 
 const Movies = ({
   films,
@@ -19,27 +20,32 @@ const Movies = ({
   isShowNavigation,
   setIsShowNavigation,
   handleAddToSaved,
-  filterFilms,
-  searchedFilm,
-  setSearchedFilm,
   isShortFilm,
   setIsShortFilm,
   savedMovies,
   handleRemoveFromSaved,
 }) => {
   const [isMoviesPage, setIsMoviesPage] = useState(true);
+  const [searchedMovies, setSearchedMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  // setIsShowNavigation(false);
+  const [enteredToInputMovie, setEnteredToInputMovie] = useState('');
 
-  const searchMovies = () => {
+  const getMovies = () => {
     moviesApi
       .getFilms()
       .then((films) => setFilms(films))
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
-  // const filteredMovies = filterFilms(films);
-  console.log(filteredMovies)
+  useEffect(() => {
+    const searchedMoviesSavedInLocalStorage = JSON.parse(localStorage.getItem('searchedMovies'));
+    setSearchedMovies(searchedMoviesSavedInLocalStorage);
+  }, []);
+  
+  useEffect(() => {
+    const toggledSearchedMovies = toggleShortMovie(searchedMovies, isShortFilm);
+    setFilteredMovies(toggledSearchedMovies);
+  }, [searchedMovies, isShortFilm]);
 
   return (
     <>
@@ -54,26 +60,21 @@ const Movies = ({
       />
       <main className="movies">
         <Search
-          searchMovies={searchMovies}
-          setSearchedFilm={setSearchedFilm}
+          getMovies={getMovies}
+          enteredToInputMovie={enteredToInputMovie}
+          setEnteredToInputMovie={setEnteredToInputMovie}
           isShortFilm={isShortFilm}
           setIsShortFilm={setIsShortFilm}
-          searchedFilm={searchedFilm}
-          setFilteredMovies={setFilteredMovies}
+          searchedMovies={searchedMovies}
+          setSearchedMovies={setSearchedMovies}
           films={films}
-          filterFilms={filterFilms}
         />
-        {/* {films ? <MoviesCardList films={films} searchedFilm={searchedFilm} handleAddToSaved={handleAddToSaved} /> : <Preloader />} */}
         {films ? (
           <MoviesCardList
-            searchedFilm={searchedFilm}
-            isShortFilm={isShortFilm}
             handleAddToSaved={handleAddToSaved}
             films={filteredMovies}
             savedMovies={savedMovies}
             handleRemoveFromSaved={handleRemoveFromSaved}
-            // isLiked={isLiked}
-            // setIsLiked={setIsLiked}
           />
         ) : (
           <Preloader />
