@@ -2,6 +2,7 @@ import './SearchForm.css';
 import search from '../../images/search.svg';
 import { useFormWithValidation } from '../../hooks/useForm';
 import { searchMovies } from '../../utils/utils';
+import { useEffect } from 'react';
 
 const SearchForm = ({
   getMovies,
@@ -11,13 +12,17 @@ const SearchForm = ({
   getSavedMovies,
   setSearchedMovies,
   films,
+  isMoviesPage
 }) => {
-  const { values, errors, handleChange } = useFormWithValidation({});
+  const { values, setValues, errors, handleChange } = useFormWithValidation({});
 
   const onSearch = (evt) => {
     evt.preventDefault();
     if (!isSavedMoviesPage) {
       setEnteredToInputMovie(values.search);
+      localStorage.setItem(
+        'enteredToInputMovie', values.search
+      );
       getMovies();
       const currentSearchedMovies = searchMovies(films, values.search);
       setSearchedMovies(currentSearchedMovies);
@@ -32,6 +37,11 @@ const SearchForm = ({
       setSavedMovies(currentSearchedMovies);
     }
   };
+
+  useEffect(() => {
+    const searchValueSavedInLocalStorage = localStorage.getItem('enteredToInputMovie');
+    isMoviesPage && setValues({search: searchValueSavedInLocalStorage});
+  }, []);
 
   return (
     <form className="input" onSubmit={onSearch} noValidate>

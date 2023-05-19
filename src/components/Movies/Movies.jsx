@@ -40,6 +40,9 @@ const Movies = ({
   useEffect(() => {
     const searchedMoviesSavedInLocalStorage = JSON.parse(localStorage.getItem('searchedMovies'));
     setSearchedMovies(searchedMoviesSavedInLocalStorage);
+
+    const filterStateSavedInLocalStorage = localStorage.getItem('filter');
+    setIsShortFilm(filterStateSavedInLocalStorage);
   }, []);
   
   useEffect(() => {
@@ -68,6 +71,7 @@ const Movies = ({
           searchedMovies={searchedMovies}
           setSearchedMovies={setSearchedMovies}
           films={films}
+          isMoviesPage={isMoviesPage}
         />
         {films ? (
           <MoviesCardList

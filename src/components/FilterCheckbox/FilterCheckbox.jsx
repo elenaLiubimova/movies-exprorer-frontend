@@ -1,12 +1,10 @@
 import React from 'react';
 import './FilterCheckbox.css';
 
-const FilterCheckbox = ({ isShortFilm,
-  setIsShortFilm }) => {
-
+const FilterCheckbox = ({ isShortFilm, setIsShortFilm, isMoviesPage }) => {
   const onCheck = () => {
     setIsShortFilm(!isShortFilm);
-    // localStorage.setItem('filter', isShortFilm);
+    isMoviesPage && localStorage.setItem('filter', !isShortFilm);
   };
 
   return (

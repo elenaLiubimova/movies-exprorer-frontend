@@ -218,7 +218,6 @@ const App = () => {
               closePopup={closePopup}
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
-              setIsShowNavigation={setIsShowNavigation}
               setSavedMovies={setSavedMovies}
               isShortFilm={isShortFilm}
               setIsShortFilm={setIsShortFilm}

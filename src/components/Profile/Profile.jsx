@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Popup from '../Popup/Popup';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../hooks/useForm';
@@ -19,7 +19,6 @@ const Profile = ({
   setFilms,
 }) => {
   const { values, setValues, errors, handleChange } = useFormWithValidation({});
-  setIsShowNavigation(false);
   const navigate = useNavigate();
   const currentUser = useContext(CurrentUserContext);
 
@@ -41,6 +40,10 @@ const Profile = ({
     setFilms([]);
     navigate('/', { replace: true });
   };
+
+  useEffect(() => {
+    setIsShowNavigation(false);
+  }, []);
 
   useEffect(() => {
     setValues({
@@ -96,7 +99,10 @@ const Profile = ({
           <button
             className="profile-form__button"
             type="submit"
-            disabled={currentUser.name === values.name && currentUser.email === values.email}
+            disabled={
+              currentUser.name === values.name &&
+              currentUser.email === values.email
+            }
           >
             Редактировать
           </button>

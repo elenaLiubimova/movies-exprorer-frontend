@@ -7,15 +7,15 @@ export const timeConverter = (time) => {
     return `${time}мин`;
   } else {
     hours = Math.trunc(time / 60);
-    minutes = time - (hours * 60);
-    convertedTime = `${hours}ч${minutes}мин`
+    minutes = time - hours * 60;
+    convertedTime = `${hours}ч${minutes}мин`;
     return convertedTime;
   }
-}
+};
 
 export const searchMovies = (movies, searchedMovie) => {
   const searchedMovies = movies.filter((movie) =>
-  movie.nameRU.toLowerCase().includes(searchedMovie.toLowerCase())
+    movie.nameRU.toLowerCase().includes(searchedMovie.toLowerCase())
   );
 
   return searchedMovies;

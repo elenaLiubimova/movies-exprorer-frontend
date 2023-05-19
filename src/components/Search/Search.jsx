@@ -14,7 +14,7 @@ const Search = ({
   searchedMovies,
   setSearchedMovies,
   films,
-  // searchMovies,
+  isMoviesPage,
 }) => {
   return (
     <section className="search">
@@ -28,9 +28,13 @@ const Search = ({
         setSearchedMovies={setSearchedMovies}
         // searchMovies={searchMovies}
         films={films}
+        isMoviesPage={isMoviesPage}
       />
-      <FilterCheckbox isShortFilm={isShortFilm}
-          setIsShortFilm={setIsShortFilm} />
+      <FilterCheckbox
+        isShortFilm={isShortFilm}
+        setIsShortFilm={setIsShortFilm}
+        isMoviesPage={isMoviesPage}
+      />
     </section>
   );
 };

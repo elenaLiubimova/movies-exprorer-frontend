@@ -17,16 +17,12 @@ const SavedMovies = ({
   setSavedMovies,
   savedMovies,
   handleRemoveFromSaved,
-  filterFilms,
   isShortFilm,
   setSearchedFilm,
   setIsShortFilm,
 }) => {
   const [isSavedMoviesPage, setIsSavedMoviesPage] = useState(true);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
-  // setLoggedIn(true);
-  // setIsShowNavigation(false);
-  // setIsSavedMoviesPage(true);
 
   const getSavedMovies = () => {
     mainApi
