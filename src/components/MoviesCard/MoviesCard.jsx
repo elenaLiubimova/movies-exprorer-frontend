@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './MoviesCard.css';
-import { filmApiUrl } from '../../utils/constants';
+import { FILM_API_URL } from '../../utils/constants';
 import { timeConverter } from '../../utils/utils';
 
 const MoviesCard = ({
   film,
   handleAddToSaved,
-  trailerLink,
-  imageUrl,
   savedMovies,
   handleRemoveFromSaved,
   isMovieSaved,
   isSavedMoviesPage,
-  setIsSavedMoviesPage,
-  // isLiked,
-  // setIsLiked
 }) => {
   const [isLiked, setIsLiked] = useState(false);
 
@@ -22,7 +17,6 @@ const MoviesCard = ({
     if (isMovieSaved(film)) {
       setIsLiked(true);
     }
-    // isSavedMoviesPage && setIsLiked(true);
   }, []);
 
   const onLike = () => {
@@ -36,7 +30,6 @@ const MoviesCard = ({
       !notRepeatMovie && handleAddToSaved(film);
       setIsLiked(true);
     }
-    // setIsLiked(!isLiked);
   };
 
   const onDelete = () => {
@@ -52,7 +45,7 @@ const MoviesCard = ({
       >
         <img
           className="card__image"
-          src={isSavedMoviesPage ? film.image : filmApiUrl + film.image.url}
+          src={isSavedMoviesPage ? film.image : FILM_API_URL + film.image.url}
           alt="Обложка фильма"
         />
       </a>

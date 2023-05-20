@@ -1,4 +1,5 @@
-export const filmApiUrl = 'https://api.nomoreparties.co/';
-export const token = localStorage.getItem('jwt');
-export const initialMoviesMessage = 'Введите запрос';
-export const notFoundMovies = 'Ничего не найдено';
+export const FILM_API_URL = 'https://api.nomoreparties.co/';
+export const TOKEN = localStorage.getItem('jwt');
+export const NOT_FOUND_MOVIES = 'Ничего не найдено';
+export const API_ERROR = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
+export const MAIN_API_ERROR = 'Проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';

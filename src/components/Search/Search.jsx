@@ -9,11 +9,15 @@ const Search = ({
   isShortFilm,
   setIsShortFilm,
   isSavedMoviesPage,
-  getSavedMovies,
   searchedMovies,
   setSearchedMovies,
   films,
   isMoviesPage,
+  isSearch,
+  setIsSearch,
+  savedMovies,
+  setSavedMovies,
+  getMoviesList
 }) => {
   return (
     <section className="search">
@@ -21,11 +25,15 @@ const Search = ({
         setEnteredToInputMovie={setEnteredToInputMovie}
         enteredToInputMovie={enteredToInputMovie}
         isSavedMoviesPage={isSavedMoviesPage}
-        getSavedMovies={getSavedMovies}
         searchedMovies={searchedMovies}
         setSearchedMovies={setSearchedMovies}
         films={films}
         isMoviesPage={isMoviesPage}
+        isSearch={isSearch}
+        setIsSearch={setIsSearch}
+        savedMovies={savedMovies}
+        setSavedMovies={setSavedMovies}
+        getMoviesList={getMoviesList}
       />
       <FilterCheckbox
         isShortFilm={isShortFilm}

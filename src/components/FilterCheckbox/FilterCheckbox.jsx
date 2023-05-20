@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './FilterCheckbox.css';
 
 const FilterCheckbox = ({ isShortFilm, setIsShortFilm, isMoviesPage }) => {
   const onCheck = () => {
     setIsShortFilm(!isShortFilm);
-    isMoviesPage && localStorage.setItem('filter', !isShortFilm);
+    if (isMoviesPage) {
+      localStorage.setItem('filter', !isShortFilm);
+    }
+    console.log(localStorage);
   };
+
+  useEffect(() => {
+    if (isMoviesPage) {
+      if (localStorage.getItem('filter') === 'true') {
+        setIsShortFilm(true);
+      } else {
+        setIsShortFilm(false);
+      }
+    }
+  }, [isMoviesPage]);
 
   return (
     <div className="checkbox-container">

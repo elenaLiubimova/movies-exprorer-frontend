@@ -14,10 +14,18 @@ const Profile = ({
   setLoggedIn,
   setIsShowNavigation,
   onUpdateUser,
+  setSavedMovies,
+  setCurrentUser
 }) => {
-  const { values, setValues, errors, handleChange } = useFormWithValidation({});
+  const { values, isValid, setValues, errors, handleChange } =
+    useFormWithValidation({});
   const navigate = useNavigate();
   const currentUser = useContext(CurrentUserContext);
+
+  useEffect(() => {
+    setIsShowNavigation(false);
+    console.log(currentUser)
+  }, []);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -28,11 +36,10 @@ const Profile = ({
   };
 
   const signOut = () => {
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('filter');
-    localStorage.removeItem('searchedMovies');
-    localStorage.removeItem('enteredToInputMovie');
     setLoggedIn(false);
+    setSavedMovies([]);
+    setCurrentUser({});
+    localStorage.clear();
     navigate('/', { replace: true });
   };
 
@@ -73,9 +80,6 @@ const Profile = ({
               required
             />
           </label>
-          <span className="profile-form__item-error name-input-error">
-            {errors.name}
-          </span>
           <label className="profile-form__field">
             <span className="profile-form__label">E-mail</span>
             <input
@@ -89,12 +93,13 @@ const Profile = ({
             />
           </label>
           <span className="profile-form__item-error profile-form__item-error_last email-input-error">
-            {errors.email}
+            {((errors.name || errors.email) && 'Что-то пошло не так...') || ''}
           </span>
           <button
             className="profile-form__button"
             type="submit"
             disabled={
+              !isValid ||
               currentUser.name === values.name &&
               currentUser.email === values.email
             }

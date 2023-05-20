@@ -37,10 +37,7 @@ const Header = ({
         />
       </div>
       {loggedIn && (
-        <BurgerButton
-          openPopup={openPopup}
-          isMainPage={isMainPage}
-        />
+        <BurgerButton openPopup={openPopup} isMainPage={isMainPage} />
       )}
     </header>
   );

@@ -1,4 +1,4 @@
-import { token } from './constants';
+import { TOKEN } from './constants';
 
 class MainApi {
   constructor({ baseUrl, headers }) {
@@ -82,7 +82,7 @@ class MainApi {
 export const mainApi = new MainApi({
   baseUrl: 'http://localhost:3000',
   headers: {
-    authorization: `Bearer ${token}`,
+    authorization: `Bearer ${TOKEN}`,
     'Content-Type': 'application/json',
   },
 });

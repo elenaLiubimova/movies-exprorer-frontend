@@ -8,12 +8,12 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import '../../index.css';
 import SavedMovies from '../SavedMovies/SavedMovies';
-import { moviesApi } from '../../utils/MoviesApi';
 import * as auth from '../../utils/auth';
 import { mainApi } from '../../utils/MainApi';
-import { filmApiUrl } from '../../utils/constants';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { FILM_API_URL } from '../../utils/constants';
+import { moviesApi } from '../../utils/MoviesApi';
 
 const App = () => {
   const navigate = useNavigate();
@@ -22,9 +22,11 @@ const App = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isShowNavigation, setIsShowNavigation] = useState(false);
   const [isShortFilm, setIsShortFilm] = useState(false);
-  const [savedMovies, setSavedMovies] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isApiError, setIsApiError] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
 
   const handleBurgerClick = () => {
     setPopupOpen(true);
@@ -35,10 +37,13 @@ const App = () => {
     auth
       .register(name, email, password)
       .then((res) => {
+        console.log(res)
         auth
           .authorize(email, password)
           .then((res) => {
+            console.log(res)
             localStorage.setItem('jwt', res.jwt);
+            setCurrentUser(res);
             setLoggedIn(true);
             navigate('/movies', { replace: true });
           })
@@ -55,6 +60,7 @@ const App = () => {
         if (data.jwt) {
           localStorage.setItem('jwt', data.jwt);
           setLoggedIn(true);
+          setCurrentUser(data);
           navigate('/movies', { replace: true });
         }
       })
@@ -102,11 +108,11 @@ const App = () => {
         movie.duration,
         movie.year,
         movie.description,
-        filmApiUrl + movie.image.url,
+        FILM_API_URL + movie.image.url,
         movie.trailerLink,
         movie.nameRU,
         movie.nameEN,
-        filmApiUrl + movie.image.formats.thumbnail.url,
+        FILM_API_URL + movie.image.formats.thumbnail.url,
         movie.id
       )
       .then((savedMovie) => {
@@ -134,21 +140,21 @@ const App = () => {
 
   useEffect(() => {
     tokenCheck();
-    if (loggedIn) {
+    if (loggedIn && currentUser) {
       Promise.all([
         moviesApi.getFilms(),
         mainApi.getSavedMovies(),
         mainApi.getCurrentUser(),
       ])
-        .then(([films, savedMovies, currentUser]) => {
+        .then(([ films, savedMovies, currentUser]) => {
+          setIsApiError(false);
           setFilms(films);
           setSavedMovies(savedMovies);
           setCurrentUser(currentUser);
         })
         .catch((error) => {
-          console.log(
-            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
-          );
+          console.log(error);
+          setIsApiError(true);
         })
         .finally(() => setIsLoading(false));
     }
@@ -207,6 +213,9 @@ const App = () => {
               handleRemoveFromSaved={handleRemoveFromSaved}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
+              isApiError={isApiError}
+              isSearch={isSearch}
+              setIsSearch={setIsSearch}
             />
           }
         />
@@ -227,6 +236,10 @@ const App = () => {
               handleRemoveFromSaved={handleRemoveFromSaved}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
+              isSearch={isSearch}
+              setIsSearch={setIsSearch}
+              isApiError={isApiError}
+              setIsShowNavigation={setIsShowNavigation}
             />
           }
         />
@@ -245,6 +258,8 @@ const App = () => {
               setFilms={setFilms}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
+              setSavedMovies={setSavedMovies}
+              setCurrentUser={setCurrentUser}
             />
           }
         />

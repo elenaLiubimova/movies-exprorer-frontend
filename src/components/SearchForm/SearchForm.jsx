@@ -8,15 +8,17 @@ const SearchForm = ({
   setEnteredToInputMovie,
   isSavedMoviesPage,
   setSavedMovies,
-  getSavedMovies,
   setSearchedMovies,
   films,
-  isMoviesPage
+  isMoviesPage,
+  setIsSearch,
+  savedMovies
 }) => {
   const { values, setValues, errors, handleChange } = useFormWithValidation({});
 
   const onSearch = (evt) => {
     evt.preventDefault();
+    setIsSearch(true);
     if (!isSavedMoviesPage) {
       setEnteredToInputMovie(values.search);
       localStorage.setItem(
@@ -29,9 +31,7 @@ const SearchForm = ({
         JSON.stringify(currentSearchedMovies)
       );
     } else {
-      setEnteredToInputMovie(values.search);
-      getSavedMovies();
-      const currentSearchedMovies = searchMovies(films, values.search);
+      const currentSearchedMovies = searchMovies(savedMovies, values.search);
       setSavedMovies(currentSearchedMovies);
     }
   };
@@ -39,6 +39,7 @@ const SearchForm = ({
   useEffect(() => {
     const searchValueSavedInLocalStorage = localStorage.getItem('enteredToInputMovie');
     isMoviesPage && setValues({search: searchValueSavedInLocalStorage});
+    setIsSearch(false);
   }, []);
 
   return (

@@ -5,8 +5,10 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Popup from '../Popup/Popup';
-import { mainApi } from '../../utils/MainApi';
 import { toggleShortMovie } from '../../utils/utils';
+import Preloader from '../Preloader/Preloader';
+import { MAIN_API_ERROR, NOT_FOUND_MOVIES } from '../../utils/constants';
+import NoMoviesInfoBlock from '../NoMoviesInfoBlock/NoMoviesInfoBlock';
 
 const SavedMovies = ({
   openPopup,
@@ -14,22 +16,26 @@ const SavedMovies = ({
   closePopup,
   loggedIn,
   setLoggedIn,
-  setSavedMovies,
   savedMovies,
+  setSavedMovies,
   handleRemoveFromSaved,
   isShortFilm,
   setSearchedFilm,
   setIsShortFilm,
+  isSearch,
+  setIsSearch,
+  isLoading,
+  isApiError,
+  setIsShowNavigation,
 }) => {
   const [isSavedMoviesPage, setIsSavedMoviesPage] = useState(true);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
 
-  const getSavedMovies = () => {
-    mainApi
-      .getSavedMovies()
-      .then((savedMovies) => setSavedMovies(savedMovies))
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  };
+  useEffect(() => {
+    setIsShortFilm(false);
+    setIsShowNavigation(false);
+    setSavedMovies(savedMovies);
+  }, []);
 
   useEffect(() => {
     const toggledSavedMovies = toggleShortMovie(savedMovies, isShortFilm);
@@ -43,6 +49,7 @@ const SavedMovies = ({
         openPopup={openPopup}
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
+        setIsShowNavigation={setIsShowNavigation}
       />
       <main className="movies">
         <Search
@@ -50,16 +57,23 @@ const SavedMovies = ({
           isShortFilm={isShortFilm}
           setSearchedFilm={setSearchedFilm}
           setIsShortFilm={setIsShortFilm}
-          getSavedMovies={getSavedMovies}
+          isSearch={isSearch}
+          setIsSearch={setIsSearch}
+          savedMovies={savedMovies}
+          setSavedMovies={setSavedMovies}
         />
-        {filteredSavedMovies && (
+        {isLoading && <Preloader />}
+        {isApiError && <NoMoviesInfoBlock infoMessage={MAIN_API_ERROR} />}
+        {filteredSavedMovies && filteredSavedMovies.length !== 0 ? (
           <MoviesCardList
             films={filteredSavedMovies}
             handleRemoveFromSaved={handleRemoveFromSaved}
             isSavedMoviesPage={isSavedMoviesPage}
             setIsSavedMoviesPage={setIsSavedMoviesPage}
           />
-        )}
+        ) :
+        (<NoMoviesInfoBlock infoMessage={NOT_FOUND_MOVIES} />)
+        }
       </main>
       <Footer />
       <Popup

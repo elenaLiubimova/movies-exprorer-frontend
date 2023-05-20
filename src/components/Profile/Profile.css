@@ -100,6 +100,7 @@
   width: 100%;
   border: 0;
   height: 22px;
+  margin-bottom: 5px;
   padding: 0 0 10px;
   border-bottom: 1px solid #E8E8E8;
     
@@ -111,6 +112,7 @@
 }
 
 .profile-form__item_last {
+  margin-bottom: 0;
   border-bottom: none;
 }
 

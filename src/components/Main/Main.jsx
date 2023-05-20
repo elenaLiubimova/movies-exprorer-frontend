@@ -18,6 +18,14 @@ const Main = ({
   closePopup,
 }) => {
   const [isMainPage, setIsMainPage] = useState(true);
+  
+  useEffect(() => {
+    !loggedIn && setIsShowNavigation(true);
+  }, [loggedIn]);
+
+  useEffect(() => {
+    loggedIn && setIsShowNavigation(false);
+  }, [loggedIn]);
 
   return (
     <>
@@ -25,7 +33,7 @@ const Main = ({
         loggedIn={loggedIn}
         setloggedIn={setLoggedIn}
         isShowNavigation={isShowNavigation}
-        setIsShowNavigation={isShowNavigation}
+        setIsShowNavigation={setIsShowNavigation}
         isMainPage={isMainPage}
         isPopupOpen={isPopupOpen}
         openPopup={openPopup}
@@ -39,11 +47,7 @@ const Main = ({
         <Portfolio />
       </main>
       <Footer />
-      <Popup
-        isPopupOpen={isPopupOpen}
-        closePopup={closePopup}
-        isMainPage={isMainPage}
-      />
+      <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} isMainPage={isMainPage} />
     </>
   );
 };
