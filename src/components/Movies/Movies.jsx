@@ -43,7 +43,8 @@ const Movies = ({
   }, []);
 
   useEffect(() => {
-    const toggledSearchedMovies = searchedMovies && toggleShortMovie(searchedMovies, isShortFilm);
+    const toggledSearchedMovies =
+      searchedMovies && toggleShortMovie(searchedMovies, isShortFilm);
     setFilteredMovies(toggledSearchedMovies);
   }, [searchedMovies, isShortFilm]);
 
@@ -72,16 +73,19 @@ const Movies = ({
           setIsSearch={setIsSearch}
         />
         {isLoading && <Preloader />}
-        {isApiError && isSearch && <NoMoviesInfoBlock infoMessage={API_ERROR} />}
-        {!isApiError && filteredMovies && filteredMovies.length !== 0 ?
-        (!isLoading && <MoviesCardList
-          handleAddToSaved={handleAddToSaved}
-          films={filteredMovies}
-          savedMovies={savedMovies}
-          handleRemoveFromSaved={handleRemoveFromSaved}
-        />) :
-        (!isApiError && <NoMoviesInfoBlock infoMessage={NOT_FOUND_MOVIES} />)
-        }
+        {isApiError && isSearch && (
+          <NoMoviesInfoBlock infoMessage={API_ERROR} />
+        )}
+        {!isApiError && filteredMovies && filteredMovies.length !== 0
+          ? !isLoading && (
+              <MoviesCardList
+                handleAddToSaved={handleAddToSaved}
+                films={filteredMovies}
+                savedMovies={savedMovies}
+                handleRemoveFromSaved={handleRemoveFromSaved}
+              />
+            )
+          : !isApiError && <NoMoviesInfoBlock infoMessage={NOT_FOUND_MOVIES} />}
       </main>
       <Footer />
       <Popup

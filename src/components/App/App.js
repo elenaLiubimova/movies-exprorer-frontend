@@ -9,14 +9,14 @@ import Login from '../Login/Login';
 import '../../index.css';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import * as auth from '../../utils/auth';
-import { mainApi } from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { FILM_API_URL } from '../../utils/constants';
 import { moviesApi } from '../../utils/MoviesApi';
+import { mainApi } from '../../utils/MainApi';
 
 const App = () => {
-  const navigate = useNavigate();
+  let navigate = useNavigate();
   const [films, setFilms] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -32,22 +32,29 @@ const App = () => {
     setPopupOpen(true);
   };
 
+  const tokenCheck = () => {
+    if (localStorage.getItem('jwt')) {
+      const token = localStorage.getItem('jwt');
+      if (token) {
+        auth
+          .checkToken(token)
+          .then((res) => {
+            if (res) {
+              setCurrentUser(res);
+              setLoggedIn(true);
+            }
+          })
+          .catch((error) => console.log(`Ошибка: ${error}`));
+      }
+    }
+  };
+
   // Функция регистрации
   const handleRegister = (name, email, password) => {
     auth
       .register(name, email, password)
       .then((res) => {
-        console.log(res)
-        auth
-          .authorize(email, password)
-          .then((res) => {
-            console.log(res)
-            localStorage.setItem('jwt', res.jwt);
-            setCurrentUser(res);
-            setLoggedIn(true);
-            navigate('/movies', { replace: true });
-          })
-          .catch((err) => console.log(err));
+        handleAuthorize(email, password);
       })
       .catch((err) => console.log(err));
   };
@@ -56,13 +63,10 @@ const App = () => {
   const handleAuthorize = (email, password) => {
     return auth
       .authorize(email, password)
-      .then((data) => {
-        if (data.jwt) {
-          localStorage.setItem('jwt', data.jwt);
-          setLoggedIn(true);
-          setCurrentUser(data);
-          navigate('/movies', { replace: true });
-        }
+      .then((res) => {
+        localStorage.setItem('jwt', res.jwt);
+        navigate('/movies');
+        setLoggedIn(true);
       })
       .catch((err) => console.log(err));
   };
@@ -79,28 +83,12 @@ const App = () => {
       .finally(() => setIsLoading(false));
   }
 
-  //Функция проверки токена
-  const tokenCheck = () => {
-    if (localStorage.getItem('jwt')) {
-      const token = localStorage.getItem('jwt');
-      if (token) {
-        auth
-          .checkToken()
-          .then((res) => {
-            if (res) {
-              setLoggedIn(true);
-            }
-          })
-          .catch((error) => console.log(`Ошибка: ${error}`));
-      }
-    }
-  };
-
   const closePopup = () => {
     setPopupOpen(false);
   };
 
   const handleAddToSaved = (movie) => {
+    const token = localStorage.getItem('jwt');
     mainApi
       .addMovieToSaved(
         movie.country,
@@ -113,7 +101,8 @@ const App = () => {
         movie.nameRU,
         movie.nameEN,
         FILM_API_URL + movie.image.formats.thumbnail.url,
-        movie.id
+        movie.id,
+        token
       )
       .then((savedMovie) => {
         setSavedMovies((prev) => [...prev, savedMovie]);
@@ -123,13 +112,14 @@ const App = () => {
 
   const handleRemoveFromSaved = (movie) => {
     let id;
+    const token = localStorage.getItem('jwt');
     if (!movie._id) {
       id = savedMovies.find(
         (removingMovie) => removingMovie.movieId === movie.id
       )._id;
     } else id = movie._id;
     mainApi
-      .deleteMovieFromSaved(id)
+      .deleteMovieFromSaved(id, token)
       .then(() => {
         setSavedMovies((savedMovies) =>
           savedMovies.filter((movie) => movie._id !== id)
@@ -140,21 +130,20 @@ const App = () => {
 
   useEffect(() => {
     tokenCheck();
-    if (loggedIn && currentUser) {
+    if (loggedIn) {
+      const token = localStorage.getItem('jwt');
       Promise.all([
         moviesApi.getFilms(),
-        mainApi.getSavedMovies(),
-        mainApi.getCurrentUser(),
+        mainApi.getSavedMovies(token),
+        mainApi.getCurrentUser(token),
       ])
-        .then(([ films, savedMovies, currentUser]) => {
-          setIsApiError(false);
+        .then(([films, savedMovies, currentUser]) => {
           setFilms(films);
           setSavedMovies(savedMovies);
           setCurrentUser(currentUser);
         })
         .catch((error) => {
           console.log(error);
-          setIsApiError(true);
         })
         .finally(() => setIsLoading(false));
     }

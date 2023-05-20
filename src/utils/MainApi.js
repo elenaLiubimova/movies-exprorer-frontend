@@ -1,5 +1,3 @@
-import { TOKEN } from './constants';
-
 class MainApi {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -14,17 +12,20 @@ class MainApi {
     return fetch(url, options).then(this._checkResponse);
   }
 
-  getCurrentUser() {
+  getCurrentUser(jwt) {
     return this._request(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-      method: "GET",
+      headers: { ...this._headers, authorization: `Bearer ${jwt}` },
+      method: 'GET',
     });
   }
 
   updateUser(name, email) {
     return this._request(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-      method: "PATCH",
+      headers: {
+        ...this._headers,
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+      method: 'PATCH',
       body: JSON.stringify({
         name: name,
         email: email,
@@ -32,10 +33,10 @@ class MainApi {
     });
   }
 
-  getSavedMovies() {
+  getSavedMovies(jwt) {
     return this._request(`${this._baseUrl}/movies`, {
-      headers: this._headers,
-      method: "GET",
+      headers: { ...this._headers, authorization: `Bearer ${jwt}` },
+      method: 'GET',
     });
   }
 
@@ -50,10 +51,14 @@ class MainApi {
     nameRU,
     nameEN,
     thumbnail,
-    movieId
+    movieId,
+    jwt
   ) {
     return this._request(`${this._baseUrl}/movies`, {
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        authorization: `Bearer ${jwt}`,
+      },
       method: 'POST',
       body: JSON.stringify({
         country: country,
@@ -71,9 +76,12 @@ class MainApi {
     });
   }
 
-  deleteMovieFromSaved(id) {
+  deleteMovieFromSaved(id, jwt) {
     return this._request(`${this._baseUrl}/movies/${id}`, {
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        authorization: `Bearer ${jwt}`,
+      },
       method: 'DELETE',
     });
   }
@@ -82,7 +90,6 @@ class MainApi {
 export const mainApi = new MainApi({
   baseUrl: 'http://localhost:3000',
   headers: {
-    authorization: `Bearer ${TOKEN}`,
     'Content-Type': 'application/json',
   },
 });

@@ -7,7 +7,6 @@ const FilterCheckbox = ({ isShortFilm, setIsShortFilm, isMoviesPage }) => {
     if (isMoviesPage) {
       localStorage.setItem('filter', !isShortFilm);
     }
-    console.log(localStorage);
   };
 
   useEffect(() => {

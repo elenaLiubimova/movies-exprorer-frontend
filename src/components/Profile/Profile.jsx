@@ -15,17 +15,12 @@ const Profile = ({
   setIsShowNavigation,
   onUpdateUser,
   setSavedMovies,
-  setCurrentUser
+  setCurrentUser,
 }) => {
   const { values, isValid, setValues, errors, handleChange } =
     useFormWithValidation({});
   const navigate = useNavigate();
   const currentUser = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    setIsShowNavigation(false);
-    console.log(currentUser)
-  }, []);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -100,8 +95,8 @@ const Profile = ({
             type="submit"
             disabled={
               !isValid ||
-              currentUser.name === values.name &&
-              currentUser.email === values.email
+              (currentUser.name === values.name &&
+                currentUser.email === values.email)
             }
           >
             Редактировать

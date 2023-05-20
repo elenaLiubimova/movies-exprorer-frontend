@@ -1,5 +1,3 @@
-import { TOKEN } from "./constants";
-
 export const BASE_URL = "http://localhost:3000";
 
 export function checkResponse(res) {
@@ -29,16 +27,16 @@ export const authorize = (email, password) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  });
+  })
 };
 
-export const checkToken = () => {
+export const checkToken = (jwt) => {
   return request(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${jwt}`,
     },
   }).then((data) => data);
 };
