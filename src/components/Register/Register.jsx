@@ -63,9 +63,8 @@ const Register = ({ handleRegister, isLoading }) => {
             required
           />
           <span className="register-form__item-error email-input-error">
-            {(errors.name ||
-              errors.email ||
-              errors.password) && 'Что-то пошло не так...' ||
+            {((errors.name || errors.email || errors.password) &&
+              'Что-то пошло не так...') ||
               ''}
           </span>
         </label>

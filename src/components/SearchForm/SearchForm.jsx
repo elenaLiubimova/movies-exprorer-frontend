@@ -3,7 +3,12 @@ import search from '../../images/search.svg';
 import { useFormWithValidation } from '../../hooks/useForm';
 import { useEffect } from 'react';
 
-const SearchForm = ({ isMoviesPage, setIsSearch, onSearchMovies, isLoading }) => {
+const SearchForm = ({
+  isMoviesPage,
+  setIsSearch,
+  onSearchMovies,
+  isLoading,
+}) => {
   const { values, setValues, errors, handleChange } = useFormWithValidation({});
 
   const onSearch = (evt) => {

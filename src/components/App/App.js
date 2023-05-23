@@ -39,8 +39,6 @@ const App = () => {
   const [enteredToInputMovie, setEnteredToInputMovie] = useState('');
   const [isMoviesPage, setIsMoviesPage] = useState(true);
 
-  const location = useLocation();
-
   const handleBurgerClick = () => {
     setPopupOpen(true);
   };
@@ -336,7 +334,9 @@ const App = () => {
         />
         <Route
           path="/signup"
-          element={<Register handleRegister={handleRegister} isLoading={isLoading} />}
+          element={
+            <Register handleRegister={handleRegister} isLoading={isLoading} />
+          }
         />
         <Route
           path="/signin"

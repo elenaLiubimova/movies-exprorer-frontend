@@ -81,7 +81,8 @@ const SavedMovies = ({
         {!isLoading && isApiError && (
           <NoMoviesInfoBlock infoMessage={MAIN_API_ERROR} />
         )}
-        {!isLoading && !isApiError && 
+        {!isLoading &&
+        !isApiError &&
         filteredSavedMovies &&
         filteredSavedMovies.length !== 0 ? (
           <MoviesCardList
@@ -91,7 +92,8 @@ const SavedMovies = ({
             setIsSavedMoviesPage={setIsSavedMoviesPage}
           />
         ) : (
-          !isLoading && !isApiError && <NoMoviesInfoBlock infoMessage={NOT_FOUND_MOVIES} />
+          !isLoading &&
+          !isApiError && <NoMoviesInfoBlock infoMessage={NOT_FOUND_MOVIES} />
         )}
       </main>
       <Footer />

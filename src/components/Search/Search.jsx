@@ -19,7 +19,7 @@ const Search = ({
   setSavedMovies,
   getMoviesList,
   onSearchMovies,
-  isLoading
+  isLoading,
 }) => {
   return (
     <section className="search">
