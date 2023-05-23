@@ -4,8 +4,9 @@ import './Login.css';
 import { Link } from 'react-router-dom';
 import { useFormWithValidation } from '../../hooks/useForm';
 
-const Login = ({ handleAuthorize }) => {
-  const { values, isValid, errors, handleChange } = useFormWithValidation({});
+const Login = ({ handleAuthorize, isLoading }) => {
+  const { values, isValid, errors, handleChange } =
+    useFormWithValidation({});
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -18,7 +19,7 @@ const Login = ({ handleAuthorize }) => {
 
   return (
     <main className="login">
-      <form className="login-form" onSubmit={handleSubmit}  noValidate>
+      <form className="login-form" onSubmit={handleSubmit} noValidate>
         <Link to="/">
           <img className="logo" src={logo} alt="Лого сервиса Movies Explorer" />
         </Link>
@@ -32,6 +33,7 @@ const Login = ({ handleAuthorize }) => {
             name="email"
             value={values.email || ''}
             onChange={handleChange}
+            disabled={isLoading}
             required
           />
         </label>
@@ -44,9 +46,13 @@ const Login = ({ handleAuthorize }) => {
             name="password"
             value={values.password || ''}
             onChange={handleChange}
+            disabled={isLoading}
             required
           />
-          <span className="login-form__item-error password-input-error">{(errors.email || errors.password) && 'Что-то пошло не так...' || ''}</span>
+          <span className="login-form__item-error password-input-error">
+            {((errors.email || errors.password) && 'Что-то пошло не так...') ||
+              ''}
+          </span>
         </label>
         <button
           className="login-form__button"

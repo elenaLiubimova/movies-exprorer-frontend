@@ -4,7 +4,7 @@ import './Register.css';
 import { Link } from 'react-router-dom';
 import { useFormWithValidation } from '../../hooks/useForm';
 
-const Register = ({ handleRegister }) => {
+const Register = ({ handleRegister, isLoading }) => {
   const { values, isValid, errors, handleChange } = useFormWithValidation({});
 
   const handleSubmit = (evt) => {
@@ -33,6 +33,7 @@ const Register = ({ handleRegister }) => {
             onChange={handleChange}
             minLength="2"
             maxLength="30"
+            disabled={isLoading}
             required
           />
         </label>
@@ -45,6 +46,7 @@ const Register = ({ handleRegister }) => {
             placeholder="Email"
             value={values.email || ''}
             onChange={handleChange}
+            disabled={isLoading}
             required
           />
         </label>
@@ -57,6 +59,7 @@ const Register = ({ handleRegister }) => {
             name="password"
             value={values.password || ''}
             onChange={handleChange}
+            disabled={isLoading}
             required
           />
           <span className="register-form__item-error email-input-error">

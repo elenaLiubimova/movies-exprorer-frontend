@@ -34,7 +34,7 @@ const Movies = ({
   enteredToInputMovie,
   setEnteredToInputMovie,
   isMoviesPage,
-  setIsMoviesPage
+  setIsMoviesPage,
 }) => {
   const [filteredMovies, setFilteredMovies] = useState([]);
 
@@ -77,6 +77,7 @@ const Movies = ({
           isSearch={isSearch}
           setIsSearch={setIsSearch}
           onSearchMovies={onSearchMovies}
+          isLoading={isLoading}
         />
         {isLoading && <Preloader />}
         {!isLoading && !isApiError && !searchedMovies && <NoMoviesInfoBlock infoMessage={INITIAL_MOVIES} />}

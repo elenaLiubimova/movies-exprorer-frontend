@@ -16,6 +16,7 @@ const Profile = ({
   onUpdateUser,
   setSavedMovies,
   setCurrentUser,
+  isLoading
 }) => {
   const { values, isValid, setValues, errors, handleChange } =
     useFormWithValidation({});
@@ -72,6 +73,7 @@ const Profile = ({
               name="name"
               value={values.name || ''}
               onChange={handleChange}
+              disabled={isLoading}
               required
             />
           </label>
@@ -84,6 +86,7 @@ const Profile = ({
               name="email"
               value={values.email || ''}
               onChange={handleChange}
+              disabled={isLoading}
               required
             />
           </label>

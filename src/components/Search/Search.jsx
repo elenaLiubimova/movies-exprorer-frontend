@@ -18,7 +18,8 @@ const Search = ({
   savedMovies,
   setSavedMovies,
   getMoviesList,
-  onSearchMovies
+  onSearchMovies,
+  isLoading
 }) => {
   return (
     <section className="search">
@@ -36,6 +37,7 @@ const Search = ({
         setSavedMovies={setSavedMovies}
         getMoviesList={getMoviesList}
         onSearchMovies={onSearchMovies}
+        isLoading={isLoading}
       />
       <FilterCheckbox
         isShortFilm={isShortFilm}

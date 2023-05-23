@@ -75,6 +75,7 @@ const SavedMovies = ({
           savedMovies={savedMovies}
           setSavedMovies={setSavedMovies}
           onSearchMovies={onSearchMovies}
+          isLoading={isLoading}
         />
         {isLoading && <Preloader />}
         {!isLoading && isApiError && (

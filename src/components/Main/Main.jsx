@@ -15,7 +15,7 @@ const Main = ({
   setIsShowNavigation,
   isPopupOpen,
   openPopup,
-  closePopup,
+  closePopup
 }) => {
   const [isMainPage, setIsMainPage] = useState(true);
   

@@ -38,7 +38,7 @@ const App = () => {
   const [searchedSavedMovies, setSearchedSavedMovies] = useState(savedMovies);
   const [enteredToInputMovie, setEnteredToInputMovie] = useState('');
   const [isMoviesPage, setIsMoviesPage] = useState(true);
-  
+
   const location = useLocation();
 
   const handleBurgerClick = () => {
@@ -70,16 +70,19 @@ const App = () => {
 
   // Функция регистрации
   const handleRegister = (name, email, password) => {
+    setIsLoading(true);
     auth
       .register(name, email, password)
       .then((res) => {
         handleAuthorize(email, password);
       })
-      .catch((err) => showError(err));
+      .catch((err) => showError(err))
+      .finally(() => setIsLoading(false));
   };
 
   // Функция авторизации
   const handleAuthorize = (email, password) => {
+    setIsLoading(true);
     return auth
       .authorize(email, password)
       .then((res) => {
@@ -90,7 +93,8 @@ const App = () => {
         setinfoTooltipDescription('Добро пожаловать!');
         setInfoTooltipOpen(true);
       })
-      .catch((err) => showError(err));
+      .catch((err) => showError(err))
+      .finally(() => setIsLoading(false));
   };
 
   // Функция обновления данных профиля
@@ -231,17 +235,6 @@ const App = () => {
     }
   }, [isPopupOpen, isInfoTooltipOpen]);
 
-  useEffect(() => {
-    const token = localStorage.getItem('jwt');
-    if (token) {
-      if (location.pathname === '/signup' || location.pathname === '/signin') {
-        navigate('/movies');
-      } else {
-        navigate(location.pathname);
-      }
-    }
-  }, [loggedIn, navigate, location.pathname]);
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Routes>
@@ -343,11 +336,13 @@ const App = () => {
         />
         <Route
           path="/signup"
-          element={<Register handleRegister={handleRegister} />}
+          element={<Register handleRegister={handleRegister} isLoading={isLoading} />}
         />
         <Route
           path="/signin"
-          element={<Login handleAuthorize={handleAuthorize} />}
+          element={
+            <Login handleAuthorize={handleAuthorize} isLoading={isLoading} />
+          }
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
