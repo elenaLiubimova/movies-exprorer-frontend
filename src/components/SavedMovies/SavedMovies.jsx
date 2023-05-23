@@ -7,7 +7,8 @@ import Footer from '../Footer/Footer';
 import Popup from '../Popup/Popup';
 import { toggleShortMovie } from '../../utils/utils';
 import Preloader from '../Preloader/Preloader';
-import { MAIN_API_ERROR, NOT_FOUND_MOVIES } from '../../utils/constants';
+import { MAIN_API_ERROR,
+  INITIAL_SAVED_MOVIES, NOT_FOUND_MOVIES } from '../../utils/constants';
 import NoMoviesInfoBlock from '../NoMoviesInfoBlock/NoMoviesInfoBlock';
 
 const SavedMovies = ({
@@ -78,6 +79,9 @@ const SavedMovies = ({
           isLoading={isLoading}
         />
         {isLoading && <Preloader />}
+        {!isLoading && !isApiError && !searchedMovies && (
+          <NoMoviesInfoBlock infoMessage={INITIAL_SAVED_MOVIES} />
+        )}
         {!isLoading && isApiError && (
           <NoMoviesInfoBlock infoMessage={MAIN_API_ERROR} />
         )}
