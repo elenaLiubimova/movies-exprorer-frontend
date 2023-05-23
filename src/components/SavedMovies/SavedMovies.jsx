@@ -79,7 +79,7 @@ const SavedMovies = ({
           isLoading={isLoading}
         />
         {isLoading && <Preloader />}
-        {!isLoading && !isApiError && !savedMovies && (
+        {!isLoading && !isApiError && savedMovies.length === 0 && (
           <NoMoviesInfoBlock infoMessage={INITIAL_SAVED_MOVIES} />
         )}
         {!isLoading && isApiError && (
@@ -97,7 +97,7 @@ const SavedMovies = ({
           />
         ) : (
           !isLoading &&
-          !isApiError && <NoMoviesInfoBlock infoMessage={NOT_FOUND_MOVIES} />
+          !isApiError && savedMovies.length !== 0 &&<NoMoviesInfoBlock infoMessage={NOT_FOUND_MOVIES} />
         )}
       </main>
       <Footer />
