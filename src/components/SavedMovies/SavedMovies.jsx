@@ -79,7 +79,7 @@ const SavedMovies = ({
           isLoading={isLoading}
         />
         {isLoading && <Preloader />}
-        {!isLoading && !isApiError && !searchedMovies && (
+        {!isLoading && !isApiError && !savedMovies && (
           <NoMoviesInfoBlock infoMessage={INITIAL_SAVED_MOVIES} />
         )}
         {!isLoading && isApiError && (
