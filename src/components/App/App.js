@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Main from '../Main/Main';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
@@ -14,6 +14,10 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { FILM_API_URL } from '../../utils/constants';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
+import success from '../../images/success.svg';
+import fail from '../../images/fail.svg';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import { searchMovies } from '../../utils/utils';
 
 const App = () => {
   let navigate = useNavigate();
@@ -24,12 +28,28 @@ const App = () => {
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isApiError, setIsApiError] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
+  const [infoTooltipIcon, setinfoTooltipIcon] = useState(null);
+  const [infoTooltipDescription, setinfoTooltipDescription] = useState('');
+  const [searchedMovies, setSearchedMovies] = useState([]);
+  const [searchedSavedMovies, setSearchedSavedMovies] = useState(savedMovies);
+  const [enteredToInputMovie, setEnteredToInputMovie] = useState('');
+  const [isMoviesPage, setIsMoviesPage] = useState(true);
+  
+  const location = useLocation();
 
   const handleBurgerClick = () => {
     setPopupOpen(true);
+  };
+
+  const showError = (err) => {
+    console.log(err);
+    setinfoTooltipIcon(fail);
+    setinfoTooltipDescription('Что-то пошло не так! Попробуйте еще раз.');
+    setInfoTooltipOpen(true);
   };
 
   const tokenCheck = () => {
@@ -40,7 +60,6 @@ const App = () => {
           .checkToken(token)
           .then((res) => {
             if (res) {
-              setCurrentUser(res);
               setLoggedIn(true);
             }
           })
@@ -56,7 +75,7 @@ const App = () => {
       .then((res) => {
         handleAuthorize(email, password);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => showError(err));
   };
 
   // Функция авторизации
@@ -67,24 +86,34 @@ const App = () => {
         localStorage.setItem('jwt', res.jwt);
         navigate('/movies');
         setLoggedIn(true);
+        setinfoTooltipIcon(success);
+        setinfoTooltipDescription('Добро пожаловать!');
+        setInfoTooltipOpen(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => showError(err));
   };
 
   // Функция обновления данных профиля
-  function handleUpdateUser({ name, email }) {
+  const handleUpdateUser = ({ name, email }) => {
     setIsLoading(true);
     mainApi
       .updateUser(name, email)
       .then((currentUser) => {
         setCurrentUser(currentUser);
+        setinfoTooltipIcon(success);
+        setinfoTooltipDescription('Данные успешно обновлены!');
+        setInfoTooltipOpen(true);
       })
-      .catch((error) => console.log(`Ошибка: ${error}`))
+      .catch((err) => showError(err))
       .finally(() => setIsLoading(false));
-  }
+  };
 
   const closePopup = () => {
     setPopupOpen(false);
+  };
+
+  const closeTooltip = () => {
+    setInfoTooltipOpen(false);
   };
 
   const handleAddToSaved = (movie) => {
@@ -124,8 +153,48 @@ const App = () => {
         setSavedMovies((savedMovies) =>
           savedMovies.filter((movie) => movie._id !== id)
         );
+        setSearchedSavedMovies((savedMovies) =>
+          savedMovies.filter((movie) => movie._id !== id)
+        );
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
+  };
+
+  const searchMoviesByValue = (searchValue, movies) => {
+    setIsSearch(true);
+    if (isMoviesPage) {
+      setEnteredToInputMovie(searchValue);
+      localStorage.setItem('enteredToInputMovie', searchValue);
+      const currentSearchedMovies = searchMovies(movies, searchValue);
+      setSearchedMovies(currentSearchedMovies);
+      localStorage.setItem(
+        'searchedMovies',
+        JSON.stringify(currentSearchedMovies)
+      );
+    } else {
+      const currentSearchedMovies = searchMovies(savedMovies, searchValue);
+      setSearchedSavedMovies(currentSearchedMovies);
+    }
+  };
+
+  const handleSearchMovies = (searchValue) => {
+    if (films.length === 0 && isMoviesPage) {
+      setIsLoading(true);
+      setIsApiError(false);
+      moviesApi
+        .getFilms()
+        .then((filmsData) => {
+          setFilms(filmsData);
+          searchMoviesByValue(searchValue, filmsData);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsApiError(true);
+        })
+        .finally(() => setIsLoading(false));
+    } else {
+      searchMoviesByValue(searchValue, films);
+    }
   };
 
   useEffect(() => {
@@ -133,19 +202,16 @@ const App = () => {
     if (loggedIn) {
       const token = localStorage.getItem('jwt');
       Promise.all([
-        moviesApi.getFilms(),
         mainApi.getSavedMovies(token),
         mainApi.getCurrentUser(token),
       ])
-        .then(([films, savedMovies, currentUser]) => {
-          setFilms(films);
-          setSavedMovies(savedMovies);
-          setCurrentUser(currentUser);
+        .then(([savedMoviesData, currentUserData]) => {
+          setSavedMovies(savedMoviesData);
+          setCurrentUser(currentUserData);
         })
         .catch((error) => {
           console.log(error);
-        })
-        .finally(() => setIsLoading(false));
+        });
     }
   }, [loggedIn]);
 
@@ -154,15 +220,27 @@ const App = () => {
     const closeByEscape = (evt) => {
       if (evt.key === 'Escape') {
         closePopup();
+        closeTooltip();
       }
     };
-    if (isPopupOpen) {
+    if (isPopupOpen || isInfoTooltipOpen) {
       document.addEventListener('keydown', closeByEscape);
       return () => {
         document.removeEventListener('keydown', closeByEscape);
       };
     }
-  }, [isPopupOpen]);
+  }, [isPopupOpen, isInfoTooltipOpen]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      if (location.pathname === '/signup' || location.pathname === '/signin') {
+        navigate('/movies');
+      } else {
+        navigate(location.pathname);
+      }
+    }
+  }, [loggedIn, navigate, location.pathname]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -205,6 +283,13 @@ const App = () => {
               isApiError={isApiError}
               isSearch={isSearch}
               setIsSearch={setIsSearch}
+              onSearchMovies={handleSearchMovies}
+              searchedMovies={searchedMovies}
+              setSearchedMovies={setSearchedMovies}
+              enteredToInputMovie={enteredToInputMovie}
+              setEnteredToInputMovie={setEnteredToInputMovie}
+              isMoviesPage={isMoviesPage}
+              setIsMoviesPage={setIsMoviesPage}
             />
           }
         />
@@ -229,6 +314,10 @@ const App = () => {
               setIsSearch={setIsSearch}
               isApiError={isApiError}
               setIsShowNavigation={setIsShowNavigation}
+              onSearchMovies={handleSearchMovies}
+              setIsMoviesPage={setIsMoviesPage}
+              searchedSavedMovies={searchedSavedMovies}
+              setSearchedSavedMovies={setSearchedSavedMovies}
             />
           }
         />
@@ -262,6 +351,12 @@ const App = () => {
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <InfoTooltip
+        isOpen={isInfoTooltipOpen}
+        infoTooltipIcon={infoTooltipIcon}
+        infoTooltipDescription={infoTooltipDescription}
+        onClose={closeTooltip}
+      />
     </CurrentUserContext.Provider>
   );
 };

@@ -1,46 +1,23 @@
 import './SearchForm.css';
 import search from '../../images/search.svg';
 import { useFormWithValidation } from '../../hooks/useForm';
-import { searchMovies } from '../../utils/utils';
 import { useEffect } from 'react';
 
-const SearchForm = ({
-  setEnteredToInputMovie,
-  isSavedMoviesPage,
-  setSavedMovies,
-  setSearchedMovies,
-  films,
-  isMoviesPage,
-  setIsSearch,
-  savedMovies
-}) => {
+const SearchForm = ({ isMoviesPage, setIsSearch, onSearchMovies }) => {
   const { values, setValues, errors, handleChange } = useFormWithValidation({});
 
   const onSearch = (evt) => {
     evt.preventDefault();
-    setIsSearch(true);
-    if (!isSavedMoviesPage) {
-      setEnteredToInputMovie(values.search);
-      localStorage.setItem(
-        'enteredToInputMovie', values.search
-      );
-      const currentSearchedMovies = searchMovies(films, values.search);
-      setSearchedMovies(currentSearchedMovies);
-      localStorage.setItem(
-        'searchedMovies',
-        JSON.stringify(currentSearchedMovies)
-      );
-    } else {
-      const currentSearchedMovies = searchMovies(savedMovies, values.search);
-      setSavedMovies(currentSearchedMovies);
-    }
+    onSearchMovies(values.search);
   };
 
   useEffect(() => {
-    const searchValueSavedInLocalStorage = localStorage.getItem('enteredToInputMovie');
-    isMoviesPage && setValues({search: searchValueSavedInLocalStorage});
+    const searchValueSavedInLocalStorage = localStorage.getItem(
+      'enteredToInputMovie'
+    );
+    isMoviesPage && setValues({ search: searchValueSavedInLocalStorage });
     setIsSearch(false);
-  }, []);
+  }, [isMoviesPage]);
 
   return (
     <form className="input" onSubmit={onSearch} noValidate>

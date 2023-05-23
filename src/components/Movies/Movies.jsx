@@ -8,7 +8,7 @@ import Popup from '../Popup/Popup';
 import Preloader from '../Preloader/Preloader';
 import NoMoviesInfoBlock from '../NoMoviesInfoBlock/NoMoviesInfoBlock';
 import { toggleShortMovie } from '../../utils/utils';
-import { API_ERROR, NOT_FOUND_MOVIES } from '../../utils/constants';
+import { API_ERROR, INITIAL_MOVIES, NOT_FOUND_MOVIES } from '../../utils/constants';
 
 const Movies = ({
   films,
@@ -28,13 +28,18 @@ const Movies = ({
   isApiError,
   isSearch,
   setIsSearch,
+  onSearchMovies,
+  searchedMovies,
+  setSearchedMovies,
+  enteredToInputMovie,
+  setEnteredToInputMovie,
+  isMoviesPage,
+  setIsMoviesPage
 }) => {
-  const [isMoviesPage, setIsMoviesPage] = useState(true);
-  const [searchedMovies, setSearchedMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [enteredToInputMovie, setEnteredToInputMovie] = useState('');
 
   useEffect(() => {
+    setIsMoviesPage(true);
     const searchedMoviesSavedInLocalStorage = JSON.parse(
       localStorage.getItem('searchedMovies')
     );
@@ -46,7 +51,7 @@ const Movies = ({
     const toggledSearchedMovies =
       searchedMovies && toggleShortMovie(searchedMovies, isShortFilm);
     setFilteredMovies(toggledSearchedMovies);
-  }, [searchedMovies, isShortFilm]);
+  }, [searchedMovies, isShortFilm, isMoviesPage]);
 
   return (
     <>
@@ -71,9 +76,11 @@ const Movies = ({
           isMoviesPage={isMoviesPage}
           isSearch={isSearch}
           setIsSearch={setIsSearch}
+          onSearchMovies={onSearchMovies}
         />
         {isLoading && <Preloader />}
-        {isApiError && isSearch && (
+        {!isLoading && !isApiError && !searchedMovies && <NoMoviesInfoBlock infoMessage={INITIAL_MOVIES} />}
+        {isApiError && (
           <NoMoviesInfoBlock infoMessage={API_ERROR} />
         )}
         {!isApiError && filteredMovies && filteredMovies.length !== 0
@@ -85,7 +92,7 @@ const Movies = ({
                 handleRemoveFromSaved={handleRemoveFromSaved}
               />
             )
-          : !isApiError && <NoMoviesInfoBlock infoMessage={NOT_FOUND_MOVIES} />}
+          : !isLoading && !isApiError && films.length !== 0 && <NoMoviesInfoBlock infoMessage={NOT_FOUND_MOVIES} />}
       </main>
       <Footer />
       <Popup

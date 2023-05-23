@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { EMAIL_PATTERN } from "../utils/constants";
 
 //хук управления формой и валидации формы
 export function useFormWithValidation() {
@@ -10,6 +11,13 @@ export function useFormWithValidation() {
     const target = event.target;
     const name = target.name;
     const value = target.value;
+    const type = target.type;
+
+    if (type === 'email') {
+      const emailError = value.match(EMAIL_PATTERN) ? '' : 'Что-то пошло не так...';
+      target.setCustomValidity(emailError);
+    }
+
     setValues({...values, [name]: value});
     setErrors({...errors, [name]: target.validationMessage });
     setIsValid(target.closest("form").checkValidity());

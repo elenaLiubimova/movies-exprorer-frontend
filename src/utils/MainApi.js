@@ -88,8 +88,8 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  // baseUrl: 'http://localhost:3000',
-  baseUrl: 'https://api.elenaliubimova-movies.nomoredomains.monster',
+  baseUrl: 'http://localhost:3000',
+  // baseUrl: 'https://api.elenaliubimova-movies.nomoredomains.monster',
   headers: {
     'Content-Type': 'application/json',
   },
