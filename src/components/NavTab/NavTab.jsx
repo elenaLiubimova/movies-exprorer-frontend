@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './NavTab.css';
 import account from '../../images/account.svg';
 
-const NavTab = ({ popup, loggedIn, closePopup }) => {
+const NavTab = ({ popup, loggedIn, closePopup, isMainPage, isMoviesPage, isSavedMoviesPage }) => {
   return (
     <ul
       className={popup ? `nav-tab__list  nav-tab__list_popup` : `nav-tab__list`}
@@ -30,10 +30,14 @@ const NavTab = ({ popup, loggedIn, closePopup }) => {
           <Link
             to="/"
             className={
-              popup
+              popup && isMainPage
+                ? `nav-tab__authorized-link nav-tab__authorized-link_selected`
+                : `nav-tab__authorized-link nav-tab__authorized-link-width-768` ||
+                  popup
                 ? `nav-tab__authorized-link`
                 : `nav-tab__authorized-link nav-tab__authorized-link-width-768`
             }
+            onClick={closePopup}
           >
             Главная
           </Link>
@@ -43,7 +47,14 @@ const NavTab = ({ popup, loggedIn, closePopup }) => {
         <li className="nav-tab__element">
           <Link
             to="/movies"
-            className="nav-tab__authorized-link nav-tab__authorized-link_selected"
+            className={
+              popup && isMoviesPage
+                ? `nav-tab__authorized-link nav-tab__authorized-link_selected`
+                : `nav-tab__authorized-link nav-tab__authorized-link-width-768` ||
+                  popup
+                ? `nav-tab__authorized-link`
+                : `nav-tab__authorized-link nav-tab__authorized-link-width-768`
+            }
             onClick={closePopup}
           >
             Фильмы
@@ -52,7 +63,14 @@ const NavTab = ({ popup, loggedIn, closePopup }) => {
       )}
       {loggedIn && (
         <li className="nav-tab__element" onClick={closePopup}>
-          <Link to="/saved-movies" className="nav-tab__authorized-link">
+          <Link to="/saved-movies" className={
+              popup && isSavedMoviesPage
+                ? `nav-tab__authorized-link nav-tab__authorized-link_selected`
+                : `nav-tab__authorized-link nav-tab__authorized-link-width-768` ||
+                  popup
+                ? `nav-tab__authorized-link`
+                : `nav-tab__authorized-link nav-tab__authorized-link-width-768`
+            }>
             Сохраненные фильмы
           </Link>
         </li>

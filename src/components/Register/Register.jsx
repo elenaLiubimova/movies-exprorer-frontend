@@ -2,11 +2,23 @@ import React from 'react';
 import logo from '../../images/logo.svg';
 import './Register.css';
 import { Link } from 'react-router-dom';
+import { useFormWithValidation } from '../../hooks/useForm';
 
-const Register = () => {
+const Register = ({ handleRegister, isLoading }) => {
+  const { values, isValid, errors, handleChange } = useFormWithValidation({});
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    if (!values.name || !values.email || !values.password) {
+      return;
+    }
+    handleRegister(values.name, values.email, values.password);
+  };
+
   return (
     <main className="register">
-      <form className="register-form">
+      <form className="register-form" onSubmit={handleSubmit} noValidate>
         <Link to="/">
           <img className="logo" src={logo} alt="Лого сервиса Movies Explorer" />
         </Link>
@@ -16,10 +28,14 @@ const Register = () => {
           <input
             className="register-form__item"
             name="name"
-            value="Виталий"
+            placeholder="Имя"
+            value={values.name || ''}
+            onChange={handleChange}
+            minLength="2"
+            maxLength="30"
+            disabled={isLoading}
             required
           />
-          <span className="register-form__item-error name-input-error"></span>
         </label>
         <label className="register-form__field">
           E-mail
@@ -27,28 +43,36 @@ const Register = () => {
             className="register-form__item"
             type="email"
             name="email"
-            value="pochta@yandex.ru"
+            placeholder="Email"
+            value={values.email || ''}
+            onChange={handleChange}
+            disabled={isLoading}
             required
           />
-          <span className="register-form__item-error email-input-error"></span>
         </label>
         <label className="register-form__field">
           Пароль
           <input
-            className="register-form__item register-form__item_type_error"
+            className="register-form__item"
             type="password"
+            placeholder="Пароль"
             name="password"
-            value="11111111111"
+            value={values.password || ''}
+            onChange={handleChange}
+            disabled={isLoading}
             required
           />
           <span className="register-form__item-error email-input-error">
-            Что-то пошло не так...
+            {((errors.name || errors.email || errors.password) &&
+              'Что-то пошло не так...') ||
+              ''}
           </span>
         </label>
         <button
           className="register-form__button"
           type="submit"
           aria-label="Кнопка регистрации"
+          disabled={!isValid}
         >
           Зарегистрироваться
         </button>

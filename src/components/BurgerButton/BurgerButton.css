@@ -9,6 +9,10 @@
   cursor: pointer;
 }
 
+.burger-button_main {
+  background-color: #F3C1F8;
+}
+
 @media screen and (max-width: 320px) {
   .burger-button {
     height: 43px;

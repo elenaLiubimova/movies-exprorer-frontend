@@ -5,6 +5,9 @@
     'title like'
     'duration duration';
   max-width: 270px;
+
+  color: #000;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -19,24 +22,33 @@
   }
 }
 
+.card__link {
+  grid-area: image;
+}
+
 .card__image {
   grid-area: image;
   width: 100%;
   height: 100%;
   max-height: 151px;
+  aspect-ratio: 270/151;
   object-fit: fill;
   object-position: top left;
+  
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
   .card__image {
     max-height: 190px;
+    aspect-ratio: 339/190;
   }
 }
 
 @media screen and (max-width: 320px) {
   .card__image {
     max-height: 168px;
+    aspect-ratio: 300/168;
   }
 }
 
@@ -50,7 +62,7 @@
   line-height: 1.21;
 }
 
-.card__like {
+.card__button {
   grid-area: like;
   border: none;
   width: 24px;
@@ -58,7 +70,6 @@
   box-sizing: border-box;
   margin-top: 10px;
   background-color: #F9F9F9;
-  background-image: url(../../images/like.svg);
   background-size: 10px 8.5px;
   background-repeat: no-repeat;
   background-position: center;
@@ -68,8 +79,16 @@
   cursor: pointer;
 }
 
-.card__like_active {
+.card__button_type_like {
+  background-image: url(../../images/like.svg);
+}
+
+.card__button_type_like_active {
   background-image: url(../../images/like-active.svg);
+}
+
+.card__button_type_delete {
+  background-image: url(../../images/delete.svg)
 }
 
 .card__duration {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Promo from '../Promo/Promo';
 import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
@@ -6,14 +6,26 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Popup from '../Popup/Popup';
 
 const Main = ({
   loggedIn,
   setLoggedIn,
   isShowNavigation,
   setIsShowNavigation,
+  isPopupOpen,
+  openPopup,
+  closePopup
 }) => {
-  setIsShowNavigation(true);
+  const [isMainPage, setIsMainPage] = useState(true);
+  
+  useEffect(() => {
+    !loggedIn && setIsShowNavigation(true);
+  }, [loggedIn]);
+
+  useEffect(() => {
+    loggedIn && setIsShowNavigation(false);
+  }, [loggedIn]);
 
   return (
     <>
@@ -21,7 +33,11 @@ const Main = ({
         loggedIn={loggedIn}
         setloggedIn={setLoggedIn}
         isShowNavigation={isShowNavigation}
-        setIsShowNavigation={isShowNavigation}
+        setIsShowNavigation={setIsShowNavigation}
+        isMainPage={isMainPage}
+        isPopupOpen={isPopupOpen}
+        openPopup={openPopup}
+        closePopup={closePopup}
       />
       <main>
         <Promo />
@@ -31,6 +47,7 @@ const Main = ({
         <Portfolio />
       </main>
       <Footer />
+      <Popup isPopupOpen={isPopupOpen} closePopup={closePopup} isMainPage={isMainPage} />
     </>
   );
 };

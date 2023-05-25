@@ -124,6 +124,15 @@
   transition: ease-out 0.2s;
 }
 
+.login-form__button:disabled {
+  opacity: .2;
+  cursor: default;
+}
+
+.login-form__button:disabled:hover {
+  opacity: .2;
+}
+
 @media screen and (max-width: 545px) {
   .login-form__button {
     width: 100%;

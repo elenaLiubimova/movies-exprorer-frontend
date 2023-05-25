@@ -30,6 +30,8 @@
 }
 
 .input__field {
+  /* position: relative; */
+  
   border: none;
   border-bottom: 1px solid #E8E8E8;
   padding: 0 0 12px;
@@ -51,6 +53,14 @@
     font-size: 18px;
     text-align: left;
   }
+}
+
+.input__error {
+  position: absolute;
+  bottom: -20px;
+  left: calc(50% - 85px);
+
+  color: #FF4062;
 }
 
 .input__search-button {
@@ -92,4 +102,8 @@
     right: 0;
     top: -8px;
   }
+}
+
+.input__search-button:disabled {
+  opacity: .2;
 }
