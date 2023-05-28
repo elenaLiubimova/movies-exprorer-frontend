@@ -15,7 +15,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 545px) {
   .about-me {
     display: flex;
     flex-wrap: wrap;
