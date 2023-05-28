@@ -12,6 +12,9 @@ const Promo = () => {
         <p className="promo__subtitle">
           Листайте ниже, чтобы узнать больше про этот проект и его создателя.
         </p>
+        <p className="promo__subtitle">
+          Зарегистрируйтесь или авторизируйтесь, чтобы получить доступ к поиску фильмов
+        </p>
         <a className="promo__learn-more" href="#about">
           Узнать больше
         </a>
